@@ -11,27 +11,30 @@
                     <div class="col-lg-6 pr-0">
                         <h2>Vincent / Développeur</h2>
                         <h3 class="mt-4">Faites décoller vos projets !</h3>
-                        <p class="mt-2">Passionné d'internet et de nouvelles technologies, je suis étudiant chez OpenClassrooms en vu d'obtenir le diplôme de développeur intégrateur web de niveau III. </p>
+                        <p class="mt-2">Passionné d'internet et de nouvelles technologies, je suis étudiant chez
+                            OpenClassrooms en vu d'obtenir le diplôme de développeur intégrateur web de niveau III. </p>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn site-btn" data-toggle="modal" data-target="#monCv">
                             Voir mon CV
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="monCv" tabindex="-1" role="dialog" aria-labelledby="monCvTitle" aria-hidden="true">
+                        <div class="modal fade" id="monCv" tabindex="-1" role="dialog" aria-labelledby="monCvTitle"
+                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                        <embed src="data/cv-vincent-gauchevertu.pdf" type="application/pdf" width="100%" height="700px" />
+                                        <embed src="data/cv-vincent-gauchevertu.pdf" type="application/pdf" width="100%"
+                                               height="700px"/>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal end -->
-
                     </div>
                 </div>
                 <div class="hero-rocket">
@@ -49,18 +52,20 @@
                 <img src="./img/section-title-icon.png" alt="#">
                 <p></p>
                 <h2>Derniers blog posts</h2>
+                <p class="mt-1"><a href="">Voir tous les posts</a></p>
             </div>
             <div class="row">
                 {% for post in posts %}
-                <div class="col-lg-4 col-md-6 feature-item">
-                    <div class="ft-icon">
-                        <i class="flaticon-domain-registration"></i>
+                    <div class="col-lg-4 col-md-6 feature-item">
+                        <div class="ft-icon">
+                            <i class="flaticon-domain-registration"></i>
+                        </div>
+                        <h4>{{ post.title }}</h4>
+                        <span>{{ post.createdAt | date('d/m/Y') }}</span>
+                        <p>{{ post.content }}</p>
                     </div>
-                            <h4>{{ post.title }}</h4>
-                    <span>{{ post.createdAt | date('d/m/Y') }}</span>
-                            <p>{{ post.content }}</p>
-
-                </div>
+                {% else %}
+                    <div>Cette page n'existe pas</div>
                 {% endfor %}
             </div>
         </div>
@@ -68,14 +73,7 @@
     <!-- Features section end -->
 
     <!-- Contact section -->
-    <section class="contact-section">
-        <div class="container">
-
-        </div>
-    </section>
-    <!-- Contact section end -->
-
-    <section class="domain-search-section spad set-bg" data-setbg="img/domain-bg.jpg" style="background-image: url(&quot;img/domain-bg.jpg&quot;);">
+    <section class="domain-search-section spad set-bg" data-setbg="img/domain-bg.jpg">
         <div class="container" id="homepage-form">
             <div class="section-title st-white">
                 <img src="./img/section-title-icon.png" alt="#">
@@ -112,7 +110,7 @@
                                 <input type="text" placeholder="Votre nom">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="Votre email">
+                                <input type="text" placeholder="Votre e-mail">
                             </div>
                             <div class="col-md-12">
                                 <input type="text" placeholder="Sujet">
@@ -126,6 +124,4 @@
         </div>
     </section>
     <!-- Contact section end -->
-
-
 {% endblock %}
