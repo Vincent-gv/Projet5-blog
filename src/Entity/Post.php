@@ -4,13 +4,18 @@
 namespace App\Entity;
 
 use Core\Database\Entity\AbstractEntity;
+use Core\Database\Entity\ColumnInfos;
 use Core\Database\Entity\TableInfos;
 
 class Post extends AbstractEntity
 {
     static public function getTableInfos(): TableInfos
     {
-        return new TableInfos('post');
+        return new TableInfos('post', [
+            new ColumnInfos('id', ColumnInfos::STRING),
+            new ColumnInfos('title', ColumnInfos::STRING),
+            new ColumnInfos('content', ColumnInfos::STRING),
+        ]);
     }
 
     /**
@@ -22,11 +27,12 @@ class Post extends AbstractEntity
      */
     private $title;
     /**
-     * @var \DateTime
+     * @var string
      */
-    private $createdAt;
+    private $content;
+
     /**
-     * @return string
+     * @return int
      */
     public function getId(): int
     {

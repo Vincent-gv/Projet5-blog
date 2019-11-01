@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Me contacter {% endblock %}
+
+{% block main %}
+    <!-- Page Top section -->
+    <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+        <div class="container">
+            <h2>Contact</h2>
+            <div class="site-breadcrumb">
+                <a href="home">Accueil</a> / <span>Contact</span>
+            </div>
+        </div>
+    </section>
+    <!-- Page Top section end -->
+    <!-- Contact section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 contact-text">
+                    <h4>Contact Info</h4>
+                    <p>Vous pouvez me contacter en remplissant ce formulaire.</p>
+                    <div class="cont-info">
+                        <div class="ci-icon">
+                            <img src="img/icons/1.png" alt="">
+                        </div>
+                        <span>Saint-Rémy-Lès-Chevreuse</span>
+                    </div>
+                    <div class="cont-info">
+                        <div class="ci-icon">
+                            <img src="img/icons/2.png" alt="">
+                        </div>
+                        <span>+33 (0)6 99 18 17 59</span>
+                    </div>
+                    <div class="cont-info">
+                        <div class="ci-icon">
+                            <img src="img/icons/2.png" alt="">
+                        </div>
+                        <span>contact@vincent-dev.com</span>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <form class="contact-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" placeholder="Votre nom">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" placeholder="Votre e-mail">
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Sujet">
+                                <textarea placeholder="Message"></textarea>
+                                <button class="site-btn">Envoyer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="map" id="map-canvas"></div>
+    </section>
+    <!-- Contact section end -->
+{% endblock %}
+
+{% block javascripts %} {{ parent() }}
+    <!-- load for map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPo0NaEvefJ4N6U1WfCLqxuvhX_Fnl4gc"></script>
+    <script src="js/map.js"></script>
+{% endblock %}

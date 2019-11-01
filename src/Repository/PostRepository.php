@@ -22,9 +22,4 @@ class PostRepository extends AbstractRepository
             ->setContent($obj->content)
             ->setCreatedAt(new \DateTime($obj->creation_date));
     }
-
-    public function find10()
-    {
-        return $this->hydrate($this->database->query('SELECT * FROM post LIMIT 10'));
-    }
 }
