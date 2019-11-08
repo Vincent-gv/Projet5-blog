@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Post;
+use App\Entity\Comment;
 use Core\Controller\AbstractController;
 
 class DefaultController extends AbstractController
@@ -11,40 +12,46 @@ class DefaultController extends AbstractController
     public function homepageAction()
     {
         $postRepository = $this->getRepository(Post::class);
-        $page = intval($_GET['p'] ?? 0);
-        $limit = 3;
-        $offset = $page * $limit;
-        $posts = $postRepository->findBy([], [], $limit, $offset);
-        $nbPosts = $postRepository->countAll();
+        $latestPosts = $postRepository->postLimit();
         $this->render('Default/homepage.html.twig', [
-            'posts' => $posts,
-            'nbPosts' => $nbPosts
+            'latestPosts' => $latestPosts
         ]);
-        var_dump($page);
     }
 
     public function contactAction()
     {
         $postRepository = $this->getRepository(Post::class);
-        $posts = $postRepository->postLimit();
+        $latestPosts = $postRepository->postLimit();
         $this->render('Default/contact.html.twig', [
-            'posts' => $posts
+            'latestPosts' => $latestPosts
         ]);
     }
 
     public function blogAction()
     {
         $postRepository = $this->getRepository(Post::class);
-        $posts = $postRepository->postLimit();
-        $page = intval($_GET['p'] ?? 0);
+        $latestPosts = $postRepository->postLimit();
         $pageIndex = intval($_GET['page'] ?? 0);
         $pagination = $postRepository->pagination(1);
         $this->render('Default/blog.html.twig', [
-            'page' => $page,
-            'posts' => $posts,
+            'posts' => $postRepository,
+            'latestPosts' => $latestPosts,
             'pagination' => $pagination
         ]);
-        echo $pageIndex;
+        var_dump($pagination);
+    }
+
+    public function postAction()
+    {
+        $postId = $_GET['id'] ?? null;
+        $postRepository = $this->getRepository(Post::class);
+        $posts = $postRepository->postLimit();
+        $post = $postRepository ->find($postId);
+        var_dump($post);
+        $this->render('Default/blog-post.html.twig', [
+            'posts' => $posts,
+            'post' => $post,
+        ]);
     }
 
     public function enregistrementAction()

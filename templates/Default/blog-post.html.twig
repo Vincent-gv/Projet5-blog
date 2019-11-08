@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Blog {% endblock %}
+
+{% block main %}
+    <!-- Page Top section -->
+    <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+        <div class="container">
+            <h2>Post page</h2>
+            <div class="site-breadcrumb">
+                <a href="home">Accueil</a> / <span>Titre article</span>
+            </div>
+        </div>
+    </section>
+    <!-- Page Top section end -->
+
+    <!-- Blog posts section -->
+    <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                        <div class="blog-post">
+                            <img src="img/blog/3.jpg" alt="" class="post-thumb">
+                            <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
+                            <h4>{{ post.title }}</h4>
+                            <div class="post-metas">
+                                <div class="post-meta">By Admin</div>
+                                <div class="post-meta">website, tips, seo</div>
+                                <div class="post-meta">3 comments</div>
+                            </div>
+                            <p>{{ post.content }}</p>
+                        </div>
+                </div>
+                <!-- sidebar -->
+                <div class="col-lg-3 col-md-5 col-sm-8 sidebar">
+                    <!-- widget -->
+                    <div class="sb-widget">
+                        <a href="" class="add">
+                            <img src="img/add.jpg" alt="#">
+                        </a>
+                        <form class="sb-search-widget">
+                            <input type="text">
+                            <button>Search</button>
+                        </form>
+                    </div>
+                    <!-- widget -->
+                    <div class="sb-widget">
+                        <h2 class="sb-title">Latest Posts</h2>
+                        <div class="sb-latest-post-widget">
+                                <div class="lp-item">
+                                    <div class="lp-thumb set-bg" data-setbg="img/footer-thumb/1.jpg"></div>
+                                    <div class="lp-content">
+                                        <h6>{{ post.title }}</h6>
+                                        <span>{{ post.createdAt | date('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- widget -->
+                    <div class="sb-widget">
+                        <h2 class="sb-title">Latest Posts</h2>
+                        <ul>
+                            <li><a href="">Development</a></li>
+                            <li><a href="">SEO</a></li>
+                            <li><a href="">Tips & Triks</a></li>
+                            <li><a href="">Hosting</a></li>
+                        </ul>
+                    </div>
+                    <div class="sb-widget">
+                        <h2 class="sb-title">Tag</h2>
+                        <div class="sb-tag-widget">
+                            <a href="">development</a>
+                            <a href="" class="big-tag">SEO</a>
+                            <a href="">website</a>
+                            <a href="">hosting</a>
+                            <a href="">tips</a>
+                            <a href="">coding</a>
+                            <a href="">video</a>
+                            <a href="">marketing</a>
+                            <a href="">analizing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog posts section end -->
+{% endblock %}

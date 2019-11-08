@@ -123,6 +123,14 @@ abstract class AbstractRepository
 
     public function pagination(int $pageIndex)
     {
+        if (!isset($_GET['page']) || $_GET['page']=='0')
+        {
+            $page=1;
+        }
+        else
+        {
+            $page=$_GET['page']; // Sinon lecture de la page
+        }
         $countAll = $this->countAll();
         $postNumberPerPage = 1;
         $nbPages = $countAll % $postNumberPerPage == 0
@@ -134,10 +142,12 @@ abstract class AbstractRepository
         $offset = $postNumberPerPage * ($pageIndex - 1);
         $data = $this->findBy([], ['id' => 'DESC'], $postNumberPerPage, $offset);
         return [
+            'page' => $page,
             'data' => $data,
             'currentPage' => $pageIndex,
             'nbPages' => $nbPages,
             'postCount' => $countAll
         ];
+        var_dump($page);
     }
 }
