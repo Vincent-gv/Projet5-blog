@@ -6,9 +6,9 @@
     <!-- Page Top section -->
     <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
         <div class="container">
-            <h2>Blog</h2>
+            <h2>{{ post.title }}</h2>
             <div class="site-breadcrumb">
-                <a href="./">Accueil</a> / <span>Blog</span>
+                <a href="./">Accueil</a> / <a href="blog">Blog</a> / {{ post.title }}
             </div>
         </div>
     </section>
@@ -19,8 +19,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9">
-                    {% for post in pagination.data %}
-                    <a href="post?id={{ post.id }}" title="{{ post.title }}">
                         <div class="blog-post">
                             <img src="img/blog/3.jpg" alt="" class="post-thumb">
                             <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
@@ -30,11 +28,9 @@
                                 <div class="post-meta">website, tips, seo</div>
                                 <div class="post-meta">3 comments</div>
                             </div>
-                            <p>{{ post.content|length > 50 ? post.content|slice(0, 200) ~ '...' : post.content  }}</p>
+                            <p>{{ post.content }}</p>
                         </div>
-                    </a>
-                    {% endfor %}
-                    {% include 'Default/_pagination.html.twig' with {'nbPages':pagination.nbPages, 'currentPage':pagination.currentPage} only %}
+                     {% include 'Default/_comments.html.twig'  %}
                 </div>
                 <!-- sidebar -->
                 <div class="col-lg-3 col-md-5 col-sm-8 sidebar">

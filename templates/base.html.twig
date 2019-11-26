@@ -59,7 +59,7 @@
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-body text-center"><img src="/img/icons/lock.png">
+                <div class="modal-body text-center lock pt-5"><img src="/img/icons/lock.png">
                     <h3 class="pt-3">Connexion</h3>
                     <div class="domain-form-warp">
                         <form class="domain-search-form  df-white-bg pt-4">
@@ -133,15 +133,7 @@
                     <div class="footer-widget">
                         <h4 class="fw-title">Derniers Posts</h4>
                         <div class="fw-latest-post-widget">
-                            {% for post in latestPosts %}
-                                <div class="lp-item">
-                                    <div class="lp-thumb set-bg" data-setbg="/img/footer-thumb/3.jpg"></div>
-                                    <div class="lp-content">
-                                        <h6>{{ post.title }}</h6>
-                                        <span>{{ post.createdAt | date('d/m/Y') }}</span>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                            {% include 'Default/_latestPosts.html.twig'  %}
                         </div>
                     </div>
                 </div>

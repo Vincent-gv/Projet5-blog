@@ -52,17 +52,19 @@
                 <img src="./img/section-title-icon.png" alt="#">
                 <p></p>
                 <h2>Derniers blog posts</h2>
-                <p class="mt-1"><a href="">Voir tous les posts</a></p>
+                <p class="mt-1"><a href="blog" title="Voir tous les posts">Voir tous les posts</a></p>
             </div>
             <div class="row">
                 {% for post in latestPosts %}
                     <div class="col-lg-4 col-md-6 feature-item">
-                        <div class="ft-icon">
-                            <i class="flaticon-domain-registration"></i>
-                        </div>
-                        <h4>{{ post.title }}</h4>
-                        <span>{{ post.createdAt | date('d/m/Y') }}</span>
-                        <p>{{ post.content }}</p>
+                        <a href="post?id={{ post.id }}" title="{{ post.title }}">
+                            <div class="ft-icon">
+                                <i class="flaticon-domain-registration"></i>
+                            </div>
+                            <h4>{{ post.title }}</h4>
+                            <span>{{ post.createdAt | date('d/m/Y') }}</span>
+                            <p>{{ post.content|length > 50 ? post.content|slice(0, 120) ~ '...' : post.content  }}</p>
+                        </a>
                     </div>
                 {% else %}
                     <div>Cette page n'existe pas</div>

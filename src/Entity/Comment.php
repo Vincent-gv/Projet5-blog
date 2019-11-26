@@ -11,12 +11,12 @@ class Comment extends AbstractEntity
 {
     static public function getTableInfos(): TableInfos
     {
-        return new TableInfos('commentaires', [
+        return new TableInfos('comments', [
             new ColumnInfos('id', ColumnInfos::STRING),
-            new ColumnInfos('id-post', ColumnInfos::STRING),
-            new ColumnInfos('id-auteur', ColumnInfos::STRING),
-            new ColumnInfos('commentaire', ColumnInfos::STRING),
-            new ColumnInfos('creation_date', ColumnInfos::STRING),
+            new ColumnInfos('id_post', ColumnInfos::STRING),
+            new ColumnInfos('id_user', ColumnInfos::STRING),
+            new ColumnInfos('comment', ColumnInfos::STRING),
+            new ColumnInfos('created_at', ColumnInfos::STRING),
         ]);
     }
 
@@ -31,11 +31,11 @@ class Comment extends AbstractEntity
     /**
      * @var int
      */
-    private $idAuteur;
+    private $idUser;
     /**
      * @var string
      */
-    private $commentaire;
+    private $comment;
     /**
      * @var string
      */
@@ -63,7 +63,7 @@ class Comment extends AbstractEntity
      */
     public function getIdPost(): int
     {
-        return $this->id;
+        return $this->idPost;
     }
     /**
      * @param int $idPost
@@ -78,35 +78,35 @@ class Comment extends AbstractEntity
     /**
      * @return int
      */
-    public function getIdAuteur(): int
+    public function getIdUser(): int
     {
-        return $this->id;
+        return $this->idUser;
     }
     /**
-     * @param int $idAuteur
+     * @param int $idUser
      * @return Comment
      */
-    public function setIdAuteur(int $idAuteur): Comment
+    public function setIdUser(int $idUser): Comment
     {
-        $this->idAuteur = $idAuteur;
+        $this->idUser = $idUser;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getCommentaire(): string
+    public function getcomment(): string
     {
-        return $this->Commentaire;
+        return $this->comment;
     }
 
     /**
-     * @param string $Commentaire
+     * @param string $comment
      * @return Comment
      */
-    public function setCommentaire(string $commentaire): Comment
+    public function setcomment(string $comment): Comment
     {
-        $this->commentaire = $commentaire;
+        $this->comment = $comment;
         return $this;
     }
 

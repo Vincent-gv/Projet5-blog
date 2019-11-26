@@ -18,9 +18,16 @@ class CommentRepository extends AbstractRepository
     {
         return (new Comment())
             ->setId($obj->id)
-            ->setIdPost($obj->idPost)
-            ->setIdAuteur($obj->idAuteur)
-            ->setCommentaire($obj->commentaire)
-            ->setCreatedAt(new \DateTime($obj->creation_date));
+            ->setIdPost($obj->id_post)
+//          ->setIdUser($obj->id_user)
+            ->setComment($obj->comment)
+            ->setCreatedAt($obj->created_at);
     }
+
+    public function save($comment)
+    {
+        // ici on sauvegqrde en db
+    }
+
+
 }
