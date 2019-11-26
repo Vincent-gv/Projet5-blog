@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Post;
+use App\Entity\Comment;
 use Core\Controller\AbstractController;
 
 class DefaultController extends AbstractController
@@ -11,48 +12,91 @@ class DefaultController extends AbstractController
     public function homepageAction()
     {
         $postRepository = $this->getRepository(Post::class);
-        $page = intval($_GET['p'] ?? 0);
-        $limit = 3;
-        $offset = $page * $limit;
-        $posts = $postRepository->findBy([], [], $limit, $offset);
-        $nbPosts = $postRepository->countAll();
+        $latestPosts = $postRepository->latestPosts();
         $this->render('Default/homepage.html.twig', [
-            'posts' => $posts,
-            'nbPosts' => $nbPosts
+            'latestPosts' => $latestPosts
         ]);
-        var_dump($page);
     }
 
     public function contactAction()
     {
         $postRepository = $this->getRepository(Post::class);
-        $posts = $postRepository->postLimit();
+        $latestPosts = $postRepository->latestPosts();
         $this->render('Default/contact.html.twig', [
-            'posts' => $posts
+            'latestPosts' => $latestPosts
         ]);
     }
 
     public function blogAction()
     {
         $postRepository = $this->getRepository(Post::class);
-        $posts = $postRepository->postLimit();
-        $page = intval($_GET['p'] ?? 0);
-        $pageIndex = intval($_GET['page'] ?? 0);
-        $pagination = $postRepository->pagination(1);
+        $latestPosts = $postRepository->latestPosts();
+        $pageIndex = intval($_GET['page'] ?? 1);
+        $pagination = $postRepository->pagination($pageIndex);
         $this->render('Default/blog.html.twig', [
-            'page' => $page,
-            'posts' => $posts,
+            'posts' => $postRepository,
+            'latestPosts' => $latestPosts,
             'pagination' => $pagination
         ]);
-        echo $pageIndex;
+    }
+
+    public function postAction()
+    {
+        $postId = $_GET['id'] ?? 1;
+        $postRepository = $this->getRepository(Post::class);
+        $commentRepository = $this->getRepository(Comment::class);
+        $comments = $commentRepository ->findBy(['id_post'=>$postId]);
+        $latestPosts = $postRepository->latestPosts();
+        $article = $postRepository->find($postId);
+        $form = [
+            'errors' => null,
+        ];
+
+        if ('POST' === $_SERVER['REQUEST_METHOD']) {
+            $commentBody = $_POST['comment'] ?? null;
+            $commentUser = $_POST['nom'] ?? null;
+
+            if (empty($commentBody)) {
+                $form['errors'][] = 'Le commentaire ne peut pas être vide';
+            }
+            if (strlen($commentBody) < 3) {
+                $form['errors'][] = 'Le commentaire doit faire 3 caractères ou plus';
+            }
+            if (empty($commentUser)) {
+                $form['errors'][] = 'Veuillez indiquer un nom';
+            }
+            if (strlen($commentUser) < 3) {
+                $form['errors'][] = 'Le nom doit faire 3 caractères ou plus';
+            }
+            if (empty($errors)) {
+                $this->getRepository(Comment::class)->save([
+                    'body' => $commentBody,
+                ]);
+            }
+
+            $form['comment_body'] = $commentBody;
+            $form['comment_user'] = $commentUser;
+
+            var_dump($form); die;
+        };
+
+
+
+
+        $this->render('Default/article.html.twig', [
+            'latestPosts' => $latestPosts,
+            'post' => $article,
+            'comments' => $comments,
+            'form' => $form
+        ]);
     }
 
     public function enregistrementAction()
     {
         $postRepository = $this->getRepository(Post::class);
-        $posts = $postRepository->postLimit();
+        $latestPosts = $postRepository->latestPosts();
         $this->render('Default/enregistrement.html.twig', [
-            'posts' => $posts
+            'latestPosts' => $latestPosts
         ]);
     }
 }

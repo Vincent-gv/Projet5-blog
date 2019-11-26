@@ -20,6 +20,6 @@ class PostRepository extends AbstractRepository
             ->setId($obj->id)
             ->setTitle($obj->title)
             ->setContent($obj->content)
-            ->setCreatedAt(new \DateTime($obj->creation_date));
+            ->setCreatedAt(new \DateTime($obj->created_at));
     }
 }

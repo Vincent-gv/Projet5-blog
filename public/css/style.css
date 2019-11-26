@@ -169,7 +169,7 @@ ol {
     display: inline-block;
     border: none;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     min-width: 186px;
     padding: 17px 25px;
     border-radius: 14px;
@@ -1105,10 +1105,14 @@ ol {
     color: #fff;
     opacity: 0.37;
     font-size: 14px;
+    margin-top: 10px;
 }
 
 .site-breadcrumb a {
     color: #fff;
+}
+.site-breadcrumb a:hover {
+    opacity: 0.37;
 }
 
 /* ----------------
@@ -1247,6 +1251,26 @@ ol {
     border-radius: 13px;
     margin-bottom: 52px;
 }
+.page-item.active .page-link {
+    background-color: #11b7e7 !important;
+    border-color: #11b7e7 !important;
+}
+.page-item.active .page-link a {
+    color: #fff !important;
+}
+.page-link:hover {
+    color: #fff;
+    background-color: #11b7e7;
+}
+.page-link {
+    color: #11b7e7;
+    border: 1px solid #11b7e7 !important;
+}
+.s-title {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
 
 .post-date {
     display: inline-block;
@@ -1255,7 +1279,6 @@ ol {
     font-weight: 600;
     padding: 5px 15px;
     border-radius: 20px;
-    min-width: 108px;
     background: #eb2b63;
     margin-bottom: 15px;
 }
@@ -1298,6 +1321,14 @@ ol {
 
 .post-metas .post-meta:last-child:after {
     display: none;
+}
+
+.comment-a {
+    color: #007bff;
+}
+
+label.mt-4 {
+    font-size: 15px;
 }
 
 .site-pagination a {
