@@ -1327,6 +1327,10 @@ ol {
     color: #007bff;
 }
 
+li {
+    margin-left: 15px;
+}
+
 label.mt-4 {
     font-size: 15px;
 }

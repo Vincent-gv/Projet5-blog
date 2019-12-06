@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\Comment;
+use App\Entity\User;
 use Core\Controller\AbstractController;
 
 class DefaultController extends AbstractController
@@ -46,6 +47,9 @@ class DefaultController extends AbstractController
         $postRepository = $this->getRepository(Post::class);
         $commentRepository = $this->getRepository(Comment::class);
         $comments = $commentRepository ->findBy(['id_post'=>$postId]);
+        /*   $idUser =   $commentRepository ->find('id');
+             $userRepository = $this->getRepository(User::class);
+                $user = $userRepository ->findBy(['id'=>$postId]);*/
         $latestPosts = $postRepository->latestPosts();
         $article = $postRepository->find($postId);
         $form = [
@@ -54,34 +58,30 @@ class DefaultController extends AbstractController
 
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             $commentBody = $_POST['comment'] ?? null;
-            $commentUser = $_POST['nom'] ?? null;
+            $commentUser = $_POST['user'] ?? null;
 
+            if (empty($commentUser)) {
+                $form['errors'][] = 'Le nom ne peut pas être vide';
+            }
+            if (strlen($commentUser) < 3) {
+                $form['errors'][] = 'Le nom doit faire 3 caractères ou plus';
+            }
             if (empty($commentBody)) {
                 $form['errors'][] = 'Le commentaire ne peut pas être vide';
             }
             if (strlen($commentBody) < 3) {
                 $form['errors'][] = 'Le commentaire doit faire 3 caractères ou plus';
             }
-            if (empty($commentUser)) {
-                $form['errors'][] = 'Veuillez indiquer un nom';
-            }
-            if (strlen($commentUser) < 3) {
-                $form['errors'][] = 'Le nom doit faire 3 caractères ou plus';
-            }
             if (empty($errors)) {
-                $this->getRepository(Comment::class)->save([
+                $this->getRepository(Comment::class)->insertComment([
                     'body' => $commentBody,
+                    'user' => $commentUser,
                 ]);
             }
 
             $form['comment_body'] = $commentBody;
             $form['comment_user'] = $commentUser;
-
-            var_dump($form); die;
         };
-
-
-
 
         $this->render('Default/article.html.twig', [
             'latestPosts' => $latestPosts,

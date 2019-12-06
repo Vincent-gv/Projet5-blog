@@ -6,6 +6,7 @@ namespace App\Entity;
 use Core\Database\Entity\AbstractEntity;
 use Core\Database\Entity\ColumnInfos;
 use Core\Database\Entity\TableInfos;
+use DateTime;
 
 class Comment extends AbstractEntity
 {
@@ -14,9 +15,9 @@ class Comment extends AbstractEntity
         return new TableInfos('comments', [
             new ColumnInfos('id', ColumnInfos::STRING),
             new ColumnInfos('id_post', ColumnInfos::STRING),
-            new ColumnInfos('id_user', ColumnInfos::STRING),
+            new ColumnInfos('username', ColumnInfos::STRING),
             new ColumnInfos('comment', ColumnInfos::STRING),
-            new ColumnInfos('created_at', ColumnInfos::STRING),
+            new ColumnInfos('created_at', ColumnInfos::DATETIME),
         ]);
     }
 
@@ -29,15 +30,15 @@ class Comment extends AbstractEntity
      */
     private $idPost;
     /**
-     * @var int
+     * @var string
      */
-    private $idUser;
+    private $username;
     /**
      * @var string
      */
     private $comment;
     /**
-     * @var string
+     * @var DateTime
      */
     private $createdAt;
 
@@ -76,26 +77,26 @@ class Comment extends AbstractEntity
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getIdUser(): int
+    public function getUsername(): string
     {
-        return $this->idUser;
+        return $this->username;
     }
     /**
-     * @param int $idUser
+     * @param string $username
      * @return Comment
      */
-    public function setIdUser(int $idUser): Comment
+    public function setUsername(string $username): Comment
     {
-        $this->idUser = $idUser;
+        $this->username = $username;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getcomment(): string
+    public function getComment(): string
     {
         return $this->comment;
     }
@@ -104,26 +105,26 @@ class Comment extends AbstractEntity
      * @param string $comment
      * @return Comment
      */
-    public function setcomment(string $comment): Comment
+    public function setComment(string $comment): Comment
     {
         $this->comment = $comment;
         return $this;
     }
 
     /**
-     * @return string
+     * @return DateTime
      *
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
     /**
-     * @param string $createdAt
+     * @param DateTime $createdAt
      * @return Comment
      */
-    public function setCreatedAt(string $createdAt): Comment
+    public function setCreatedAt(DateTime $createdAt): Comment
     {
         $this->createdAt = $createdAt;
         return $this;

@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Comment;
 use Core\Database\Repository\AbstractRepository;
+use DateTime;
 
 class CommentRepository extends AbstractRepository
 {
@@ -19,15 +20,20 @@ class CommentRepository extends AbstractRepository
         return (new Comment())
             ->setId($obj->id)
             ->setIdPost($obj->id_post)
-//          ->setIdUser($obj->id_user)
+            ->setUsername($obj->id_user)
             ->setComment($obj->comment)
-            ->setCreatedAt($obj->created_at);
+            ->setCreatedAt(new DateTime($obj->created_at));
     }
 
-    public function save($comment)
+    public function insertComment(Comment $comment)
     {
-        // ici on sauvegqrde en db
+        $sql = "INSERT INTO table (id_post, username, comment, created_at)
+ VALUES (:id_post, :username, :comment, :created_at)";
+        $this->database->query($sql, [
+            'id_post'=>$comment->getIdPost(),
+        'username'=>$comment->getUsername(),
+            'comment'=>$comment->getComment(),
+            'created_at'=>$comment->getCreatedAt()
+        ]);
     }
-
-
 }

@@ -6,6 +6,7 @@ namespace App\Entity;
 use Core\Database\Entity\AbstractEntity;
 use Core\Database\Entity\ColumnInfos;
 use Core\Database\Entity\TableInfos;
+use DateTime;
 
 class Post extends AbstractEntity
 {
@@ -15,6 +16,7 @@ class Post extends AbstractEntity
             new ColumnInfos('id', ColumnInfos::STRING),
             new ColumnInfos('title', ColumnInfos::STRING),
             new ColumnInfos('content', ColumnInfos::STRING),
+            new ColumnInfos('createdAt', ColumnInfos::DATETIME),
         ]);
     }
 
@@ -30,6 +32,10 @@ class Post extends AbstractEntity
      * @var string
      */
     private $content;
+    /**
+     * @var DateTime
+     */
+    private $createdAt;
 
     /**
      * @return int
@@ -86,19 +92,19 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      *
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
     /**
-     * @param \DateTime $createdAt
+     * @param DateTime $createdAt
      * @return Post
      */
-    public function setCreatedAt(\DateTime $createdAt): Post
+    public function setCreatedAt(DateTime $createdAt): Post
     {
         $this->createdAt = $createdAt;
         return $this;
