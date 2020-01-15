@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repository;
-
 
 use App\Entity\Comment;
 use Core\Database\Repository\AbstractRepository;
@@ -19,21 +17,21 @@ class CommentRepository extends AbstractRepository
     {
         return (new Comment())
             ->setId($obj->id)
-            ->setIdPost($obj->id_post)
-            ->setUsername($obj->id_user)
+            ->setPostId($obj->post_id)
+            ->setUsername($obj->username)
             ->setComment($obj->comment)
             ->setCreatedAt(new DateTime($obj->created_at));
     }
 
-    public function insertComment(Comment $comment)
+    public function create(Comment $comment)
     {
-        $sql = "INSERT INTO table (id_post, username, comment, created_at)
- VALUES (:id_post, :username, :comment, :created_at)";
-        $this->database->query($sql, [
-            'id_post'=>$comment->getIdPost(),
-        'username'=>$comment->getUsername(),
-            'comment'=>$comment->getComment(),
-            'created_at'=>$comment->getCreatedAt()
+        $sql = "INSERT INTO comments (post_id, username, comment, created_at)
+ VALUES (:post_id, :username, :comment, :created_at)";
+        $this->database->execute($sql, [
+            'post_id' => $comment->getPostId(),
+            'username' => $comment->getUsername(),
+            'comment' => $comment->getComment(),
+            'created_at' => $comment->getCreatedAt()->format('d/m/y H:i:s')
         ]);
     }
 }

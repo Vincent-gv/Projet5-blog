@@ -22,7 +22,12 @@ abstract class AbstractController
         $twig = new Environment($loader, [
             'strict_variables' => true
         ]);
-
         echo $twig->render($name, $context);
+
+    }
+
+    public function redirect (string $url) {
+        header('Location: '.$url);
+        die();
     }
 }

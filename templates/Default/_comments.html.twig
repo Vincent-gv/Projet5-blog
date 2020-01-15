@@ -1,23 +1,29 @@
-<h4 class="s-title">Commentaires <small>(0)</small></h4>
-<form class="clearfix" method="post">
+<h4 class="s-title" id="comments">Commentaires <small>(0)</small></h4>
+<form class="clearfix" method="post" action="#comments">
     <div class="form-group mt-2">
         <h6 class="mb-4"><img src="/img/icons/edit.png" class="mr-1"> Ajouter un commentaire</h6>
-        {% if form.errors %}
+
+        {% if errorsComment %}
             <div class="alert alert-primary p-4" role="alert">
                 <h6>Veuillez corriger les erreurs suivantes :</h6>
                 <ul  class="mt-2">
-                    {% for error in form.errors %}
-                        <li>{{ error }}</li>
+                    {% for errorComment in errorsComment.error %}
+                        <li>{{ errorComment }}</li>
                     {% endfor %}
                 </ul>
             </div>
         {% endif %}
+       {# {% if formComment == true %}
+            <div class="alert alert-secondary p-4" role="alert">
+                <h6>Votre commentaire a bien été publié.</h6>
+            </div>
+        {% endif %}#}
         <label for="nom">Nom ou pseudo :</label>
-        <input type="text" class="form-control" name="user" value="">
+        <input type="text" class="form-control" name="username" value="{{ formComment.username }}">
     </div>
     <div class="form-group">
         <label for="comment">Commentaire :</label>
-        <textarea class="form-control" rows="5" name="comment"></textarea>
+        <textarea class="form-control" rows="5" name="comment">{{ formComment.comment }}</textarea>
         <input type="submit" class="site-btn mt-4" value="Envoyer">
     </div>
 </form>
@@ -27,11 +33,11 @@
             <div class="row">
                 <div class="col-md-2">
                     <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                    <p class="text-secondary text-center">{{ comment.createdAt }}<br>
+                    <p class="text-secondary text-center">{{ comment.createdAt | date }}<br>
                 </div>
                 <div class="col-md-10">
                     <p>
-                    <div class="float-left comment-a"><strong>Maniruzzaman Akash {{ comment.idUser }}</strong></div>
+                    <div class="float-left comment-a"><strong>{{ comment.username }}</strong></div>
                     </p>
                     <div class="clearfix"></div>
                     <p>{{ comment.comment }}</p>

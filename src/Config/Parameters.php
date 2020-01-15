@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Config;
-
 
 use Core\Config\Parameter;
 use Core\Config\ParametersInterface;

@@ -19,7 +19,8 @@ abstract class Routes implements RoutesInterface
             new Route('/contact', 'Default', 'contact'),
             new Route('/blog', 'Default', 'blog'),
             new Route('/post', 'Default', 'post'),
-            new Route('/enregistrement', 'Default', 'enregistrement')
+            new Route('/enregistrement', 'Default', 'enregistrement'),
+            new Route('/ajouter-article', 'Default', 'ajouterArticle')
         ];
     }
 }

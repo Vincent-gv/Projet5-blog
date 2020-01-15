@@ -8,7 +8,7 @@ use Core\Database\Entity\ColumnInfos;
 use Core\Database\Entity\TableInfos;
 use DateTime;
 
-class Post extends AbstractEntity
+class Article extends AbstractEntity
 {
     static public function getTableInfos(): TableInfos
     {
@@ -16,7 +16,7 @@ class Post extends AbstractEntity
             new ColumnInfos('id', ColumnInfos::STRING),
             new ColumnInfos('title', ColumnInfos::STRING),
             new ColumnInfos('content', ColumnInfos::STRING),
-            new ColumnInfos('createdAt', ColumnInfos::DATETIME),
+            new ColumnInfos('created_at', ColumnInfos::DATETIME),
         ]);
     }
 
@@ -37,19 +37,24 @@ class Post extends AbstractEntity
      */
     private $createdAt;
 
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
+
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
      * @param int $id
-     * @return Post
+     * @return Article
      */
-    public function setId(int $id): Post
+    public function setId(?int $id): Article
     {
         $this->id = $id;
         return $this;
@@ -58,16 +63,16 @@ class Post extends AbstractEntity
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
      * @param string $title
-     * @return Post
+     * @return Article
      */
-    public function setTitle(string $title): Post
+    public function setTitle(?string $title): Article
     {
         $this->title = $title;
         return $this;
@@ -76,16 +81,16 @@ class Post extends AbstractEntity
     /**
      * @return string
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
 
     /**
      * @param string $content
-     * @return Post
+     * @return Article
      */
-    public function setContent(string $content): Post
+    public function setContent(?string $content): Article
     {
         $this->content = $content;
         return $this;
@@ -95,16 +100,16 @@ class Post extends AbstractEntity
      * @return DateTime
      *
      */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
 
     /**
      * @param DateTime $createdAt
-     * @return Post
+     * @return Article
      */
-    public function setCreatedAt(DateTime $createdAt): Post
+    public function setCreatedAt(?DateTime $createdAt): Article
     {
         $this->createdAt = $createdAt;
         return $this;

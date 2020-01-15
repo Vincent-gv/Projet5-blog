@@ -14,7 +14,7 @@ class Comment extends AbstractEntity
     {
         return new TableInfos('comments', [
             new ColumnInfos('id', ColumnInfos::STRING),
-            new ColumnInfos('id_post', ColumnInfos::STRING),
+            new ColumnInfos('post_id', ColumnInfos::STRING),
             new ColumnInfos('username', ColumnInfos::STRING),
             new ColumnInfos('comment', ColumnInfos::STRING),
             new ColumnInfos('created_at', ColumnInfos::DATETIME),
@@ -28,7 +28,7 @@ class Comment extends AbstractEntity
     /**
      * @var int
      */
-    private $idPost;
+    private $postId;
     /**
      * @var string
      */
@@ -42,10 +42,15 @@ class Comment extends AbstractEntity
      */
     private $createdAt;
 
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
+
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -53,7 +58,7 @@ class Comment extends AbstractEntity
      * @param int $id
      * @return Comment
      */
-    public function setId(int $id): Comment
+    public function setId(?int $id): Comment
     {
         $this->id = $id;
         return $this;
@@ -62,24 +67,24 @@ class Comment extends AbstractEntity
     /**
      * @return int
      */
-    public function getIdPost(): int
+    public function getPostId(): ?int
     {
-        return $this->idPost;
+        return $this->postId;
     }
     /**
-     * @param int $idPost
+     * @param int $postId
      * @return Comment
      */
-    public function setIdPost(int $idPost): Comment
+    public function setPostId(?int $postId): Comment
     {
-        $this->idPost = $idPost;
+        $this->postId = $postId;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -87,7 +92,7 @@ class Comment extends AbstractEntity
      * @param string $username
      * @return Comment
      */
-    public function setUsername(string $username): Comment
+    public function setUsername(?string $username): Comment
     {
         $this->username = $username;
         return $this;
@@ -96,7 +101,7 @@ class Comment extends AbstractEntity
     /**
      * @return string
      */
-    public function getComment(): string
+    public function getComment(): ?string
     {
         return $this->comment;
     }
@@ -105,7 +110,7 @@ class Comment extends AbstractEntity
      * @param string $comment
      * @return Comment
      */
-    public function setComment(string $comment): Comment
+    public function setComment(?string $comment): Comment
     {
         $this->comment = $comment;
         return $this;
@@ -115,7 +120,7 @@ class Comment extends AbstractEntity
      * @return DateTime
      *
      */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
@@ -124,7 +129,7 @@ class Comment extends AbstractEntity
      * @param DateTime $createdAt
      * @return Comment
      */
-    public function setCreatedAt(DateTime $createdAt): Comment
+    public function setCreatedAt(?DateTime $createdAt): Comment
     {
         $this->createdAt = $createdAt;
         return $this;
