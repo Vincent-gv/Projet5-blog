@@ -39,6 +39,12 @@ abstract class AbstractRepository
         return $this->findBy(['id' => $id])[0] ?? null;
     }
 
+    public function countPostComments($id)
+    {
+        $query = 'SELECT * FROM comments WHERE post_id =' . $id;
+        return count($this->database->query($query));
+    }
+
     public function countAll(): int
     {
         return $this->countBy();
@@ -107,4 +113,11 @@ abstract class AbstractRepository
             'postCount' => $countAll
         ];
     }
+
+    public function getLastInsertId()
+    {
+        return $this->database->getLastInsertId();
+    }
+
 }
+

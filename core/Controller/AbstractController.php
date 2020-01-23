@@ -3,7 +3,6 @@
 
 namespace Core\Controller;
 
-
 use Core\Database\Repository\AbstractRepository;
 use Core\Database\Repository\RepositoryFactory;
 use Twig\Environment;
@@ -24,5 +23,13 @@ abstract class AbstractController
         ]);
 
         echo $twig->render($name, $context);
+
     }
+
+    public function redirect (string $url) {
+        header('Location: '.$url);
+        die();
+    }
+
+
 }

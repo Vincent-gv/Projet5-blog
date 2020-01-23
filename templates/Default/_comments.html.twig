@@ -1,35 +1,53 @@
-<h4 class="s-title">Commentaires <small>(0)</small></h4>
-
-<ul>
-    {% for error in form.errors %}
-    <li>{{ error }}</li>
-    {% endfor %}
-</ul>
-
-
-<form class="clearfix" method="post">
+<form class="clearfix" method="post" action="#comments">
     <div class="form-group mt-2">
-        <h6><img src="/img/icons/edit.png" class="mr-1"> Ajouter un commentaire</h6>
-        <label class="mt-4" for="nom">Nom ou pseudo :</label>
-        <input type="text" class="form-control" name="nom">
+        <h6 class="mb-4"><img src="/img/icons/edit.png" class="mr-1"> Ajouter un commentaire</h6>
+        {% if errors.username is defined and errors.comment is defined %}
+            <div class="alert alert-danger mt-2" role="alert">Votre commentaire n'a pu être envoyé. Merci de corriger
+                les erreurs indiquées :
+            </div>
+        {% endif %}
+        <label for="nom">Nom ou pseudo :</label>
+        <input type="text" class="form-control" name="username" value="{{ formComment.username }}">
+        {% if errors.username is defined %}
+            <div class="alert alert-primary mt-2" role="alert">
+                <ul>
+                    {% for error in errors.username %}
+                        <li>
+                            {{ error }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     </div>
     <div class="form-group">
         <label for="comment">Commentaire :</label>
-        <textarea class="form-control" rows="5" name="comment"></textarea>
-        <input type="submit" class="site-btn mt-4" value="Envoyer">
+        <textarea class="form-control" rows="5" name="comment">{{ formComment.comment }}</textarea>
+        {% if errors.comment is defined %}
+            <div class="alert alert-primary mt-2" role="alert">
+                <ul>
+                    {% for error in errors.comment %}
+                        <li>
+                            {{ error }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <input type="submit" class="site-btn mt-4 mb-4" value="Envoyer">
     </div>
 </form>
 {% for comment in comments %}
-    <div class="card mb-3">
+    <div class="card mt-4">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-2">
                     <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                    <p class="text-secondary text-center">{{ comment.createdAt }}<br>
+                    <p class="text-secondary text-center comment-date">{{ comment.createdAt | date('d/m/Y H:i') }}
                 </div>
                 <div class="col-md-10">
                     <p>
-                    <div class="float-left comment-a"><strong>Maniruzzaman Akash</strong></div>
+                    <div class="float-left comment-a"><strong>{{ comment.username }}</strong></div>
                     </p>
                     <div class="clearfix"></div>
                     <p>{{ comment.comment }}</p>

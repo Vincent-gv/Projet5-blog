@@ -1,5 +1,11 @@
 <?php
 require '../vendor/autoload.php';
-// var_dump($_SERVER);
+$whoops = new \Whoops\Run;
+$whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
+
 use Core\Router\Router;
+
+session_start();
+
 (new Router())->run($_SERVER['REDIRECT_URL'] ?? '/');

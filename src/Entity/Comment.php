@@ -6,6 +6,7 @@ namespace App\Entity;
 use Core\Database\Entity\AbstractEntity;
 use Core\Database\Entity\ColumnInfos;
 use Core\Database\Entity\TableInfos;
+use DateTime;
 
 class Comment extends AbstractEntity
 {
@@ -13,10 +14,10 @@ class Comment extends AbstractEntity
     {
         return new TableInfos('comments', [
             new ColumnInfos('id', ColumnInfos::STRING),
-            new ColumnInfos('id_post', ColumnInfos::STRING),
-            new ColumnInfos('id_user', ColumnInfos::STRING),
+            new ColumnInfos('post_id', ColumnInfos::STRING),
+            new ColumnInfos('username', ColumnInfos::STRING),
             new ColumnInfos('comment', ColumnInfos::STRING),
-            new ColumnInfos('created_at', ColumnInfos::STRING),
+            new ColumnInfos('created_at', ColumnInfos::DATETIME),
         ]);
     }
 
@@ -27,24 +28,29 @@ class Comment extends AbstractEntity
     /**
      * @var int
      */
-    private $idPost;
+    private $postId;
     /**
-     * @var int
+     * @var string
      */
-    private $idUser;
+    private $username;
     /**
      * @var string
      */
     private $comment;
     /**
-     * @var string
+     * @var DateTime
      */
     private $createdAt;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -52,7 +58,7 @@ class Comment extends AbstractEntity
      * @param int $id
      * @return Comment
      */
-    public function setId(int $id): Comment
+    public function setId(?int $id): Comment
     {
         $this->id = $id;
         return $this;
@@ -61,41 +67,41 @@ class Comment extends AbstractEntity
     /**
      * @return int
      */
-    public function getIdPost(): int
+    public function getPostId(): ?int
     {
-        return $this->idPost;
+        return $this->postId;
     }
     /**
-     * @param int $idPost
+     * @param int $postId
      * @return Comment
      */
-    public function setIdPost(int $idPost): Comment
+    public function setPostId(?int $postId): Comment
     {
-        $this->idPost = $idPost;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdUser(): int
-    {
-        return $this->idUser;
-    }
-    /**
-     * @param int $idUser
-     * @return Comment
-     */
-    public function setIdUser(int $idUser): Comment
-    {
-        $this->idUser = $idUser;
+        $this->postId = $postId;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getcomment(): string
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+    /**
+     * @param string $username
+     * @return Comment
+     */
+    public function setUsername(?string $username): Comment
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment(): ?string
     {
         return $this->comment;
     }
@@ -104,26 +110,26 @@ class Comment extends AbstractEntity
      * @param string $comment
      * @return Comment
      */
-    public function setcomment(string $comment): Comment
+    public function setComment(?string $comment): Comment
     {
         $this->comment = $comment;
         return $this;
     }
 
     /**
-     * @return string
+     * @return DateTime
      *
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
 
     /**
-     * @param string $createdAt
+     * @param DateTime $createdAt
      * @return Comment
      */
-    public function setCreatedAt(string $createdAt): Comment
+    public function setCreatedAt(?DateTime $createdAt): Comment
     {
         $this->createdAt = $createdAt;
         return $this;

@@ -122,6 +122,12 @@ ol {
     background-position: top center;
 }
 
+.set-bg-fixed {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
 .spad {
     padding-top: 105px;
     padding-bottom: 105px;
@@ -138,6 +144,18 @@ ol {
 .text-white li,
 .text-white a {
     color: #fff;
+}
+
+.text-chapo {
+    color: #eb2b63;
+    border-left: solid 2px #eb2b63;
+    padding-left: 20px;
+}
+
+.comment-date {
+    line-height: 25px;
+    max-width: 85px;
+    margin: 15px auto 0;
 }
 
 /*---------------------
@@ -1327,8 +1345,16 @@ ol {
     color: #007bff;
 }
 
+li {
+    margin-left: 15px;
+}
+
 label.mt-4 {
     font-size: 15px;
+}
+
+.alert {
+    font-size: 14px;
 }
 
 .site-pagination a {

@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Ajouter article {% endblock %}
+
+{% block main %}
+<!-- Page Top section -->
+<section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+    <div class="container">
+        <h2>Ajouter un article</h2>
+        <div class="site-breadcrumb">
+            <a href="./">Accueil</a> / <span>Ajouter un article</span>
+        </div>
+    </div>
+</section>
+<!-- Page Top section end -->
+
+    <!-- Blog section -->
+    <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-post">
+                        <form id="post-article" class="clearfix" method="post" action="#post-article">
+                            <div class="form-group mt-2">
+                                {% if errors.title is defined and errors.content is defined %}
+                                    <div class="alert alert-danger mt-2" role="alert">L'article n'a pu être publié. Merci de corriger les erreurs indiquées  :</div>
+                                {% endif %}
+                                <label for="titre"><img src="/img/icons/edit.png" class="mr-1"> Titre de l'article :</label>
+                                <input type="text" class="form-control" name="title" value="{{ formArticle.title }}">
+                                {% if errors.title is defined %}
+                                    <div class="alert alert-primary mt-2" role="alert">
+                                        <ul>
+                                            {% for error in errors.title %}
+                                                <li>
+                                                    {{ error }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+
+                                <label class="mt-3" for="chapo"> Chapô :</label>
+                                <input type="text" class="form-control" name="chapo" value="{{ formArticle.chapo }}">
+                                {% if errors.chapo is defined %}
+                                    <div class="alert alert-primary mt-2" role="alert">
+                                        <ul>
+                                            {% for error in errors.chapo %}
+                                                <li>
+                                                    {{ error }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Contenu :</label>
+                                <textarea class="form-control" rows="5" name="content">{{ formArticle.content }}</textarea>
+                                {% if errors.content is defined %}
+                                    <div class="alert alert-primary mt-2" role="alert">
+                                        <ul>
+                                            {% for error in errors.content %}
+                                                <li>
+                                                    {{ error }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                <label class="mt-3" for="author"> Auteur :</label>
+                                <input type="text" class="form-control" name="author" value="{{ formArticle.author }}">
+                                {% if errors.author is defined %}
+                                    <div class="alert alert-primary mt-2" role="alert">
+                                        <ul>
+                                            {% for error in errors.author %}
+                                                <li>
+                                                    {{ error }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                <input type="submit" class="site-btn mt-4" value="Publier">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog section end -->
+{% endblock %}
