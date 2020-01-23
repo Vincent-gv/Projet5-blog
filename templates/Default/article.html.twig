@@ -24,17 +24,18 @@
                             <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
                             <h4>{{ post.title }}</h4>
                             <div class="post-metas">
-                                <div class="post-meta">By Admin</div>
-                                <div class="post-meta">website, tips, seo</div>
-                                <div class="post-meta">3 comments</div>
+                                <div class="post-meta">Par {{ post.author }}</div>
+                                <div class="post-meta">{{ countComments }} commentaire</div>
                             </div>
-                            <p>{{ post.content }}</p>
+                            <p class="text-chapo">{{ post.chapo }}</p>
+                            <p class="mt-4">{{ post.content }}</p>
                         </div>
-                     {% include 'Default/_comments.html.twig'  %}
+                    <h4 class="s-title" id="comments">Commentaires <small>({{ countComments }})</small></h4>
+                     {% include 'Default/_comments.html.twig' with { 'comments':comments,'formComment':formComment, 'errors':errors } only %}
                 </div>
                 <!-- sidebar -->
                 <div class="col-lg-3 col-md-5 col-sm-8 sidebar">
-                    {% include 'Default/_sidebar.html.twig'  %}
+                    {% include 'Default/_sidebar.html.twig' %}
                 </div>
             </div>
         </div>

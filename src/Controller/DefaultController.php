@@ -2,18 +2,17 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Article;
 use App\Entity\Comment;
-use App\Entity\FormException;
 use Core\Controller\AbstractController;
 
 class DefaultController extends AbstractController
 {
+
     public function homepageAction()
     {
-        $postRepository = $this->getRepository(Article::class);
-        $latestPosts = $postRepository->latestPosts();
+        $articleRepository = $this->getRepository(Article::class);
+        $latestPosts = $articleRepository->latestPosts();
         $this->render('Default/homepage.html.twig', [
             'latestPosts' => $latestPosts
         ]);
@@ -21,8 +20,8 @@ class DefaultController extends AbstractController
 
     public function contactAction()
     {
-        $postRepository = $this->getRepository(Article::class);
-        $latestPosts = $postRepository->latestPosts();
+        $articleRepository = $this->getRepository(Article::class);
+        $latestPosts = $articleRepository->latestPosts();
         $this->render('Default/contact.html.twig', [
             'latestPosts' => $latestPosts
         ]);
@@ -30,97 +29,116 @@ class DefaultController extends AbstractController
 
     public function blogAction()
     {
-        $postRepository = $this->getRepository(Article::class);
-        $latestPosts = $postRepository->latestPosts();
+        $articleRepository = $this->getRepository(Article::class);
+        $latestPosts = $articleRepository->latestPosts();
         $pageIndex = intval($_GET['page'] ?? 1);
-        $pagination = $postRepository->pagination($pageIndex);
+        $pagination = $articleRepository->pagination($pageIndex);
         $this->render('Default/blog.html.twig', [
-            'posts' => $postRepository,
+            'posts' => $articleRepository,
             'latestPosts' => $latestPosts,
             'pagination' => $pagination
         ]);
     }
 
-    public function postAction()
-    {
-        $postId = $_GET['id'];
-        $postRepository = $this->getRepository(Article::class);
-        $commentRepository = $this->getRepository(Comment::class);
-        $comments = $commentRepository->findBy(['post_id' => $postId]);
-        $latestPosts = $postRepository->latestPosts();
-        $article = $postRepository->find($postId);
-        $formComment = new Comment();
-        $errorsComment = [];
-        $formComment->setUsername($_POST['username'] ?? null);
-        $formComment->setComment($_POST['comment'] ?? null);
-        $formComment->setPostId($postId);
-        // Post Comment
-        if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            if (empty($formComment->getUsername())) {
-                $errorsComment['error'][] = 'Merci d\'indiquer un nom d\'utilisateur';
+    public function articleAction()
+        {
+            $postId = $_GET['id'];
+            $articleRepository = $this->getRepository(Article::class);
+            $commentRepository = $this->getRepository(Comment::class);
+            $comments = $commentRepository->findBy(['post_id' => $postId]);
+            $latestPosts = $articleRepository->latestPosts();
+            $countComments = $articleRepository->countPostComments($postId);
+            $article = $articleRepository->find($postId);
+            $formComment = new Comment();
+            $errors = [];
+            $formComment->setUsername($_POST['username'] ?? null);
+            $formComment->setComment($_POST['comment'] ?? null);
+            $formComment->setPostId($postId);
+            // Post Comment
+            if ('POST' === $_SERVER['REQUEST_METHOD'])  {
+                if (empty($formComment->getUsername())) {
+                    $errors['username'][] = 'Indiquer un nom d\'utilisateur';
+                }
+                if (strlen($formComment->getUsername()) < 3) {
+                    $errors['username'][] = 'Le nom doit faire 3 caractères ou plus';
+                }
+                if (empty($formComment->getComment())) {
+                    $errors['comment'][] = 'Le commentaire ne peut pas être vide';
+                }
+                if (strlen($formComment->getComment()) < 3) {
+                    $errors['comment'][] = 'Le commentaire doit faire 3 caractères ou plus';
+                }
+                if (empty($errors)) {
+                    $commentRepository->create($formComment);
+                    $this->redirect($_SERVER['HTTP_REFERER']);
+                }
             }
-            if (strlen($formComment->getUsername()) < 3) {
-                $errorsComment['error'][] = 'Le nom doit faire 3 caractères ou plus';
-            }
-            if (empty($formComment->getComment())) {
-                $errorsComment['error'][] = 'Le commentaire ne peut pas être vide';
-            }
-            if (strlen($formComment->getComment()) < 3) {
-                $errorsComment['error'][] = 'Le commentaire doit faire 3 caractères ou plus';
-            }
-            if (empty($errorsComment)) {
-                $commentRepository->create($formComment);
-                $this->redirect($_SERVER['HTTP_REFERER']);
-            }
-        }
-        $this->render('Default/article.html.twig', [
-            'latestPosts' => $latestPosts,
-            'post' => $article,
-            'comments' => $comments,
-            'errorsComment' => $errorsComment,
-            'formComment' => $formComment
-        ]);
-    }
 
-    public function enregistrementAction()
+            $this->render('Default/article.html.twig', [
+                'latestPosts' => $latestPosts,
+                'post' => $article,
+                'comments' => $comments,
+                'countComments' => $countComments,
+                'errors' => $errors,
+                'formComment' => $formComment
+            ]);
+        }
+
+    public function registerAction()
     {
-        $postRepository = $this->getRepository(Article::class);
-        $latestPosts = $postRepository->latestPosts();
+        $articleRepository = $this->getRepository(Article::class);
+        $latestPosts = $articleRepository->latestPosts();
         $this->render('Default/enregistrement.html.twig', [
             'latestPosts' => $latestPosts
         ]);
     }
 
-    public function ajouterArticleAction()
+    public function postAction()
     {
-        $postRepository = $this->getRepository(Article::class);
-        $latestPosts = $postRepository->latestPosts();
+        $articleRepository = $this->getRepository(Article::class);
+        $latestPosts = $articleRepository->latestPosts();
         $formArticle = new Article();
-        $errorsArticle = [];
+        $errors = [];
         $formArticle->setTitle($_POST['title'] ?? null);
+        $formArticle->setChapo($_POST['chapo'] ?? null);
         $formArticle->setContent($_POST['content'] ?? null);
+        $formArticle->setAuthor($_POST['author'] ?? null);
         // Post Article
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             if (empty($formArticle->getTitle())) {
-                $errorsArticle['error'][] = 'Merci d\'indiquer un titre';
+                $errors['title'][] = 'Indiquer un titre';
             }
             if (strlen($formArticle->getTitle()) < 3) {
-                $errorsArticle['error'][] = 'Le titre doit faire 3 caractères ou plus';
+                $errors['title'][] = 'Le titre doit faire 3 caractères ou plus';
+            }
+            if (empty($formArticle->getChapo())) {
+                $errors['chapo'][] = 'Remplissez le chapô';
+            }
+            if (strlen($formArticle->getChapo()) < 3) {
+                $errors['chapo'][] = 'Le chapô doit faire 3 caractères ou plus';
             }
             if (empty($formArticle->getContent())) {
-                $errorsArticle['error'][] = 'Le texte ne peut pas être vide';
+                $errors['content'][] = 'Le contenu de l\'article ne peut pas être vide';
             }
             if (strlen($formArticle->getContent()) < 3) {
-                $errorsArticle['error'][] = 'Le texte doit faire 3 caractères ou plus';
+                $errors['content'][] = 'Le contenu doit faire 3 caractères ou plus';
             }
-            if (empty($errorsArticle)) {
-                $postRepository->create($formArticle);
-                $this->redirect($_SERVER['HTTP_REFERER']);
+            if (empty($formArticle->getAuthor())) {
+                $errors['author'][] = 'Le nom de l\'auteur ne peut pas être vide';
+            }
+            if (strlen($formArticle->getAuthor()) < 3) {
+                $errors['author'][] = 'Le nom de l\'auteur doit faire 3 caractères ou plus';
+            }
+            if (empty($errors)) {
+                $articleRepository->create($formArticle);
+                $id = $articleRepository->getLastInsertId();
+                $this->redirect('/post?id=' . $id);
             }
         }
+
         $this->render('Default/newArticle.html.twig', [
             'latestPosts' => $latestPosts,
-            'errorsArticle' => $errorsArticle,
+            'errors' => $errors,
             'formArticle' => $formArticle
         ]);
     }

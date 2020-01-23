@@ -18,17 +18,21 @@ class ArticleRepository extends AbstractRepository
         return (new Article())
             ->setId($obj->id)
             ->setTitle($obj->title)
+            ->setChapo($obj->chapo)
             ->setContent($obj->content)
+            ->setAuthor($obj->author)
             ->setCreatedAt(new \DateTime($obj->created_at));
     }
 
     public function create(Article $article)
     {
-        $sql = "INSERT INTO post (title, content, created_at)
- VALUES (:title, :content, :created_at)";
-        $this->database->execute($sql, [
+        $sql = "INSERT INTO post (title, chapo, content, author, created_at)
+ VALUES (:title, :chapo, :content, :author, :created_at)";
+        return $this->database->execute($sql, [
             'title' => $article->getTitle(),
+            'chapo' => $article->getChapo(),
             'content' => $article->getContent(),
+            'author' => $article->getAuthor(),
             'created_at' => $article->getCreatedAt()->format('Y-m-d H:i:s')
         ]);
     }

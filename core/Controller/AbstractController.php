@@ -3,7 +3,6 @@
 
 namespace Core\Controller;
 
-
 use Core\Database\Repository\AbstractRepository;
 use Core\Database\Repository\RepositoryFactory;
 use Twig\Environment;
@@ -22,6 +21,7 @@ abstract class AbstractController
         $twig = new Environment($loader, [
             'strict_variables' => true
         ]);
+
         echo $twig->render($name, $context);
 
     }
@@ -30,4 +30,6 @@ abstract class AbstractController
         header('Location: '.$url);
         die();
     }
+
+
 }

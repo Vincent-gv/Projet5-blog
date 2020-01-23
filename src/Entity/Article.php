@@ -15,7 +15,9 @@ class Article extends AbstractEntity
         return new TableInfos('post', [
             new ColumnInfos('id', ColumnInfos::STRING),
             new ColumnInfos('title', ColumnInfos::STRING),
+            new ColumnInfos('chapo', ColumnInfos::STRING),
             new ColumnInfos('content', ColumnInfos::STRING),
+            new ColumnInfos('author', ColumnInfos::STRING),
             new ColumnInfos('created_at', ColumnInfos::DATETIME),
         ]);
     }
@@ -24,14 +26,26 @@ class Article extends AbstractEntity
      * @var int
      */
     private $id;
+
     /**
      * @var string
      */
     private $title;
+
+    /**
+     * @var string
+     */
+    private $chapo;
+
     /**
      * @var string
      */
     private $content;
+    /**
+     * @var string
+     */
+    private $author;
+
     /**
      * @var DateTime
      */
@@ -81,6 +95,24 @@ class Article extends AbstractEntity
     /**
      * @return string
      */
+    public function getChapo(): ?string
+    {
+        return $this->chapo;
+    }
+
+    /**
+     * @param string $chapo
+     * @return Article
+     */
+    public function setChapo(?string $chapo): Article
+    {
+        $this->chapo = $chapo;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getContent(): ?string
     {
         return $this->content;
@@ -93,6 +125,23 @@ class Article extends AbstractEntity
     public function setContent(?string $content): Article
     {
         $this->content = $content;
+        return $this;
+    }
+   /**
+     * @return string
+     */
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param string $author
+     * @return Article
+     */
+    public function setAuthor(?string $author): Article
+    {
+        $this->author = $author;
         return $this;
     }
 

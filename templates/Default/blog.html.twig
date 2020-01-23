@@ -26,8 +26,7 @@
                             <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
                             <h4>{{ post.title }}</h4>
                             <div class="post-metas">
-                                <div class="post-meta">By Admin</div>
-                                <div class="post-meta">website, tips, seo</div>
+                                <div class="post-meta">Par {{ post.author }}</div>
                                 <div class="post-meta">3 comments</div>
                             </div>
                             <p>{{ post.content|length > 50 ? post.content|slice(0, 200) ~ '...' : post.content  }}</p>

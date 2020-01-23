@@ -32,4 +32,9 @@ class MysqlDatabase implements DatabaseInterface
         $query = $this->pdo->prepare($statement);
         $query->execute($params);
     }
+
+    public function getLastInsertId()
+    {
+        return $this->pdo->lastInsertId();
+    }
 }

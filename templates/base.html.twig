@@ -49,7 +49,7 @@
                     <li><a href="./">Accueil</a></li>
                     <li><a href="./blog">Blog</a></li>
                     <li><a href="./contact">Contact</a></li>
-                    <li><a href="./ajouter-article">Poster</a></li>
+                    <li><a href="./poster">Poster</a></li>
                 </ul>
             </div>
         {% endblock %}
@@ -84,6 +84,16 @@
     <!-- Modal end -->
     <!-- Header section end -->
     <main>
+
+    <!-- flashbag message -->
+{#    {% for flashMessage in flashBag() %}#}
+{#        <div class="alert alert-{{ flashMessage.type }} p-4" role="alert">#}
+{#            <h6>Veuillez corriger les erreurs suivantes :</h6>#}
+{#            <ul  class="mt-2">#}
+{#                <li>{{ flashMessage.message }}</li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    {% endfor %}#}
         {% block main %}
         {% endblock %}
     </main>
