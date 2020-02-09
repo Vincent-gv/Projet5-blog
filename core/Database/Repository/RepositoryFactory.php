@@ -29,7 +29,7 @@ abstract class RepositoryFactory
 
     /**
      * Transforme le namespace d'une entité en son repository
-     * Ex : App/Entity/Article => App/Repository/ArticleRepository
+     * Ex : App/Entity/Post => App/Repository/PostRepository
      *
      * @param string $entityClass
      * @return string

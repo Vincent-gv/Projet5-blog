@@ -39,12 +39,6 @@ abstract class AbstractRepository
         return $this->findBy(['id' => $id])[0] ?? null;
     }
 
-    public function countPostComments($id)
-    {
-        $query = 'SELECT * FROM comments WHERE post_id =' . $id;
-        return count($this->database->query($query));
-    }
-
     public function countAll(): int
     {
         return $this->countBy();
@@ -54,6 +48,7 @@ abstract class AbstractRepository
     {
         $query = 'SELECT * FROM ' . $this->getEntityTableInfos()->getName() . $this->getFilters($criterias, $orders, $limit, $offset);
         return $this->hydrate($this->database->query($query));
+
     }
 
     public function countBy(array $criterias = [], array $orders = [], int $limit = null, int $offset = null): int
@@ -62,16 +57,14 @@ abstract class AbstractRepository
         return intval($this->database->query($query, [], true)->count);
     }
 
-    public function latestPosts()
-    {
-        return $this->hydrate($this->database->query('SELECT * FROM post LIMIT 3'));
-    }
-
     private function getFilters(array $criterias = [], array $orders = [], int $limit = null, int $offset = null)
     {
         $query = '';
         if (count($criterias) > 0) {
             $query .= " WHERE " . join(" AND ", array_map(function ($index, $value) {
+                    if (is_array($value)) {
+                        return $index . ' IN (' . join(', ', $value) . ')';
+                    }
                     return "$index = '$value'";
                 }, array_keys($criterias), $criterias));
         }
@@ -88,7 +81,7 @@ abstract class AbstractRepository
         return $query;
     }
 
-    public function pagination(int $pageIndex)
+    public function pagination(int $pageIndex, int $postNumberPerPage)
     {
         if (!isset($_GET['page']) || $_GET['page'] == '0') {
             $page = 1;
@@ -96,7 +89,6 @@ abstract class AbstractRepository
             $page = $_GET['page'];
         }
         $countAll = $this->countAll();
-        $postNumberPerPage = 3;
         $nbPages = $countAll % $postNumberPerPage == 0
             ? $countAll / $postNumberPerPage
             : (int)floor($countAll / $postNumberPerPage) + 1;
@@ -119,5 +111,11 @@ abstract class AbstractRepository
         return $this->database->getLastInsertId();
     }
 
-}
 
+    public function test()
+    {
+
+        return 'test';
+    }
+
+}

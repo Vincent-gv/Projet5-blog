@@ -2,13 +2,11 @@
     <ul class="pagination">
         {% set beginPagination = (currentPage - 3) < 1 ? 1 : currentPage - 3 %}
         {% set endPagination = (currentPage + 3) > nbPages ? nbPages : currentPage + 3 %}
-
         {% if beginPagination > 1 %}
             <li class="page-item">
-                <a class="page-link" href="?page=1">Premiere page</a>
+                <a class="page-link" href="?page=1">Première page</a>
             </li>
         {% endif %}
-
         {% for page in beginPagination .. endPagination %}
             <li class="page-item {{ page == currentPage?' active':'' }}">
                 <a class="page-link" href="?page={{ page }}">
@@ -16,10 +14,9 @@
                 </a>
             </li>
         {% endfor %}
-
         {% if endPagination < nbPages %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ nbPages }}">Derniere page</a>
+                <a class="page-link" href="?page={{ nbPages }}">Dernière page</a>
             </li>
         {% endif %}
     </ul>

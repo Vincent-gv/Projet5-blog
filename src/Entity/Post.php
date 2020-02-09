@@ -8,7 +8,7 @@ use Core\Database\Entity\ColumnInfos;
 use Core\Database\Entity\TableInfos;
 use DateTime;
 
-class Article extends AbstractEntity
+class Post extends AbstractEntity
 {
     static public function getTableInfos(): TableInfos
     {
@@ -66,9 +66,9 @@ class Article extends AbstractEntity
 
     /**
      * @param int $id
-     * @return Article
+     * @return Post
      */
-    public function setId(?int $id): Article
+    public function setId(?int $id): Post
     {
         $this->id = $id;
         return $this;
@@ -84,9 +84,9 @@ class Article extends AbstractEntity
 
     /**
      * @param string $title
-     * @return Article
+     * @return Post
      */
-    public function setTitle(?string $title): Article
+    public function setTitle(?string $title): Post
     {
         $this->title = $title;
         return $this;
@@ -102,9 +102,9 @@ class Article extends AbstractEntity
 
     /**
      * @param string $chapo
-     * @return Article
+     * @return Post
      */
-    public function setChapo(?string $chapo): Article
+    public function setChapo(?string $chapo): Post
     {
         $this->chapo = $chapo;
         return $this;
@@ -120,9 +120,9 @@ class Article extends AbstractEntity
 
     /**
      * @param string $content
-     * @return Article
+     * @return Post
      */
-    public function setContent(?string $content): Article
+    public function setContent(?string $content): Post
     {
         $this->content = $content;
         return $this;
@@ -137,9 +137,9 @@ class Article extends AbstractEntity
 
     /**
      * @param string $author
-     * @return Article
+     * @return Post
      */
-    public function setAuthor(?string $author): Article
+    public function setAuthor(?string $author): Post
     {
         $this->author = $author;
         return $this;
@@ -156,9 +156,9 @@ class Article extends AbstractEntity
 
     /**
      * @param DateTime $createdAt
-     * @return Article
+     * @return Post
      */
-    public function setCreatedAt(?DateTime $createdAt): Article
+    public function setCreatedAt(?DateTime $createdAt): Post
     {
         $this->createdAt = $createdAt;
         return $this;

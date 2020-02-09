@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Entity;
+
+use Core\Database\Entity\AbstractEntity;
+use Core\Database\Entity\ColumnInfos;
+use Core\Database\Entity\TableInfos;
+
+class User extends AbstractEntity
+{
+    static public function getTableInfos(): TableInfos
+    {
+        return new TableInfos('users', [
+            new ColumnInfos('id', ColumnInfos::STRING),
+            new ColumnInfos('username', ColumnInfos::STRING),
+            new ColumnInfos('email', ColumnInfos::STRING),
+            new ColumnInfos('password', ColumnInfos::STRING),
+        ]);
+    }
+
+    private $id;
+
+    private $username;
+
+    private $email;
+
+    private $password;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     *
+     * @return Id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     *
+     * @return Username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     *
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+}

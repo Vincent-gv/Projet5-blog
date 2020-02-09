@@ -18,6 +18,7 @@ class Comment extends AbstractEntity
             new ColumnInfos('username', ColumnInfos::STRING),
             new ColumnInfos('comment', ColumnInfos::STRING),
             new ColumnInfos('created_at', ColumnInfos::DATETIME),
+            new ColumnInfos('status', ColumnInfos::STRING),
         ]);
     }
 
@@ -41,6 +42,10 @@ class Comment extends AbstractEntity
      * @var DateTime
      */
     private $createdAt;
+    /**
+     * @var string
+     */
+    private $status;
 
     public function __construct()
     {
@@ -54,6 +59,7 @@ class Comment extends AbstractEntity
     {
         return $this->id;
     }
+
     /**
      * @param int $id
      * @return Comment
@@ -71,6 +77,7 @@ class Comment extends AbstractEntity
     {
         return $this->postId;
     }
+
     /**
      * @param int $postId
      * @return Comment
@@ -88,6 +95,7 @@ class Comment extends AbstractEntity
     {
         return $this->username;
     }
+
     /**
      * @param string $username
      * @return Comment
@@ -132,6 +140,24 @@ class Comment extends AbstractEntity
     public function setCreatedAt(?DateTime $createdAt): Comment
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return Comment
+     */
+    public function setStatus(?string $status): Comment
+    {
+        $this->status = $status;
         return $this;
     }
 }
