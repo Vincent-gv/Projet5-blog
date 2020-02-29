@@ -49,6 +49,14 @@ class PostRepository extends AbstractRepository
         ]);
     }
 
+    public function delete($id)
+    {
+        $sql = "DELETE FROM post WHERE id=:id";
+        return $this->database->execute($sql, [
+            'id' => $id
+        ]);
+    }
+
     public function update(Post $article)
     {
         $id = $_GET['id'];

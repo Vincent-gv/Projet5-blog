@@ -37,11 +37,12 @@ class User extends AbstractEntity
     /**
      * @param mixed $id
      *
-     * @return Id
+     * @return User
      */
-    public function setId($id)
+    public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -56,7 +57,7 @@ class User extends AbstractEntity
     /**
      * @param mixed $username
      *
-     * @return Username
+     * @return User
      */
     public function setUsername($username)
     {

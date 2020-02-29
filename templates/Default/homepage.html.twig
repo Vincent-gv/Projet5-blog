@@ -55,7 +55,7 @@
                 <p class="mt-1"><a href="blog" title="Voir tous les posts">Voir tous les posts</a></p>
             </div>
             <div class="row">
-                {% for post in latestPosts %}
+                {% for post in latestPosts() %}
                     <div class="col-lg-4 col-md-6 feature-item">
                         <a href="post?id={{ post.id }}" title="{{ post.title }}">
                             <div class="ft-icon">

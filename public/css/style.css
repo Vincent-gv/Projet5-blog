@@ -1161,6 +1161,11 @@ ol {
     padding-bottom: 74px;
 }
 
+.sc-connect-page {
+    padding-top: 45px;
+    padding-bottom: 74px;
+}
+
 .about-text {
     padding-top: 70px;
 }
@@ -1529,6 +1534,17 @@ input.form-control.chapo {
     margin: 3px 0;
 }
 
+.container.connect-page {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-title2 {
+    text-align: center;
+    position: relative;
+}
 
 /* ----------------
   Contact Page

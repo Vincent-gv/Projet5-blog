@@ -83,8 +83,12 @@
                                     </div>
                                 {% endif %}
                                 <input type="submit" class="site-btn mt-4" value="Mettre à jour">
-                                <input type="delete" class="site-btn btn-purple mt-4 bt" value="Supprimer">
                             </div>
+                        </form>
+                        <form action="/blog" method="POST">
+                            <button type="submit" input type="hidden" name="delete_id" value="{{ getPost.id }}"
+                                    class="site-btn btn-purple mt-4 bt">Supprimer
+                            </button>
                         </form>
                     </div>
                 </div>

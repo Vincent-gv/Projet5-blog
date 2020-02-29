@@ -3,7 +3,6 @@
 
 namespace App\Config;
 
-
 use Core\Router\Route;
 use Core\Router\RoutesInterface;
 
@@ -19,10 +18,10 @@ abstract class Routes implements RoutesInterface
             new Route('/contact', 'Default', 'contact'),
             new Route('/blog', 'Default', 'blog'),
             new Route('/post', 'Default', 'article'),
-            new Route('/enregistrement', 'Default', 'register'),
             new Route('/poster', 'Default', 'post'),
             new Route('/modifier', 'Default', 'update'),
-            new Route('/moderer', 'Default', 'moderate')
+            new Route('/moderer', 'Default', 'moderate'),
+            new Route('/connexion', 'Security', 'connect')
         ];
     }
 }

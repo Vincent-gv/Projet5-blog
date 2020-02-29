@@ -2,6 +2,7 @@
 
 namespace Core\Database\Repository;
 
+use App\Entity\User;
 use Core\Database\DatabaseInterface;
 use Core\Database\Entity\TableInfos;
 
@@ -22,6 +23,7 @@ abstract class AbstractRepository
         if (is_object($datas)) {
             return $this->hydrateObj($datas);
         }
+
         return array_map([$this, 'hydrateObj'], $datas);
     }
 
@@ -47,6 +49,7 @@ abstract class AbstractRepository
     public function findBy(array $criterias = [], array $orders = [], int $limit = null, int $offset = null): array
     {
         $query = 'SELECT * FROM ' . $this->getEntityTableInfos()->getName() . $this->getFilters($criterias, $orders, $limit, $offset);
+
         return $this->hydrate($this->database->query($query));
 
     }
@@ -111,11 +114,13 @@ abstract class AbstractRepository
         return $this->database->getLastInsertId();
     }
 
-
-    public function test()
+    public function findUserByEmail(string $email): ?User
     {
-
-        return 'test';
+        foreach ($this->database as $user) {
+            if ($user->getEmail() === $email) {
+                return $user;
+            }
+        }
+        return null;
     }
-
 }

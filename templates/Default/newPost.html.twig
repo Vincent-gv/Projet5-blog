@@ -26,7 +26,7 @@
                                     <div class="alert alert-danger mt-2" role="alert">L'article n'a pu être publié. Merci de corriger les erreurs indiquées  :</div>
                                 {% endif %}
                                 <label for="titre"><img src="/img/icons/edit.png" class="mr-1"> Titre de l'article :</label>
-                                <input type="text" class="form-control title" name="title" value="{{ formArticle.title }}">
+                                <input type="text" class="form-control title" name="title" value="{{ formPost.title }}">
                                 {% if errors.title is defined %}
                                     <div class="alert alert-primary mt-2" role="alert">
                                         <ul>
@@ -40,7 +40,7 @@
                                 {% endif %}
 
                                 <label class="mt-3" for="chapo"> Chapô :</label>
-                                <input type="text" class="form-control chapo" name="chapo" value="{{ formArticle.chapo }}">
+                                <input type="text" class="form-control chapo" name="chapo" value="{{ formPost.chapo }}">
                                 {% if errors.chapo is defined %}
                                     <div class="alert alert-primary mt-2" role="alert">
                                         <ul>
@@ -55,7 +55,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="content">Contenu :</label>
-                                <textarea class="form-control" rows="5" name="content">{{ formArticle.content }}</textarea>
+                                <textarea class="form-control" rows="5" name="content">{{ formPost.content }}</textarea>
                                 {% if errors.content is defined %}
                                     <div class="alert alert-primary mt-2" role="alert">
                                         <ul>
@@ -68,7 +68,7 @@
                                     </div>
                                 {% endif %}
                                 <label class="mt-3" for="author"> Auteur :</label>
-                                <input type="text" class="form-control" name="author" value="{{ formArticle.author }}">
+                                <input type="text" class="form-control" name="author" value="{{ formPost.author }}">
                                 {% if errors.author is defined %}
                                     <div class="alert alert-primary mt-2" role="alert">
                                         <ul>

@@ -3,10 +3,12 @@
 
 namespace Core\Controller;
 
+use App\Entity\Post;
 use Core\Database\Repository\AbstractRepository;
 use Core\Database\Repository\RepositoryFactory;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Twig\TwigFunction;
 
 abstract class AbstractController
 {
@@ -21,6 +23,7 @@ abstract class AbstractController
         $twig = new Environment($loader, [
             'strict_variables' => true
         ]);
+        $this->extendTwig($twig);
 
         echo $twig->render($name, $context);
 
@@ -31,5 +34,12 @@ abstract class AbstractController
         die();
     }
 
+    public function extendTwig (Environment $twig) {
+        $function = new TwigFunction('latestPosts', function () {
+            $postRepository = $this->getRepository(Post::class);
+            return $postRepository->latestPosts();
+        });
+        $twig->addFunction($function);
+    }
 
 }

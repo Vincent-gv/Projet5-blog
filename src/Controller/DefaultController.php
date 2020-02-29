@@ -5,38 +5,30 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\Comment;
 use Core\Controller\AbstractController;
+use Twig\Environment;
+use Twig\TwigFunction;
 
 class DefaultController extends AbstractController
 {
     public function homepageAction()
     {
-        $articleRepository = $this->getRepository(Post::class);
-        $latestPosts = $articleRepository->latestPosts();
-        $test= $articleRepository->test();
         $this->render('Default/homepage.html.twig', [
-            'latestPosts' => $latestPosts,
-            'test' => $test
         ]);
     }
 
     public function contactAction()
     {
-        $articleRepository = $this->getRepository(Post::class);
-        $latestPosts = $articleRepository->latestPosts();
         $this->render('Default/contact.html.twig', [
-            'latestPosts' => $latestPosts
         ]);
     }
 
     public function blogAction()
     {
-        $articleRepository = $this->getRepository(Post::class);
-        $latestPosts = $articleRepository->latestPosts();
+        $postRepository = $this->getRepository(Post::class);
         $pageIndex = intval($_GET['page'] ?? 1);
-        $pagination = $articleRepository->pagination($pageIndex, 3);
+        $pagination = $postRepository->pagination($pageIndex, 3);
         $this->render('Default/blog.html.twig', [
-            'posts' => $articleRepository,
-            'latestPosts' => $latestPosts,
+            'posts' => $postRepository,
             'pagination' => $pagination
         ]);
     }
@@ -44,12 +36,11 @@ class DefaultController extends AbstractController
     public function articleAction()
     {
         $postId = $_GET['id'];
-        $articleRepository = $this->getRepository(Post::class);
+        $postRepository = $this->getRepository(Post::class);
         $commentRepository = $this->getRepository(Comment::class);
         $comments = $commentRepository->findBy(['post_id' => $postId]);
-        $latestPosts = $articleRepository->latestPosts();
         $countComments = $commentRepository->countPostComments($postId);
-        $article = $articleRepository->find($postId);
+        $article = $postRepository->find($postId);
         $formComment = new Comment();
         $errors = [];
         $formComment->setUsername($_POST['username'] ?? null);
@@ -75,7 +66,6 @@ class DefaultController extends AbstractController
             }
         }
         $this->render('Default/post.html.twig', [
-            'latestPosts' => $latestPosts,
             'post' => $article,
             'comments' => $comments,
             'countComments' => $countComments,
@@ -84,124 +74,111 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function registerAction()
-    {
-        $articleRepository = $this->getRepository(Post::class);
-        $latestPosts = $articleRepository->latestPosts();
-        $this->render('Default/register.html.twig', [
-            'latestPosts' => $latestPosts
-        ]);
-    }
-
     public function postAction()
     {
-        $articleRepository = $this->getRepository(Post::class);
-        $latestPosts = $articleRepository->latestPosts();
-        $formArticle = new Post();
+        $postRepository = $this->getRepository(Post::class);
+        $formPost = new Post();
         $errors = [];
-        $formArticle->setTitle($_POST['title'] ?? null);
-        $formArticle->setChapo($_POST['chapo'] ?? null);
-        $formArticle->setContent($_POST['content'] ?? null);
-        $formArticle->setAuthor($_POST['author'] ?? null);
+        $formPost->setTitle($_POST['title'] ?? null);
+        $formPost->setChapo($_POST['chapo'] ?? null);
+        $formPost->setContent($_POST['content'] ?? null);
+        $formPost->setAuthor($_POST['author'] ?? null);
         // Post Post
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            if (empty($formArticle->getTitle())) {
+            if (empty($formPost->getTitle())) {
                 $errors['title'][] = 'Indiquer un titre';
             }
-            if (strlen($formArticle->getTitle()) < 3) {
+            if (strlen($formPost->getTitle()) < 3) {
                 $errors['title'][] = 'Le titre doit faire 3 caractères ou plus';
             }
-            if (empty($formArticle->getChapo())) {
+            if (empty($formPost->getChapo())) {
                 $errors['chapo'][] = 'Remplissez le chapô';
             }
-            if (strlen($formArticle->getChapo()) < 3) {
+            if (strlen($formPost->getChapo()) < 3) {
                 $errors['chapo'][] = 'Le chapô doit faire 3 caractères ou plus';
             }
-            if (empty($formArticle->getContent())) {
+            if (empty($formPost->getContent())) {
                 $errors['content'][] = 'Le contenu de l\'article ne peut pas être vide';
             }
-            if (strlen($formArticle->getContent()) < 3) {
+            if (strlen($formPost->getContent()) < 3) {
                 $errors['content'][] = 'Le contenu doit faire 3 caractères ou plus';
             }
-            if (empty($formArticle->getAuthor())) {
+            if (empty($formPost->getAuthor())) {
                 $errors['author'][] = 'Le nom de l\'auteur ne peut pas être vide';
             }
-            if (strlen($formArticle->getAuthor()) < 3) {
+            if (strlen($formPost->getAuthor()) < 3) {
                 $errors['author'][] = 'Le nom de l\'auteur doit faire 3 caractères ou plus';
             }
             if (empty($errors)) {
-                $articleRepository->create($formArticle);
-                $id = $articleRepository->getLastInsertId();
+                $postRepository->create($formPost);
+                $id = $postRepository->getLastInsertId();
                 $this->redirect('/post?id=' . $id);
             }
         }
-
         $this->render('Default/newPost.html.twig', [
-            'latestPosts' => $latestPosts,
             'errors' => $errors,
-            'formArticle' => $formArticle
+            'formPost' => $formPost
         ]);
     }
 
     public function updateAction()
     {
         $id = $_GET['id'];
-        $articleRepository = $this->getRepository(Post::class);
-        $latestPosts = $articleRepository->latestPosts();
-        $postId = $articleRepository->find($id);
-        $formArticle = new Post();
+        $postRepository = $this->getRepository(Post::class);
+        $postId = $postRepository->find($id);
+        $deleteId = $_POST['delete_id'] ?? null;
+        $postRepository->delete($deleteId);
         $errors = [];
-        $formArticle->setTitle($_POST['title'] ?? null);
-        $formArticle->setChapo($_POST['chapo'] ?? null);
-        $formArticle->setContent($_POST['content'] ?? null);
-        $formArticle->setAuthor($_POST['author'] ?? null);
+        $formPost = new Post();
+        $formPost->setTitle($_POST['title'] ?? null);
+        $formPost->setChapo($_POST['chapo'] ?? null);
+        $formPost->setContent($_POST['content'] ?? null);
+        $formPost->setAuthor($_POST['author'] ?? null);
         // Post Post
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            if (empty($formArticle->getTitle())) {
+            if (empty($formPost->getTitle())) {
                 $errors['title'][] = 'Indiquer un titre';
             }
-            if (strlen($formArticle->getTitle()) < 3) {
+            if (strlen($formPost->getTitle()) < 3) {
                 $errors['title'][] = 'Le titre doit faire 3 caractères ou plus';
             }
-            if (empty($formArticle->getChapo())) {
+            if (empty($formPost->getChapo())) {
                 $errors['chapo'][] = 'Remplissez le chapô';
             }
-            if (strlen($formArticle->getChapo()) < 3) {
+            if (strlen($formPost->getChapo()) < 3) {
                 $errors['chapo'][] = 'Le chapô doit faire 3 caractères ou plus';
             }
-            if (empty($formArticle->getContent())) {
+            if (empty($formPost->getContent())) {
                 $errors['content'][] = 'Le contenu de l\'article ne peut pas être vide';
             }
-            if (strlen($formArticle->getContent()) < 3) {
+            if (strlen($formPost->getContent()) < 3) {
                 $errors['content'][] = 'Le contenu doit faire 3 caractères ou plus';
             }
-            if (empty($formArticle->getAuthor())) {
+            if (empty($formPost->getAuthor())) {
                 $errors['author'][] = 'Le nom de l\'auteur ne peut pas être vide';
             }
-            if (strlen($formArticle->getAuthor()) < 3) {
+            if (strlen($formPost->getAuthor()) < 3) {
                 $errors['author'][] = 'Le nom de l\'auteur doit faire 3 caractères ou plus';
             }
             if (empty($errors)) {
-                $articleRepository->update($formArticle);
+                $postRepository->update($formPost);
                 $this->redirect('/post?id=' . $id);
             }
         }
 
         $this->render('Default/updatePost.html.twig', [
-            'latestPosts' => $latestPosts,
             'getPost' => $postId,
             'errors' => $errors,
-            'formArticle' => $formArticle
+            'formPost' => $formPost
         ]);
     }
 
     public function moderateAction()
     {
-        $articleRepository = $this->getRepository(Post::class);
+        $postRepository = $this->getRepository(Post::class);
         $commentRepository = $this->getRepository(Comment::class);
         $formComment = new Comment();
         $formComment->setStatus($_POST['status'] ?? null);
-        $latestPosts = $articleRepository->latestPosts();
         $comments = $commentRepository->comments();
         $deleteId = $_POST['delete_id'] ?? null;
         $commentRepository->delete($deleteId);
@@ -212,14 +189,13 @@ class DefaultController extends AbstractController
         $postIds = array_unique(array_map(function (Comment $comment) {
             return $comment->getPostId();
         }, $pagination['data']));
-        $postsRaw = $articleRepository->findBy(['id' => $postIds]);
+        $postsRaw = $postRepository->findBy(['id' => $postIds]);
         $posts = [];
         foreach ($postsRaw as $post) {
             $posts [$post->getId()] = $post;
         }
         $this->render('Default/moderate.html.twig', [
             'comment' => $commentRepository,
-            'latestPosts' => $latestPosts,
             'comments' => $comments,
             'posts' => $posts,
             'pagination' => $pagination

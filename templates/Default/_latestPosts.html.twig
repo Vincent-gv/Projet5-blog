@@ -1,4 +1,4 @@
-{% for post in latestPosts %}
+{% for post in latestPosts() %}
     <div class="lp-item">
         <a href="post?id={{ post.id }}" title="{{ post.title }}">
             <div class="lp-thumb set-bg" data-setbg="/img/footer-thumb/3.jpg"></div>
