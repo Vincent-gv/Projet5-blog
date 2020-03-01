@@ -20,8 +20,8 @@ abstract class Routes implements RoutesInterface
             new Route('/post', 'Default', 'article'),
             new Route('/poster', 'Default', 'post'),
             new Route('/modifier', 'Default', 'update'),
-            new Route('/moderer', 'Default', 'moderate'),
-            new Route('/connexion', 'Security', 'connect')
+            new Route('/moderate', 'Default', 'moderation'),
+            new Route('/admin', 'Security', 'connect')
         ];
     }
 }

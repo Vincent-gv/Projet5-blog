@@ -20,9 +20,9 @@ class User extends AbstractEntity
 
     private $id;
 
-    private $username;
+    public $username;
 
-    private $email;
+    public $email;
 
     private $password;
 

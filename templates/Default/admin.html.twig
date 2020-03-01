@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - {% if user() %}Administration{% else %}Connexion{% endif %}{% endblock %}
+
+{% block main %}
+    <!-- Page Top section -->
+    <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+        <div class="container">
+            <h2>{% if user() %}Administration<br><small>Tableau de bord</small>{% else %}Connexion{% endif %}</h2>
+            <div class="site-breadcrumb">
+                <a href="home">Accueil</a> / <span>{% if user() %}Administration{% else %}Connexion{% endif %}</span>
+            </div>
+        </div>
+    </section>
+    <!-- Page Top section end -->
+    <!-- Content section -->
+    <section class="domain-search-section sc-connect-page">
+        <div class="container connect-page">
+            <div class="domain-form-warp">
+                {% if user() %}
+                    <h4>🚀 Bienvenue {{ user().username }} !</h4>
+                    <p class="mt-4 mb-4 blog-text">Ceci est votre tableau de bord.<br>Que souhaitez-vous faire ?</p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul>
+                                <li><a href="./poster">Poster un article</a></li>
+                                <li><a href="./blog">Modifier ou supprimer un article</a></li>
+                                <li><a href="./moderation">Modérer les commentaires</a></li>
+                                <li><a href="./blog">Ajouter un utilisateur à l'administration</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <form class="domain-search-form df-white-bg" method="post">
+                        <div class="text-center mt-4">
+                            <button name="disconnect" class="site-btn">Déconnexion</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <div class="section-title2">
+                        <img src="./img/icons/lock.png" alt="#">
+                    </div>
+                    <form class="domain-search-form df-white-bg mt-3" method="post">
+                        {% if user is defined %}
+                            <div class="alert alert-danger" role="alert">
+                                <ul>
+                                    {% for user in users.email %}
+                                        <li>
+                                            {{ user }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <input type="text" placeholder="Votre identifiant" name="login" value="{{ formUser.email }}"
+                               class="mb-3">
+                        <input type="password" onfocus="this.value=''" placeholder="Votre mot de passe" name="password"
+                               class="mb-3">
+                        <div class="text-center">
+                            <button name="connect" class="site-btn">Connexion</button>
+                        </div>
+                    </form>
+                {% endif %}
+                {#                {% if user %}#}
+                {#                    Bienvenue {{ user }}#}
+                {#                    <a href="disconnect.php">Déconnecter</a>#}
+                {#                {% else %}#}
+                {#                    <a href="connect.php">Connecter</a>#}
+                {#                {% endif %}#}
+            </div>
+        </div>
+    </section>
+    <!-- Content section end -->
+{% endblock %}

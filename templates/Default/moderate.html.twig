@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} - Modérer {% endblock %}
+{% block title %} {{ parent() }} - Administration{% endblock %}
 
 {% block main %}
     <!-- Page Top section -->
     <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
         <div class="container">
-            <h2>Modération des commentaires</h2>
+            <h2>Administration<br><small>Modération des commentaires</small></h2>
             <div class="site-breadcrumb">
-                <a href="./">Accueil</a> / <span>Modérer</span>
+                <a href="./">Accueil</a> / <span>Administration</span>
             </div>
         </div>
     </section>
@@ -37,7 +37,7 @@
                                 {% endif %}
                             </div>
                             <p>{{ comment.comment }}</p>
-                            <form class="clearfix" method="post" action="/moderer">
+                            <form class="clearfix" method="post" action="/moderation">
                                 <button type="submit" input type="hidden" name="delete_id" value="{{ comment.id }}"
                                         class="delete-comment-button site-btn-sm btn-purple mr-1">Supprimer
                                 </button>

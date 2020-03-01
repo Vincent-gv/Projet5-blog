@@ -12,17 +12,17 @@ class UserRepository extends AbstractRepository
     {
         return User::class;
     }
-
-    public function disconnect()
-    {
-        unset($_SESSION['userConnected']);
-    }
-
-    public function isConnected(): bool
-    {
-        return self::getUserConnected() !== null;
-    }
-
+//
+//    public function disconnect()
+//    {
+//        unset($_SESSION['userConnected']);
+//    }
+//
+//    public function isConnected(): bool
+//    {
+//        return self::getUserConnected() !== null;
+//    }
+//
     public function getUserConnected(): ?User
     {
         return $_SESSION['userConnected'] ?? null;

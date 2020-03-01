@@ -22,21 +22,22 @@ class SecurityController extends AbstractController
         }
         if (empty($password)) {
             $errors['user'][] = 'Le mot de passe ne peut pas être vide';
-        }
-        else if (!$user instanceof User) {
+        } else if (!$user instanceof User) {
             $errors['user'][] = 'Identifiants incorrects';
-        }
-        else if (!password_verify($password, $user->getPassword())) {
+        } else if (!password_verify($password, $user->getPassword())) {
             $errors['user'][] = 'Identifiants incorrects';
         }
         if (empty($errors)) {
             $_SESSION['userConnected'] = $user;
-            $this->redirect('/');
+            $this->redirect('/admin');
         }
-        $this->render('Default/connect.html.twig', [
-        'errors' => $errors,
-        'formUser' => $formUser
-    ]);
-
+        if (isset($_POST['disconnect'])) {
+            unset($_SESSION['userConnected']);
+        }
+        // unset($_SESSION['userConnected']);
+        $this->render('Default/admin.html.twig', [
+            'errors' => $errors,
+            'formUser' => $formUser
+        ]);
     }
 }

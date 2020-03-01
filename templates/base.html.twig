@@ -43,14 +43,22 @@
             </div>
             <div class="nav-warp">
                 <div class="user-panel">
-                    <a href="/connexion" class="form-warp-link">Connexion</a>
+                    <a href="/admin" class="form-warp-link">
+                    {% if user() %}
+                        Bienvenue {{ user().username }}
+                    {% else %}
+                        Connexion
+                    {% endif %}
+                    </a>
                 </div>
                 <ul class="main-menu">
                     <li><a href="./">Accueil</a></li>
                     <li><a href="./blog">Blog</a></li>
                     <li><a href="./contact">Contact</a></li>
+                    {% if user() %}
                     <li><a href="./poster">Poster</a></li>
-                    <li><a href="./moderer">Modération</a></li>
+                    <li><a href="./moderation">Modération</a></li>
+                    {% endif %}
                 </ul>
             </div>
         {% endblock %}
@@ -119,10 +127,15 @@
         <div class="container">
             <ul class="footer-menu">
                 <li><a href="./">Accueil</a></li>
-                <li><a href="blog">Blog</a></li>
-                <li><a href="contact">Contact</a></li>
-                <li><a href="" data-toggle="modal" data-target="#enregistrement">Connexion</a></li>
-                <li><a href="enregistrement">S'enregistrer</a></li>
+                <li><a href="./blog">Blog</a></li>
+                <li><a href="./contact">Contact</a></li>
+                {% if user() %}
+                    <li><a href="./poster">Poster</a></li>
+                    <li><a href="./moderation">Modération</a></li>
+                    <li><a href="./admin">Connecté ({{ user().username }})</a></li>
+                {% else %}
+                <li><a href="admin">Connexion</a></li>
+                {% endif %}
                 <li></li>
             </ul>
             <div class="copyright">

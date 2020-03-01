@@ -4,6 +4,7 @@
 namespace Core\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use Core\Database\Repository\AbstractRepository;
 use Core\Database\Repository\RepositoryFactory;
 use Twig\Environment;
@@ -29,17 +30,39 @@ abstract class AbstractController
 
     }
 
-    public function redirect (string $url) {
-        header('Location: '.$url);
+    public function redirect(string $url)
+    {
+        header('Location: ' . $url);
         die();
     }
 
-    public function extendTwig (Environment $twig) {
-        $function = new TwigFunction('latestPosts', function () {
+    public function extendTwig(Environment $twig)
+    {
+
+        $latest = new TwigFunction('latestPosts', function () {
             $postRepository = $this->getRepository(Post::class);
             return $postRepository->latestPosts();
         });
-        $twig->addFunction($function);
+        $twig->addFunction($latest);
+
+        $user = new TwigFunction('user', function () {
+            if (isset($_SESSION['userConnected'])) {
+                return $_SESSION['userConnected'];
+            };
+        });
+        $twig->addFunction($user);
+
+        $userConnected = new TwigFunction('userConnected', function () {
+            $userRepository = $this->getRepository(User::class);
+            return $userRepository->getUserConnected() !== null;
+        });
+        $twig->addFunction($userConnected);
+
+        $getUserConnected = new TwigFunction('getUserConnected', function () {
+            return $_SESSION['userConnected'] ?? null;
+        });
+        $twig->addFunction($getUserConnected);
+
     }
 
 }
