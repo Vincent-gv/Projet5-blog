@@ -5,13 +5,21 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\Comment;
 use Core\Controller\AbstractController;
-use Twig\Environment;
-use Twig\TwigFunction;
 
 class DefaultController extends AbstractController
 {
     public function homepageAction()
     {
+        $email = $_POST['mail'] ?? null;
+        $name = $_POST['name'] ?? null;
+        $subject = $_POST['subject'] ?? null;
+        $message = $_POST['message'] ?? null;
+        $sendTo = 'vincent.gauchevertu@hotmail.fr';
+        $headers = 'From : ' . $email;
+        if ('POST' === $_SERVER['REQUEST_METHOD']) {
+//            mail($sendTo,$subject,$message,$headers);
+            $this->redirect($_SERVER['HTTP_REFERER']);
+        }
         $this->render('Default/homepage.html.twig', [
         ]);
     }
@@ -40,6 +48,7 @@ class DefaultController extends AbstractController
         $commentRepository = $this->getRepository(Comment::class);
         $comments = $commentRepository->findBy(['post_id' => $postId]);
         $countComments = $commentRepository->countPostComments($postId);
+        $successMessage = null;
         $article = $postRepository->find($postId);
         $formComment = new Comment();
         $errors = [];
@@ -61,7 +70,7 @@ class DefaultController extends AbstractController
                 $errors['comment'][] = 'Le commentaire doit faire 3 caractères ou plus';
             }
             if (empty($errors)) {
-                $commentRepository->create($formComment);
+                $commentRepository->createComment($formComment);
                 $this->redirect($_SERVER['HTTP_REFERER']);
             }
         }
@@ -76,6 +85,7 @@ class DefaultController extends AbstractController
 
     public function postAction()
     {
+        $this->redirectAnonymousUser();
         $postRepository = $this->getRepository(Post::class);
         $formPost = new Post();
         $errors = [];
@@ -110,7 +120,7 @@ class DefaultController extends AbstractController
                 $errors['author'][] = 'Le nom de l\'auteur doit faire 3 caractères ou plus';
             }
             if (empty($errors)) {
-                $postRepository->create($formPost);
+                $postRepository->createPost($formPost);
                 $id = $postRepository->getLastInsertId();
                 $this->redirect('/post?id=' . $id);
             }
@@ -123,18 +133,16 @@ class DefaultController extends AbstractController
 
     public function updateAction()
     {
+        $this->redirectAnonymousUser();
         $id = $_GET['id'];
         $postRepository = $this->getRepository(Post::class);
         $postId = $postRepository->find($id);
-        $deleteId = $_POST['delete_id'] ?? null;
-        $postRepository->delete($deleteId);
         $errors = [];
         $formPost = new Post();
         $formPost->setTitle($_POST['title'] ?? null);
         $formPost->setChapo($_POST['chapo'] ?? null);
         $formPost->setContent($_POST['content'] ?? null);
         $formPost->setAuthor($_POST['author'] ?? null);
-        // Post Post
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             if (empty($formPost->getTitle())) {
                 $errors['title'][] = 'Indiquer un titre';
@@ -161,11 +169,14 @@ class DefaultController extends AbstractController
                 $errors['author'][] = 'Le nom de l\'auteur doit faire 3 caractères ou plus';
             }
             if (empty($errors)) {
-                $postRepository->update($formPost);
+                $postRepository->updatePost($formPost);
                 $this->redirect('/post?id=' . $id);
             }
         }
-
+        if ($_POST['delete-post'] ?? false) {
+            $postRepository->deletePost($id);
+            $this->redirect('./blog');
+        }
         $this->render('Default/updatePost.html.twig', [
             'getPost' => $postId,
             'errors' => $errors,
@@ -175,15 +186,16 @@ class DefaultController extends AbstractController
 
     public function moderateAction()
     {
+        $this->redirectAnonymousUser();
         $postRepository = $this->getRepository(Post::class);
         $commentRepository = $this->getRepository(Comment::class);
         $formComment = new Comment();
         $formComment->setStatus($_POST['status'] ?? null);
         $comments = $commentRepository->comments();
         $deleteId = $_POST['delete_id'] ?? null;
-        $commentRepository->delete($deleteId);
+        $commentRepository->deleteComment($deleteId);
         $publishId = $_POST['publish_id'] ?? null;
-        $commentRepository->publish($publishId);
+        $commentRepository->publishComment($publishId);
         $pageIndex = intval($_GET['page'] ?? 1);
         $pagination = $commentRepository->pagination($pageIndex, 10);
         $postIds = array_unique(array_map(function (Comment $comment) {

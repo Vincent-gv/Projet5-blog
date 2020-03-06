@@ -189,7 +189,7 @@ ol {
     font-size: 14px;
     font-weight: 500;
     min-width: 186px;
-    padding: 17px 25px;
+    padding: 15px;
     border-radius: 14px;
     background: #eb2b63;
     color: #fff;
@@ -616,6 +616,21 @@ ol {
     color: #fff;
 }
 
+.admin-button {
+    float: left;
+    background: #2a136b;
+    color: #fff;
+    margin-right: 7px;
+    font-size: 14px;
+    padding: 7px 19px;
+    line-height: 1;
+    border-radius: 10px;
+}
+
+.admin-button a {
+    color: #fff;
+}
+
 /*------------------
   Hero section
 ---------------------*/
@@ -796,11 +811,6 @@ ol {
     display: inline-block;
     padding: 0 31px;
     margin-right: 5px;
-}
-
-.domain-search-form .site-btn {
-    height: 59px;
-    min-width: 229px;
 }
 
 .domain-search-form.df-white-bg input {
@@ -1576,10 +1586,6 @@ input.form-control.chapo {
     color: #1c1c1c;
     display: block;
     overflow: hidden;
-}
-
-.contact-form {
-    padding-top: 64px;
 }
 
 #homepage-form {

@@ -7,30 +7,9 @@ use Core\Database\Repository\AbstractRepository;
 
 class UserRepository extends AbstractRepository
 {
-
     protected function getEntityClass(): string
     {
         return User::class;
-    }
-//
-//    public function disconnect()
-//    {
-//        unset($_SESSION['userConnected']);
-//    }
-//
-//    public function isConnected(): bool
-//    {
-//        return self::getUserConnected() !== null;
-//    }
-//
-    public function getUserConnected(): ?User
-    {
-        return $_SESSION['userConnected'] ?? null;
-    }
-
-    public function findByEmail($email): ?User
-    {
-        return $this->findBy(['email' => $email])[0] ?? null;
     }
 
     protected function hydrateObj(object $object): User
@@ -40,5 +19,21 @@ class UserRepository extends AbstractRepository
             ->setUsername($object->username)
             ->setEmail($object->email)
             ->setPassword($object->password);
+    }
+
+    public function findByEmail($email): ?User
+    {
+        return $this->findBy(['email' => $email])[0] ?? null;
+    }
+
+    public function createUser(User $user)
+    {
+        $sql = "INSERT INTO users (username, email, password)
+ VALUES (:username, :email, :password)";
+        return $this->database->execute($sql, [
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT)
+        ]);
     }
 }

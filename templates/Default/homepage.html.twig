@@ -63,7 +63,7 @@
                             </div>
                             <h4>{{ post.title }}</h4>
                             <span>{{ post.createdAt | date('d/m/Y') }}</span>
-                            <p>{{ post.content|length > 50 ? post.content|slice(0, 120) ~ '...' : post.content  }}</p>
+                            <p>{{ post.content|length > 50 ? post.content|slice(0, 120) ~ '...' : post.content }}</p>
                         </a>
                     </div>
                 {% else %}
@@ -106,17 +106,17 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <form id="home-contact" class="contact-form">
+                    <form id="home-contact" class="contact-form" method="post" action="#homepage-form">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" placeholder="Votre nom">
+                                <input type="text" name="name" placeholder="Votre nom" required>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="Votre e-mail">
+                                <input type="email" name="email" placeholder="Votre e-mail" required>
                             </div>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Sujet">
-                                <textarea placeholder="Message"></textarea>
+                                <input type="text" name="subject" placeholder="Sujet">
+                                <textarea name="message" placeholder="Message" required></textarea>
                                 <button class="site-btn">Envoyer</button>
                             </div>
                         </div>

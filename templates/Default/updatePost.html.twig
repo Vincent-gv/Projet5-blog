@@ -3,31 +3,35 @@
 {% block title %} {{ parent() }} - Modifier l'article <small>{{ getPost.title }}</small>{% endblock %}
 
 {% block main %}
-<!-- Page Top section -->
-<section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
-    <div class="container">
-        <h2>Modifier
-            <br>
-            <small>« {{ getPost.title }} »</small></h2>
-        <div class="site-breadcrumb">
-            <a href="./">Accueil</a> / <span>Modifier un article</span>
+    <!-- Page Top section -->
+    <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+        <div class="container">
+            <h2>Modifier
+                <br>
+                <small>« {{ getPost.title }} »</small></h2>
+            <div class="site-breadcrumb">
+                <a href="./">Accueil</a> / <span>Modifier un article</span>
+            </div>
         </div>
-    </div>
-</section>
-<!-- Page Top section end -->
+    </section>
+    <!-- Page Top section end -->
 
     <!-- Blog section -->
     <section class="blog-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                    <h3 class="mb-5">📰<small>Modifier un article</small></h3>
                     <div class="blog-post">
                         <form id="post-article" class="clearfix" method="post" action="#post-article">
                             <div class="form-group mt-2">
                                 {% if errors.title is defined and errors.content is defined %}
-                                    <div class="alert alert-danger mt-2" role="alert">L'article n'a pu être publié. Merci de corriger les erreurs indiquées  :</div>
+                                    <div class="alert alert-danger mt-2" role="alert">L'article n'a pu être publié.
+                                        Merci de corriger les erreurs indiquées :
+                                    </div>
                                 {% endif %}
-                                <label for="titre"><img src="/img/icons/edit.png" class="mr-1"> Titre de l'article :</label>
+                                <label for="titre"><img src="/img/icons/edit.png" class="mr-1"> Titre de l'article
+                                    :</label>
                                 <input type="text" class="form-control title" name="title" value="{{ getPost.title }}">
                                 {% if errors.title is defined %}
                                     <div class="alert alert-primary mt-2" role="alert">
@@ -82,13 +86,11 @@
                                         </ul>
                                     </div>
                                 {% endif %}
-                                <input type="submit" class="site-btn mt-4" value="Mettre à jour">
+                                <input type="submit" class="site-btn mt-4" value="Mettre à jour" name="update-post">
                             </div>
                         </form>
-                        <form action="/blog" method="POST">
-                            <button type="submit" input type="hidden" name="delete_id" value="{{ getPost.id }}"
-                                    class="site-btn btn-purple mt-4 bt">Supprimer
-                            </button>
+                        <form method="POST">
+                            <input type="submit" class="site-btn btn-purple  mt-4" value="Supprimer" name="delete-post">
                         </form>
                     </div>
                 </div>

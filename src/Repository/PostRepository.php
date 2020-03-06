@@ -13,13 +13,6 @@ class PostRepository extends AbstractRepository
         return Post::class;
     }
 
-// SELECT * FROM `post` p
-//LEFT JOIN `comments` c ON p.id = c.post_id
-
-// SELECT p.id, p.chapo, p.content, p.author, p.created_at, COUNT(c.id) AS nbComments FROM `post` p
-//LEFT JOIN `comments` c ON p.id = c.post_id
-//GROUP BY p.id, p.chapo, p.content, p.author, p.created_at
-
     protected function hydrateObj(object $obj)
     {
         return (new Post())
@@ -36,7 +29,7 @@ class PostRepository extends AbstractRepository
         return $this->hydrate($this->database->query('SELECT * FROM post ORDER BY id DESC LIMIT 3'));
     }
 
-    public function create(Post $article)
+    public function createPost(Post $article)
     {
         $sql = "INSERT INTO post (title, chapo, content, author, created_at)
  VALUES (:title, :chapo, :content, :author, :created_at)";
@@ -49,15 +42,15 @@ class PostRepository extends AbstractRepository
         ]);
     }
 
-    public function delete($id)
+    public function deletePost($id)
     {
-        $sql = "DELETE FROM post WHERE id=:id";
+        $sql = "DELETE FROM `post` WHERE id=:id;";
         return $this->database->execute($sql, [
             'id' => $id
         ]);
     }
 
-    public function update(Post $article)
+    public function updatePost(Post $article)
     {
         $id = $_GET['id'];
         $sql = "UPDATE post SET title=:title, chapo=:chapo, content=:content, author=:author, created_at=:created_at

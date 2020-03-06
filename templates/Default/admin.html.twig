@@ -18,20 +18,20 @@
         <div class="container connect-page">
             <div class="domain-form-warp">
                 {% if user() %}
-                    <h4>🚀 Bienvenue {{ user().username }} !</h4>
-                    <p class="mt-4 mb-4 blog-text">Ceci est votre tableau de bord.<br>Que souhaitez-vous faire ?</p>
+                    <h2>🚀 <small>Bienvenue {{ user().username }} !</small></h2>
+                    <p class="mt-5 mb-4 blog-text">Que souhaitez-vous faire ?</p>
                     <div class="row">
                         <div class="col-sm-12">
                             <ul>
                                 <li><a href="./poster">Poster un article</a></li>
                                 <li><a href="./blog">Modifier ou supprimer un article</a></li>
-                                <li><a href="./moderation">Modérer les commentaires</a></li>
-                                <li><a href="./blog">Ajouter un utilisateur à l'administration</a></li>
+                                <li><a href="./commentaires">Modérer les commentaires</a></li>
+                                <li><a href="./utilisateur">Ajouter un utilisateur à l'administration</a></li>
                             </ul>
                         </div>
                     </div>
-                    <form class="domain-search-form df-white-bg" method="post">
-                        <div class="text-center mt-4">
+                    <form class="df-white-bg" method="post">
+                        <div class="text-center mt-5">
                             <button name="disconnect" class="site-btn">Déconnexion</button>
                         </div>
                     </form>
@@ -40,17 +40,18 @@
                         <img src="./img/icons/lock.png" alt="#">
                     </div>
                     <form class="domain-search-form df-white-bg mt-3" method="post">
-                        {% if user is defined %}
+                        {% if errors.user is defined %}
                             <div class="alert alert-danger" role="alert">
                                 <ul>
-                                    {% for user in users.email %}
+                                    {% for error in errors.user %}
                                         <li>
-                                            {{ user }}
+                                            {{ error }}
                                         </li>
                                     {% endfor %}
                                 </ul>
                             </div>
                         {% endif %}
+                        <p class="mt-4 mb-4 blog-text">Merci d'indiquer un identifiant et un mot de passe pour vous connecter.</p>
                         <input type="text" placeholder="Votre identifiant" name="login" value="{{ formUser.email }}"
                                class="mb-3">
                         <input type="password" onfocus="this.value=''" placeholder="Votre mot de passe" name="password"
@@ -60,12 +61,6 @@
                         </div>
                     </form>
                 {% endif %}
-                {#                {% if user %}#}
-                {#                    Bienvenue {{ user }}#}
-                {#                    <a href="disconnect.php">Déconnecter</a>#}
-                {#                {% else %}#}
-                {#                    <a href="connect.php">Connecter</a>#}
-                {#                {% endif %}#}
             </div>
         </div>
     </section>

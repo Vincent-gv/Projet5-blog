@@ -19,13 +19,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="blog-post">
+                    <h2>📰<small> Poster un article</small></h2>
+                    <div class="blog-post mt-5">
                         <form id="post-article" class="clearfix" method="post" action="#post-article">
                             <div class="form-group mt-2">
                                 {% if errors.title is defined and errors.content is defined %}
                                     <div class="alert alert-danger mt-2" role="alert">L'article n'a pu être publié. Merci de corriger les erreurs indiquées  :</div>
                                 {% endif %}
-                                <label for="titre"><img src="/img/icons/edit.png" class="mr-1"> Titre de l'article :</label>
+                                <label for="titre">Titre de l'article :</label>
                                 <input type="text" class="form-control title" name="title" value="{{ formPost.title }}">
                                 {% if errors.title is defined %}
                                     <div class="alert alert-primary mt-2" role="alert">
@@ -68,7 +69,7 @@
                                     </div>
                                 {% endif %}
                                 <label class="mt-3" for="author"> Auteur :</label>
-                                <input type="text" class="form-control" name="author" value="{{ formPost.author }}">
+                                <input type="text" class="form-control" name="author" value="{% if formPost.author %}{{ formPost.author }}{% else %}{{ user().username }}{% endif %}">
                                 {% if errors.author is defined %}
                                     <div class="alert alert-primary mt-2" role="alert">
                                         <ul>

@@ -57,7 +57,7 @@
                     <li><a href="./contact">Contact</a></li>
                     {% if user() %}
                     <li><a href="./poster">Poster</a></li>
-                    <li><a href="./moderation">Modération</a></li>
+                    <li><a href="./commentaires">Modération</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -131,7 +131,7 @@
                 <li><a href="./contact">Contact</a></li>
                 {% if user() %}
                     <li><a href="./poster">Poster</a></li>
-                    <li><a href="./moderation">Modération</a></li>
+                    <li><a href="./commentaires">Modération</a></li>
                     <li><a href="./admin">Connecté ({{ user().username }})</a></li>
                 {% else %}
                 <li><a href="admin">Connexion</a></li>

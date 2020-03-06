@@ -21,11 +21,6 @@ class CommentRepository extends AbstractRepository
         ]);
     }
 
-    public function countPostComments($id)
-    {
-        return $this->countBy(['post_id' => $id]);
-    }
-
     protected function hydrateObj(object $obj)
     {
         return (new Comment())
@@ -37,7 +32,14 @@ class CommentRepository extends AbstractRepository
             ->setStatus($obj->status);
     }
 
-    public function create(Comment $comment)
+    public function countPostComments($id)
+    {
+        $sql = "SELECT * FROM `comments` WHERE STATUS ='1' AND POST_ID='$id';";
+        return count($this->database->query($sql, [
+        ]));
+    }
+
+    public function createComment(Comment $comment)
     {
         $sql = "INSERT INTO comments (post_id, username, comment, created_at, status)
  VALUES (:post_id, :username, :comment, :created_at, :status)";
@@ -50,7 +52,7 @@ class CommentRepository extends AbstractRepository
         ]);
     }
 
-    public function delete($id)
+    public function deleteComment($id)
     {
         $sql = "DELETE FROM comments WHERE id=:id";
         return $this->database->execute($sql, [
@@ -58,7 +60,7 @@ class CommentRepository extends AbstractRepository
         ]);
     }
 
-    public function publish($id)
+    public function publishComment($id)
     {
         $status = 1;
         $sql = "UPDATE comments SET status=:status WHERE id=:id";
