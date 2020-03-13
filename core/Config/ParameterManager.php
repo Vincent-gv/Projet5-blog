@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Config;
-
 
 use App\Config\Parameters;
 
@@ -16,7 +14,6 @@ abstract class ParameterManager
                 return $parameter;
             }
         }
-
         throw new ParameterException($key);
     }
 }

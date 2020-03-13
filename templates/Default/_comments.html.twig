@@ -7,7 +7,7 @@
             </div>
         {% endif %}
         <label for="nom">Nom ou pseudo :</label>
-        <input type="text" class="form-control" name="username" value="{{ formComment.username }}">
+        <input type="text" class="form-control" name="username" value="{{ formComment.username }}" required>
         {% if errors.username is defined %}
             <div class="alert alert-primary mt-2" role="alert">
                 <ul>
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group">
         <label for="comment">Commentaire :</label>
-        <textarea class="form-control" rows="5" name="comment">{{ formComment.comment }}</textarea>
+        <textarea class="form-control" rows="5" name="comment" required>{{ formComment.comment }}</textarea>
         {% if errors.comment is defined %}
             <div class="alert alert-primary mt-2" role="alert">
                 <ul>

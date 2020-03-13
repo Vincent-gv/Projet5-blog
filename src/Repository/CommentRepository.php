@@ -69,5 +69,4 @@ class CommentRepository extends AbstractRepository
             'id' => $id
         ]);
     }
-
 }

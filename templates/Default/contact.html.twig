@@ -6,7 +6,7 @@
     <!-- Page Top section -->
     <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
         <div class="container">
-            <h2>Contact</h2>
+            <h2 id="form">Contact</h2>
             <div class="site-breadcrumb">
                 <a href="home">Accueil</a> / <span>Contact</span>
             </div>
@@ -15,7 +15,7 @@
     <!-- Page Top section end -->
     <!-- Contact section -->
     <section class="contact-section">
-        <div class="container">
+        <div class="container" id="form">
             <div class="row">
                 <div class="col-lg-3 contact-text">
                     <h4>Contactez-moi</h4>
@@ -34,27 +34,35 @@
                     </div>
                     <div class="cont-info">
                         <div class="ci-icon">
-                            <img src="img/icons/2.png" alt="">
+                            <img src="img/icons/3.png" alt="">
                         </div>
                         <span>contact@vincent-dev.com</span>
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <form class="contact-form">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" placeholder="Votre nom">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" placeholder="Votre e-mail">
-                            </div>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="Sujet">
-                                <textarea placeholder="Message"></textarea>
-                                <button class="site-btn">Envoyer</button>
+                    {% if postMessage is not null %}
+                        <div class="mx-auto">
+                            <div class="alert alert-success" role="alert"><img src="img/icons/3.png" class="mr-2"
+                                                                               style="position: relative;bottom: 2px;"> {{ postMessage }}
                             </div>
                         </div>
-                    </form>
+                    {% else %}
+                        <form id="home-contact" class="contact-form" method="post" action="#form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="name" placeholder="Votre nom" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" name="email" placeholder="Votre e-mail" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" name="subject" placeholder="Sujet">
+                                    <textarea name="message" placeholder="Message" required></textarea>
+                                    <button class="site-btn">Envoyer</button>
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -62,7 +70,6 @@
     </section>
     <!-- Contact section end -->
 {% endblock %}
-
 {% block javascripts %} {{ parent() }}
     <!-- load for map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPo0NaEvefJ4N6U1WfCLqxuvhX_Fnl4gc"></script>

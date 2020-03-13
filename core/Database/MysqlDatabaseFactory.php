@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Database;
-
 
 use Core\Config\ParameterManager;
 use Core\Config\ParametersInterface;
@@ -15,6 +13,6 @@ abstract class MysqlDatabaseFactory
             ParameterManager::getParameter(ParametersInterface::KEY_DATABASE_DNS)->getValue(),
             ParameterManager::getParameter(ParametersInterface::KEY_DATABASE_USER)->getValue(),
             ParameterManager::getParameter(ParametersInterface::KEY_DATABASE_PASSWORD)->getValue()
-            );
+        );
     }
 }

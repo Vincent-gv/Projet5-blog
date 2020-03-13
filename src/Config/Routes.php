@@ -14,13 +14,13 @@ abstract class Routes implements RoutesInterface
     static public function getRoutes(): array
     {
         return [
-            new Route('/', 'Default', 'homepage'),
-            new Route('/contact', 'Default', 'contact'),
-            new Route('/blog', 'Default', 'blog'),
-            new Route('/post', 'Default', 'article'),
-            new Route('/poster', 'Default', 'post'),
-            new Route('/modifier', 'Default', 'update'),
-            new Route('/commentaires', 'Default', 'moderate'),
+            new Route('/', 'Homepage', 'homepage'),
+            new Route('/blog', 'Blog', 'blog'),
+            new Route('/contact', 'Contact', 'contact'),
+            new Route('/post', 'Article', 'article'),
+            new Route('/poster', 'Post', 'post'),
+            new Route('/modifier', 'Update', 'update'),
+            new Route('/commentaires', 'Moderate', 'moderate'),
             new Route('/utilisateur', 'User', 'user'),
             new Route('/admin', 'Connect', 'connect')
         ];

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Router;
-
 
 class Route
 {
@@ -79,5 +77,4 @@ class Route
         $this->actionName = $actionName;
         return $this;
     }
-
 }

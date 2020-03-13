@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Router;
-
 
 use App\Config\Routes;
 

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Database\Entity;
-
 
 class TableInfos
 {

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Config;
-
 
 interface ParametersInterface
 {

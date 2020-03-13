@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} Mon Blog {% endblock %}</title>
@@ -79,7 +79,7 @@
                         <p>Développeur / intégrateur web<br>
                             HTML5 - CSS3 - JS - PHP - Wordpress - Drupal - Bootstrap - Twig - Vue.js - Design - SEO</p>
                         <div class="fw-social social">
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <a href="./"><i class="fa fa-pinterest"></i></a>
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
                             <a href="#"><i class="fa fa-dribbble"></i></a>
@@ -132,22 +132,22 @@
                 {% if user() %}
                     <li><a href="./poster">Poster</a></li>
                     <li><a href="./commentaires">Modération</a></li>
-                    <li><a href="./admin">Connecté ({{ user().username }})</a></li>
+                    <li><a href="./admin"> ✔ Connecté</a></li>
                 {% else %}
                 <li><a href="admin">Connexion</a></li>
                 {% endif %}
                 <li></li>
             </ul>
             <div class="copyright">
-                Copyright &copy;
+                &copy;
                 <script>document.write(new Date().getFullYear());</script>
-                | <a class="text-white" href="https://vincent-dev.com" target="_blank">This template is
-                    made with <i class="fa fa-heart-o" aria-hidden="true"></i></div>
+                | <a class="text-white" href="https://vincent-dev.com" target="_blank">OpenClassrooms Student Project</a>
+                    </div>
         </div>
     </footer>
 {% endblock %}
 {% block javascripts %}
-    <!--====== Javascripts & Jquery ======-->
+    <!--====== Javascript & Jquery ======-->
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>

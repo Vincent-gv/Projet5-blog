@@ -1614,6 +1614,12 @@ input.form-control.chapo {
     height: 685px;
 }
 
+.delete {
+    float: right;
+    position: relative;
+    bottom: 60px;
+}
+
 /* ----------------
   Responsive
 ---------------------*/

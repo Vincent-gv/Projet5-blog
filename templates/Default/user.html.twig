@@ -17,29 +17,31 @@
     <section class="domain-search-section sc-connect-page">
         <div class="container connect-page">
             <div class="domain-form-warp">
-                    <h2>👨🏽‍🚀<small> Ajouter un administrateur</small></h2>
-                <p class="mt-2 mb-4 blog-text">Création d'un compte avec les <strong>droits administrateur</strong></p>
-                    <form class="domain-search-form df-white-bg mt-3" method="post">
-                        {% if errors.user is defined %}
-                            <div class="alert alert-danger" role="alert">
-                                <ul>
-                                    {% for error in errors.user %}
-                                        <li>
-                                            {{ error }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
-                        <input type="text" placeholder="Nom d'utilisateur" name="username" value="{{ formUser.username }}"
-                               class="mb-3">
-                        <input type="text" placeholder="E-mail" name="email" value="{{ formUser.email }}"
-                               class="mb-3">
-                        <input type="password" onfocus="this.value=''" placeholder="Mot de passe" name="password" value="{{ formUser.password }}" class="mb-3">
-                        <div class="text-center">
-                            <button name="connect" class="site-btn">Créer le compte</button>
+                <h2>👨🏽‍🚀<small> Ajouter un administrateur</small></h2>
+                <p class="mt-2 mb-4 blog-text">Création d'un nouvel utilsateur avec <strong>droits
+                        administrateur</strong></p>
+                <form class="domain-search-form df-white-bg mt-3" method="post">
+                    {% if errors.user is defined %}
+                        <div class="alert alert-danger" role="alert">
+                            <ul>
+                                {% for error in errors.user %}
+                                    <li>
+                                        {{ error }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
-                    </form>
+                    {% endif %}
+                    <input type="text" placeholder="Nom d'utilisateur" name="username" value="{{ formUser.username }}"
+                           class="mb-3" required>
+                    <input type="email" placeholder="E-mail" name="email" value="{{ formUser.email }}"
+                           class="mb-3" required>
+                    <input type="password" onfocus="this.value=''" placeholder="Mot de passe" name="password"
+                           value="{{ formUser.password }}" class="mb-3" required>
+                    <div class="text-center">
+                        <button name="connect" class="site-btn mt-3">Ajouter</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

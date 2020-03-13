@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Database\Repository;
-
 
 use Core\Database\MysqlDatabaseFactory;
 

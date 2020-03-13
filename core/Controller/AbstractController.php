@@ -25,13 +25,11 @@ abstract class AbstractController
         $this->extendTwig($twig);
 
         echo $twig->render($name, $context);
-
     }
 
     public function redirect(string $url)
     {
         header('Location: ' . $url);
-        die();
     }
 
     public function isConnected(): bool
@@ -48,20 +46,19 @@ abstract class AbstractController
 
     public function extendTwig(Environment $twig)
     {
-
+        // show latest posts
         $latest = new TwigFunction('latestPosts', function () {
             $postRepository = $this->getRepository(Post::class);
             return $postRepository->latestPosts();
         });
         $twig->addFunction($latest);
 
+        // verify if user is connected
         $user = new TwigFunction('user', function () {
             if ($this->isConnected()) {
                 return $_SESSION['userConnected'];
             };
         });
         $twig->addFunction($user);
-
     }
-
 }

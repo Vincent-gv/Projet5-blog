@@ -13,30 +13,29 @@
         </div>
     </section>
     <!-- Page Top section end -->
-
     <!-- Blog posts section -->
     <section class="blog-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9">
                     {% for post in pagination.data %}
-                    <a href="post?id={{ post.id }}" title="{{ post.title }}">
-                        <div class="blog-post">
-                            <img src="img/blog/3.jpg" alt="" class="post-thumb">
-                            <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
-                            <h4>{{ post.title }}</h4>
-                            <div class="post-metas">
-                                <div class="post-meta">Par {{ post.author }}</div>
+                        <a href="post?id={{ post.id }}" title="{{ post.title }}">
+                            <div class="blog-post">
+                                <img src="img/blog/3.jpg" alt="" class="post-thumb">
+                                <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
+                                <h4>{{ post.title }}</h4>
+                                <div class="post-metas">
+                                    <div class="post-meta">Par {{ post.author }}</div>
+                                </div>
+                                <p>{{ post.content|length > 50 ? post.content|slice(0, 200) ~ '...' : post.content }}</p>
                             </div>
-                            <p>{{ post.content|length > 50 ? post.content|slice(0, 200) ~ '...' : post.content  }}</p>
-                        </div>
-                    </a>
+                        </a>
                     {% endfor %}
                     {% include 'Default/_pagination.html.twig' with {'nbPages':pagination.nbPages, 'currentPage':pagination.currentPage} only %}
                 </div>
                 <!-- sidebar -->
                 <div class="col-lg-3 col-md-5 col-sm-8 sidebar">
-                    {% include 'Default/_sidebar.html.twig'  %}
+                    {% include 'Default/_sidebar.html.twig' %}
                 </div>
             </div>
         </div>
