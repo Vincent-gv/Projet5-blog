@@ -8,7 +8,7 @@ use Core\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
-    public function articleAction()
+    public function __invoke()
     {
         $postId = $_GET['id'];
         $postRepository = $this->getRepository(Post::class);

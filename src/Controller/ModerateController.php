@@ -8,7 +8,7 @@ use Core\Controller\AbstractController;
 
 class ModerateController extends AbstractController
 {
-    public function moderateAction()
+    public function __invoke()
     {
         $this->redirectAnonymousUser();
         $postRepository = $this->getRepository(Post::class);

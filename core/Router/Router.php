@@ -17,11 +17,8 @@ class Router
             die ('Class ' . $controllerFullName . ' doesn\'t exist');
         }
         $controller = new $controllerFullName();
-        $actionName = $route->getActionName() . 'Action';
-        if (!method_exists($controller, $actionName)) {
-            die ('Method ' . $actionName . ' doesn\'t exist in Class ' . $controllerFullName);
-        }
-        $controller->$actionName();
+
+        $controller();
     }
 
     private function getRouteByUrl(string $url): ?Route

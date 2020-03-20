@@ -6,7 +6,7 @@ use Core\Controller\AbstractController;
 
 class HomepageController extends AbstractController
 {
-    public function homepageAction()
+    public function __invoke()
     {
         $postMessage = null;
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
