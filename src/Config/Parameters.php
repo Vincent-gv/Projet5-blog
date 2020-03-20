@@ -16,6 +16,7 @@ class Parameters implements ParametersInterface
             new Parameter(self::KEY_DATABASE_DNS, 'mysql:host=localhost;dbname=blog'),
             new Parameter(self::KEY_DATABASE_USER, 'root'),
             new Parameter(self::KEY_DATABASE_PASSWORD, ''),
+            new Parameter(self::KEY_IS_DEBUG, true),
         ];
     }
 }
