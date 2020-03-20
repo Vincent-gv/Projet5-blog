@@ -7,7 +7,7 @@ use Core\Controller\AbstractController;
 
 class ConnectController extends AbstractController
 {
-    public function connectAction()
+    public function __invoke()
     {
         $userRepository = $this->getRepository(User::class);
         $formUser = new User();

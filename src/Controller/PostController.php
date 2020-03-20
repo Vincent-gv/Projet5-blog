@@ -7,7 +7,7 @@ use Core\Controller\AbstractController;
 
 class PostController extends AbstractController
 {
-    public function postAction()
+    public function __invoke()
     {
         $this->redirectAnonymousUser();
         $postRepository = $this->getRepository(Post::class);

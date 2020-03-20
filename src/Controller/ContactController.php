@@ -6,7 +6,7 @@ use Core\Controller\AbstractController;
 
 class ContactController extends AbstractController
 {
-    public function contactAction()
+    public function __invoke()
     {
         $postMessage = null;
         if ('POST' === $_SERVER['REQUEST_METHOD']) {

@@ -7,7 +7,7 @@ use Core\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    public function userAction()
+    public function __invoke()
     {
         $this->redirectAnonymousUser();
         $userRepository = $this->getRepository(User::class);

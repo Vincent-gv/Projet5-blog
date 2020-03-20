@@ -7,7 +7,7 @@ use Core\Controller\AbstractController;
 
 class BlogController extends AbstractController
 {
-    public function blogAction()
+    public function __invoke()
     {
         $postRepository = $this->getRepository(Post::class);
         $pageIndex = intval($_GET['page'] ?? 1);

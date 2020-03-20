@@ -7,7 +7,7 @@ use Core\Controller\AbstractController;
 
 class UpdateController extends AbstractController
 {
-    public function updateAction()
+    public function __invoke()
     {
         $this->redirectAnonymousUser();
         $id = $_GET['id'];
