@@ -1,2 +1,3 @@
 # Blog 
-School project for Openclassroom
+Projet 5 - Parcours Développeur d'application - PHP / Symfony
+Openclassroom
