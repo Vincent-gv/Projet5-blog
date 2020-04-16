@@ -21,8 +21,7 @@
                     <div class="blog-post">
                         <img src="img/blog/3.jpg" alt="" class="post-thumb">
                         {% if user() %}
-                            <div class="admin-button"><a class="form-warp-link" href="./modifier?id={{ post.id }}"
-                                                         title="{{ post.title }}">Modifier</a></div>
+                            <div class="admin-button"><a class="form-warp-link" href="./modifier?id={{ post.id }}" title="Modifier '{{ post.title }}'">Modifier</a></div>
                         {% endif %}
                         <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
                         <h4>{{ post.title }}</h4>
@@ -34,7 +33,7 @@
                         <p class="mt-4">{{ post.content }}</p>
                     </div>
                     <h4 class="s-title" id="comments">Commentaires <small>({{ countComments }})</small></h4>
-                    {% include 'Default/_comments.html.twig' with { 'comments':comments,'formComment':formComment, 'errors':errors } only %}
+                    {% include 'Default/_comments.html.twig' with { 'comments':comments, 'formComment':formComment, 'csrfToken':csrfToken, 'postMessage':postMessage, 'errors':errors } only %}
                 </div>
                 <!-- sidebar -->
                 <div class="col-lg-3 col-md-5 col-sm-8 sidebar">

@@ -24,6 +24,15 @@
                     <div class="blog-post">
                         <form id="post-article" class="clearfix" method="post" action="#post-article">
                             <div class="form-group mt-2">
+                                {% if errors.token is defined %}
+                                    <div class="alert alert-warning" role="alert">
+                                        <ul>
+                                            {% for error in errors.token %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
                                 {% if errors.title is defined and errors.content is defined %}
                                     <div class="alert alert-danger mt-2" role="alert">L'article n'a pu être publié.
                                         Merci de corriger les erreurs indiquées :
@@ -59,7 +68,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="content">Contenu :</label>
-                                <textarea class="form-control" rows="5" name="content">{{ getPost.content }}</textarea>
+                                <textarea class="form-control" rows="15" name="content">{{ getPost.content }}</textarea>
                                 {% if errors.content is defined %}
                                     <div class="alert alert-primary mt-2" role="alert">
                                         <ul>
@@ -86,10 +95,12 @@
                                 {% endif %}
                                 <input type="submit" class="site-btn mt-4" value="Mettre à jour" name="update-post">
                             </div>
+                            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
                         </form>
                         <form method="POST">
                             <input type="submit" onClick="return confirm('Supprimer l\'article {{ getPost.title }} ?')"
                                    class="site-btn btn-purple delete" value="Supprimer" name="delete-post">
+                            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
                         </form>
                     </div>
                 </div>

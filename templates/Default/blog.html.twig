@@ -23,11 +23,18 @@
                             <div class="blog-post">
                                 <img src="img/blog/3.jpg" alt="" class="post-thumb">
                                 <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
-                                <h4>{{ post.title }}</h4>
+                                {% if user() %}
+                                    <div class="admin-button"><a class="form-warp-link" href="./modifier?id={{ post.id }}" title="Modifier '{{ post.title }}'">Modifier</a></div>
+                                {% endif %}
+                                <a href="post?id={{ post.id }}" title="{{ post.title }}">
+                                    <h4>{{ post.title }}</h4>
+                                </a>
                                 <div class="post-metas">
                                     <div class="post-meta">Par {{ post.author }}</div>
                                 </div>
-                                <p>{{ post.content|length > 50 ? post.content|slice(0, 200) ~ '...' : post.content }}</p>
+                                <a href="post?id={{ post.id }}" title="{{ post.title }}">
+                                    <p>{{ post.chapo|length > 50 ? post.chapo|slice(0, 200) ~ '...' : post.chapo }}</p>
+                                </a>
                             </div>
                         </a>
                     {% endfor %}

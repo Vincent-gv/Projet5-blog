@@ -1,6 +1,6 @@
 <?php
 
-require '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Core\Config\ParameterManager;
 use Core\Config\ParametersInterface;
@@ -15,6 +15,7 @@ else {
     error_reporting(0);
     ini_set('display_errors', 0);
 }
+
 session_start();
 
 (new Router())->run(explode('?',$_SERVER['REQUEST_URI'])[0] ?? '/');

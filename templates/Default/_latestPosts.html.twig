@@ -1,7 +1,7 @@
 {% for post in latestPosts() %}
     <div class="lp-item">
         <a href="post?id={{ post.id }}" title="{{ post.title }}">
-            <div class="lp-thumb set-bg" data-setbg="/img/footer-thumb/3.jpg"></div>
+            <div class="lp-thumb set-bg" data-setbg="/img/thumb.jpg"></div>
             <div class="lp-content">
                 <h6>{{ post.title }}</h6>
                 <span>{{ post.createdAt | date('d/m/Y') }}</span>
