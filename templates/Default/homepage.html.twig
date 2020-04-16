@@ -20,6 +20,7 @@
                         <!-- Modal -->
                         <div class="modal fade" id="monCv" tabindex="-1" role="dialog" aria-labelledby="monCvTitle"
                              aria-hidden="true">
+                            {% if user() %}
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -32,6 +33,20 @@
                                     </div>
                                 </div>
                             </div>
+                            {% else %}
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <div class="text-body">
+                                                Vous devez être connecté pour voir mon CV
+                                            </div>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" class="text-primary">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                         <!-- Modal end -->
                     </div>
@@ -61,7 +76,7 @@
                             </div>
                             <h4>{{ post.title }}</h4>
                             <span>{{ post.createdAt | date('d/m/Y') }}</span>
-                            <p>{{ post.content|length > 50 ? post.content|slice(0, 120) ~ '...' : post.content }}</p>
+                            <p>{{ post.chapo|length > 50 ? post.chapo|slice(0, 120) ~ '...' : post.chapo }}</p>
                         </a>
                     </div>
                 {% else %}
@@ -81,53 +96,66 @@
                     {% endif %}</p>
             </div>
             <div class="row" id="form-homepage">
-                {% if postMessage is not null %}
-                    <div class="mx-auto">
-                        <div class="alert alert-success" role="alert"><img src="img/icons/3.png" class="mr-2"
-                                                                           style="position: relative;bottom: 2px;"> {{ postMessage }}
+                <div class="col-lg-3 contact-text text-white">
+                    <h4>Vincent /<br><br>Développeur</h4>
+                    <div class="cont-info">
+                        <div class="ci-icon">
+                            <img src="img/icons/1.png">
                         </div>
+                        <span class="text-white">Saint-Rémy-Lès-Chevreuse</span>
                     </div>
-                {% else %}
-                    <div class="col-lg-3 contact-text text-white">
-
-                        <h4>Vincent<br><br>Gauchevertu</h4>
-                        <div class="cont-info">
-                            <div class="ci-icon">
-                                <img src="img/icons/1.png">
-                            </div>
-                            <span class="text-white">Saint-Rémy-Lès-Chevreuse</span>
+                    <div class="cont-info">
+                        <div class="ci-icon">
+                            <img src="img/icons/2.png" alt="">
                         </div>
-                        <div class="cont-info">
-                            <div class="ci-icon">
-                                <img src="img/icons/2.png" alt="">
-                            </div>
-                            <span class="text-white">+33 (0)6 99 18 17 59</span>
-                        </div>
-                        <div class="cont-info">
-                            <div class="ci-icon">
-                                <img src="img/icons/3.png" alt="">
-                            </div>
-                            <span class="text-white">contact@vincent-dev.com</span>
-                        </div>
+                        <span class="text-white">+33 (0)6 09 08 17 09</span>
                     </div>
-                    <div class="col-lg-9">
-                        <form id="home-contact" class="contact-form" method="post" action="#form">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" name="name" placeholder="Votre nom" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="email" name="email" placeholder="Votre e-mail" required>
-                                </div>
+                    <div class="cont-info">
+                        <div class="ci-icon">
+                            <img src="img/icons/3.png" alt="">
+                        </div>
+                        <span class="text-white">contact@vincent-dev.com</span>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <form id="contact" class="contact-form" method="post" action="#form">
+                        <div class="row">
+                            {% if postMessage is not null %}
                                 <div class="col-md-12">
-                                    <input type="text" name="subject" placeholder="Sujet">
-                                    <textarea name="message" placeholder="Message" required></textarea>
-                                    <button class="site-btn">Envoyer</button>
+                                    <div class="alert alert-success" role="alert">
+                                        <ul>
+                                            <li>{{ postMessage }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
+                            {% endif %}
+                            {% if errors is not empty %}
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning" role="alert">
+                                        <ul>
+                                            {% for error in errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="col-md-6">
+                                <input type="text" name="name" placeholder="Votre nom" required>
                             </div>
-                        </form>
-                    </div>
-                {% endif %}
+                            <div class="col-md-6">
+                                <input type="email" name="email" placeholder="Votre e-mail" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" name="subject" placeholder="Sujet">
+                                <textarea name="message" placeholder="Message" required></textarea>
+                                <div class="g-recaptcha mt-1" data-sitekey="6Leh4-kUAAAAAOspZuwp7wj1a0xAnqD9YKYCN-eA"></div>
+                                <button class="site-btn mt-3">Envoyer</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+                    </form>
+                </div>
             </div>
         </div>
     </section>

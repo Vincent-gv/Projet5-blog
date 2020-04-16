@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Core\Controller\AbstractController;
+use Core\Util\CSRF;
 
 class ConnectController extends AbstractController
 {
@@ -17,6 +18,7 @@ class ConnectController extends AbstractController
         $password = $formUser->getPassword();
         $user = $userRepository->findByEmail($email);
         $errors = [];
+        $csrfToken = $_POST['csrfToken'] ?? '';
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             if (empty($email)) {
                 $errors['user'][] = 'L\'identifiant ne peut pas être vide';
@@ -28,7 +30,11 @@ class ConnectController extends AbstractController
             } else if (!password_verify($password, $user->getPassword())) {
                 $errors['user'][] = 'Identifiants incorrects';
             }
+            if (!CSRF::checkToken($csrfToken)) {
+                $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
+            }
             if (empty($errors)) {
+                sleep(1);
                 $_SESSION['userConnected'] = $user;
                 $this->redirect('/admin');
             }
@@ -39,6 +45,7 @@ class ConnectController extends AbstractController
         }
         $this->render('Default/admin.html.twig', [
             'errors' => $errors,
+            'csrfToken' => CSRF::generateToken(),
             'formUser' => $formUser
         ]);
     }

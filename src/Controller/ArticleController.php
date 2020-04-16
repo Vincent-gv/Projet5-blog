@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Post;
 use Core\Controller\AbstractController;
+use Core\Util\CSRF;
 
 class ArticleController extends AbstractController
 {
@@ -15,10 +16,11 @@ class ArticleController extends AbstractController
         $commentRepository = $this->getRepository(Comment::class);
         $comments = $commentRepository->findBy(['post_id' => $postId]);
         $countComments = $commentRepository->countPostComments($postId);
-        $successMessage = null;
         $article = $postRepository->find($postId);
-        $formComment = new Comment();
         $errors = [];
+        $csrfToken = $_POST['csrfToken'] ?? '';
+        $postMessage = null;
+        $formComment = new Comment();
         $formComment->setUsername($_POST['username'] ?? null);
         $formComment->setComment($_POST['comment'] ?? null);
         $formComment->setPostId($postId);
@@ -36,16 +38,23 @@ class ArticleController extends AbstractController
             if (strlen($formComment->getComment()) < 3) {
                 $errors['comment'][] = 'Le commentaire doit faire 3 caractères ou plus';
             }
+            if (!CSRF::checkToken($csrfToken)) {
+                $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
+            }
             if (empty($errors)) {
+                sleep(1);
+                $postMessage = 'Commentaire envoyé en attente de modération.';
                 $commentRepository->createComment($formComment);
-                $this->redirect($_SERVER['HTTP_REFERER']);
+                //$this->redirect($_SERVER['HTTP_REFERER']);
             }
         }
         $this->render('Default/post.html.twig', [
+            'postMessage' => $postMessage,
             'post' => $article,
             'comments' => $comments,
             'countComments' => $countComments,
             'errors' => $errors,
+            'csrfToken' => CSRF::generateToken(),
             'formComment' => $formComment
         ]);
     }

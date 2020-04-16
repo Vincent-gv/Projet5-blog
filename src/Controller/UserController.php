@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Core\Controller\AbstractController;
+use Core\Util\CSRF;
 
 class UserController extends AbstractController
 {
@@ -16,6 +17,7 @@ class UserController extends AbstractController
         $formUser->setEmail($_POST['email'] ?? null);
         $formUser->setPassword($_POST['password'] ?? null);
         $errors = [];
+        $csrfToken = $_POST['csrfToken'] ?? '';
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             if (empty($formUser->getUsername())) {
                 $errors['user'][] = 'Le nom d\'utilisateur ne peut pas être vide';
@@ -32,13 +34,18 @@ class UserController extends AbstractController
             } else if (strlen($formUser->getPassword()) < 3) {
                 $errors['user'][] = 'Le mot de passe doit faire 3 caractères ou plus';
             }
+            if (!CSRF::checkToken($csrfToken)) {
+                $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
+            }
             if (empty($errors)) {
+                sleep(1);
                 $userRepository->createUser($formUser);
                 $this->redirect('/admin');
             }
         }
         $this->render('Default/user.html.twig', [
             'errors' => $errors,
+            'csrfToken' => CSRF::generateToken(),
             'formUser' => $formUser
         ]);
     }

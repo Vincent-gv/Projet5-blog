@@ -1,9 +1,25 @@
 <form class="clearfix" method="post" action="#comments">
     <div class="form-group mt-2">
         <h6 class="mb-4"><img src="/img/icons/edit.png" class="mr-1"> Ajouter un commentaire</h6>
+        {% if postMessage is not null %}
+            <div class="alert alert-success" role="alert">
+                <ul>
+                    <li>{{ postMessage }}</li>
+                </ul>
+            </div>
+        {% endif %}
         {% if errors.username is defined and errors.comment is defined %}
             <div class="alert alert-danger mt-2" role="alert">Votre commentaire n'a pu être envoyé. Merci de corriger
                 les erreurs indiquées :
+            </div>
+        {% endif %}
+        {% if errors.token is defined %}
+            <div class="alert alert-warning" role="alert">
+                <ul>
+                    {% for error in errors.token %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             </div>
         {% endif %}
         <label for="nom">Nom ou pseudo :</label>
@@ -34,8 +50,10 @@
                 </ul>
             </div>
         {% endif %}
-        <input type="submit" name="delete" class="site-btn mt-4 mb-4" value="Envoyer">
+        <div class="g-recaptcha mt-3" data-sitekey="6Leh4-kUAAAAAOspZuwp7wj1a0xAnqD9YKYCN-eA"></div>
+        <input type="submit" name="delete" class="site-btn mt-3 mb-4" value="Envoyer">
     </div>
+    <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
 </form>
 {% for comment in comments %}
     {% if comment.status %}

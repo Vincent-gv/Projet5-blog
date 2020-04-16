@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use Core\Controller\AbstractController;
+use Core\Util\CSRF;
 
 class PostController extends AbstractController
 {
@@ -13,6 +14,7 @@ class PostController extends AbstractController
         $postRepository = $this->getRepository(Post::class);
         $formPost = new Post();
         $errors = [];
+        $csrfToken = $_POST['csrfToken'] ?? '';
         $formPost->setTitle($_POST['title'] ?? null);
         $formPost->setChapo($_POST['chapo'] ?? null);
         $formPost->setContent($_POST['content'] ?? null);
@@ -43,14 +45,19 @@ class PostController extends AbstractController
             if (strlen($formPost->getAuthor()) < 3) {
                 $errors['author'][] = 'Le nom de l\'auteur doit faire 3 caractères ou plus';
             }
+            if (!CSRF::checkToken($csrfToken)) {
+                $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
+            }
             if (empty($errors)) {
+                sleep(1);
                 $postRepository->createPost($formPost);
                 $id = $postRepository->getLastInsertId();
                 $this->redirect('/post?id=' . $id);
             }
         }
-        $this->render('Default/newPost.html.twig', [
+        $this->render('Default/createPost.html.twig', [
             'errors' => $errors,
+            'csrfToken' => CSRF::generateToken(),
             'formPost' => $formPost
         ]);
     }
