@@ -63,14 +63,15 @@ abstract class AbstractController
 
         // verify captcha
         $captcha = new TwigFunction('captcha', function () {
-            $googleResponse = false;
-            $ch = curl_init("https://www.google.com/recaptcha/api/siteverify");
-            curl_setopt_array($ch, array(CURLOPT_POSTFIELDS => array("secret" => "6Leh4-kUAAAAAJOHUwnl6_p9KkyG8qCtdIYKY7NR", "response" => $_POST["g-recaptcha-response"]), CURLOPT_RETURNTRANSFER => true));
-            $googleResponse = curl_exec($ch);
-            if(curl_errno($ch) == false && json_decode($response)->success == true) {
-                $googleResponse = true;
+            $reCaptcha = new ReCaptcha('6Leh4-kUAAAAAJOHUwnl6_p9KkyG8qCtdIYKY7NR');
+            if(isset($_POST["g-recaptcha-response"])) {
+                $resp = $reCaptcha->verifyResponse(
+                    $_SERVER["REMOTE_ADDR"],
+                    $_POST["g-recaptcha-response"]
+                );
+                if ($resp != null && $resp->success) {echo "OK";}
+                else {echo "CAPTCHA incorrect";}
             }
-            curl_close($ch);
         });
         $twig->addFunction($captcha);
     }
