@@ -2,63 +2,59 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use Core\Controller\AbstractController;
+use Core\Util\FlashBag;
 use Core\Util\CSRF;
 
-class PostController extends AbstractController
+class ArticleController extends AbstractController
 {
     public function __invoke()
     {
-        $this->redirectAnonymousUser();
+        $postId = $_GET['id'];
         $postRepository = $this->getRepository(Post::class);
-        $formPost = new Post();
+        $commentRepository = $this->getRepository(Comment::class);
+        $comments = $commentRepository->findBy(['post_id' => $postId]);
+        $countComments = $commentRepository->countPostComments($postId);
+        $article = $postRepository->find($postId);
         $errors = [];
         $csrfToken = $_POST['csrfToken'] ?? '';
-        $formPost->setTitle($_POST['title'] ?? null);
-        $formPost->setChapo($_POST['chapo'] ?? null);
-        $formPost->setContent($_POST['content'] ?? null);
-        $formPost->setAuthor($_POST['author'] ?? null);
-        // Post Post
+        $formComment = new Comment();
+        $formComment->setUsername($_POST['username'] ?? null);
+        $formComment->setComment($_POST['comment'] ?? null);
+        $formComment->setPostId($postId);
+        // Post Comment
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            if (empty($formPost->getTitle())) {
-                $errors['title'][] = 'Indiquer un titre';
+            if (empty($formComment->getUsername())) {
+                $errors['username'][] = 'Indiquer un nom d\'utilisateur';
             }
-            if (strlen($formPost->getTitle()) < 3) {
-                $errors['title'][] = 'Le titre doit faire 3 caractères ou plus';
+            if (strlen($formComment->getUsername()) < 3) {
+                $errors['username'][] = 'Le nom doit faire 3 caractères ou plus';
             }
-            if (empty($formPost->getChapo())) {
-                $errors['chapo'][] = 'Remplissez le chapô';
+            if (empty($formComment->getComment())) {
+                $errors['comment'][] = 'Le commentaire ne peut pas être vide';
             }
-            if (strlen($formPost->getChapo()) < 3) {
-                $errors['chapo'][] = 'Le chapô doit faire 3 caractères ou plus';
-            }
-            if (empty($formPost->getContent())) {
-                $errors['content'][] = 'Le contenu de l\'article ne peut pas être vide';
-            }
-            if (strlen($formPost->getContent()) < 3) {
-                $errors['content'][] = 'Le contenu doit faire 3 caractères ou plus';
-            }
-            if (empty($formPost->getAuthor())) {
-                $errors['author'][] = 'Le nom de l\'auteur ne peut pas être vide';
-            }
-            if (strlen($formPost->getAuthor()) < 3) {
-                $errors['author'][] = 'Le nom de l\'auteur doit faire 3 caractères ou plus';
+            if (strlen($formComment->getComment()) < 3) {
+                $errors['comment'][] = 'Le commentaire doit faire 3 caractères ou plus';
             }
             if (!CSRF::checkToken($csrfToken)) {
                 $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
             }
             if (empty($errors)) {
                 usleep(500000);
-                $postRepository->createPost($formPost);
-                $id = $postRepository->getLastInsertId();
-                $this->redirect('/post?id=' . $id);
+                $commentRepository->createComment($formComment);
+                FlashBag::addFlash('Commentaire envoyé en attente de modération.', 'success');
+                $this->redirect($_SERVER['HTTP_REFERER']);
             }
         }
-        $this->render('Default/createPost.html.twig', [
+        $this->render('Default/post.html.twig', [
+            'post' => $article,
+            'comments' => $comments,
+            'countComments' => $countComments,
             'errors' => $errors,
             'csrfToken' => CSRF::generateToken(),
-            'formPost' => $formPost
+            'formComment' => $formComment
         ]);
     }
 }
