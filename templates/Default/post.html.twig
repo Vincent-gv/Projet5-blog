@@ -33,7 +33,7 @@
                         <p class="mt-4">{{ post.content }}</p>
                     </div>
                     <h4 class="s-title" id="comments">Commentaires <small>({{ countComments }})</small></h4>
-                    {% include 'Default/_comments.html.twig' with { 'comments':comments, 'formComment':formComment, 'csrfToken':csrfToken, 'postMessage':postMessage, 'errors':errors } only %}
+                    {% include 'Default/_comments.html.twig' with { 'comments':comments, 'formComment':formComment, 'csrfToken':csrfToken, 'errors':errors } only %}
                 </div>
                 <!-- sidebar -->
                 <div class="col-lg-3 col-md-5 col-sm-8 sidebar">

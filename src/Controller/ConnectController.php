@@ -34,7 +34,7 @@ class ConnectController extends AbstractController
                 $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
             }
             if (empty($errors)) {
-                sleep(1);
+                usleep(500000);
                 $_SESSION['userConnected'] = $user;
                 $this->redirect('/admin');
             }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Core\Controller\AbstractController;
 use Core\Util\CSRF;
+use Core\Util\Captcha;
 
 class HomepageController extends AbstractController
 {
@@ -12,6 +13,7 @@ class HomepageController extends AbstractController
         $postMessage = null;
         $errors = [];
         $csrfToken = $_POST['csrfToken'] ?? '';
+        $reCaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             $name = htmlentities($_POST['name']);
             $email = htmlentities($_POST['email']);
@@ -29,10 +31,13 @@ class HomepageController extends AbstractController
             $headers .= 'Reply-to : ' . $email . '' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             if (!CSRF::checkToken($csrfToken)) {
-                $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
+                $errors[] = 'Token invalide, veuillez renvoyer le formulaire';
+            }
+            if (!Captcha::reCaptcha($reCaptchaResponse)) {
+                $errors[] = 'Captcha incorrect, merci de recommencer';
             }
             if (empty($errors)) {
-                sleep(1);
+                usleep(500000);
                 @mail($recipient, 'Nouveau message (vincent-dev.com)', $content, $headers);
                 $postMessage = 'Message envoyé ! Merci :)';
             }

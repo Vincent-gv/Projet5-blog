@@ -49,7 +49,7 @@ class PostController extends AbstractController
                 $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
             }
             if (empty($errors)) {
-                sleep(1);
+                usleep(500000);
                 $postRepository->createPost($formPost);
                 $id = $postRepository->getLastInsertId();
                 $this->redirect('/post?id=' . $id);

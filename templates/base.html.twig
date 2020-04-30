@@ -31,6 +31,13 @@
 </head>
 <body>
 {% block body %}
+    {% for type, messages in flashbag() %}
+    {% for message in messages %}
+    <div class="alert alert-{{ type }}" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endfor %}
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>

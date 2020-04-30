@@ -32,7 +32,7 @@ class ContactController extends AbstractController
                 $errors[] = 'Token invalide, veuillez renvoyer le formulaire';
             }
             if (empty($errors)) {
-                sleep(1);
+                usleep(500000);
                 @mail($recipient, 'Nouveau message (vincent-dev.com)', $content, $headers);
                 $postMessage = 'Message envoyé ! Merci :)';
             }

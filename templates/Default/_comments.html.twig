@@ -1,13 +1,6 @@
 <form class="clearfix" method="post" action="#comments">
     <div class="form-group mt-2">
         <h6 class="mb-4"><img src="/img/icons/edit.png" class="mr-1"> Ajouter un commentaire</h6>
-        {% if postMessage is not null %}
-            <div class="alert alert-success" role="alert">
-                <ul>
-                    <li>{{ postMessage }}</li>
-                </ul>
-            </div>
-        {% endif %}
         {% if errors.username is defined and errors.comment is defined %}
             <div class="alert alert-danger mt-2" role="alert">Votre commentaire n'a pu être envoyé. Merci de corriger
                 les erreurs indiquées :

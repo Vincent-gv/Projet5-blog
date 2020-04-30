@@ -5,6 +5,7 @@ namespace Core\Controller;
 use App\Entity\Post;
 use Core\Database\Repository\AbstractRepository;
 use Core\Database\Repository\RepositoryFactory;
+use Core\Util\FlashBag;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFunction;
@@ -30,6 +31,7 @@ abstract class AbstractController
     public function redirect(string $url)
     {
         header('Location: ' . $url);
+        die();
     }
 
     public function isConnected(): bool
@@ -61,18 +63,10 @@ abstract class AbstractController
         });
         $twig->addFunction($user);
 
-        // verify captcha
-        $captcha = new TwigFunction('captcha', function () {
-            $reCaptcha = new ReCaptcha('6Leh4-kUAAAAAJOHUwnl6_p9KkyG8qCtdIYKY7NR');
-            if(isset($_POST["g-recaptcha-response"])) {
-                $resp = $reCaptcha->verifyResponse(
-                    $_SERVER["REMOTE_ADDR"],
-                    $_POST["g-recaptcha-response"]
-                );
-                if ($resp != null && $resp->success) {echo "OK";}
-                else {echo "CAPTCHA incorrect";}
-            }
+        // Flashbag
+        $flashbag = new TwigFunction('flashbag', function () {
+            return FlashBag::getFlashs();
         });
-        $twig->addFunction($captcha);
+        $twig->addFunction($flashbag);
     }
 }

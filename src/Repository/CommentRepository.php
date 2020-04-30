@@ -47,7 +47,7 @@ class CommentRepository extends AbstractRepository
             'post_id' => $comment->getPostId(),
             'username' => $comment->getUsername(),
             'comment' => $comment->getComment(),
-            'created_at' => $comment->getCreatedAt()->format('d/m/y H:i:s'),
+            'created_at' => $comment->getCreatedAt()->format('Y-m-d H:i:s'),
             'status' => $comment->getStatus()
         ]);
     }

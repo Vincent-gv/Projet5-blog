@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Post;
 use Core\Controller\AbstractController;
+use Core\Util\FlashBag;
 use Core\Util\CSRF;
 
 class ArticleController extends AbstractController
@@ -19,7 +20,6 @@ class ArticleController extends AbstractController
         $article = $postRepository->find($postId);
         $errors = [];
         $csrfToken = $_POST['csrfToken'] ?? '';
-        $postMessage = null;
         $formComment = new Comment();
         $formComment->setUsername($_POST['username'] ?? null);
         $formComment->setComment($_POST['comment'] ?? null);
@@ -42,14 +42,13 @@ class ArticleController extends AbstractController
                 $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
             }
             if (empty($errors)) {
-                sleep(1);
-                $postMessage = 'Commentaire envoyé en attente de modération.';
+                usleep(500000);
                 $commentRepository->createComment($formComment);
-                //$this->redirect($_SERVER['HTTP_REFERER']);
+                FlashBag::addFlash('Commentaire envoyé en attente de modération.', 'success');
+                $this->redirect($_SERVER['HTTP_REFERER']);
             }
         }
         $this->render('Default/post.html.twig', [
-            'postMessage' => $postMessage,
             'post' => $article,
             'comments' => $comments,
             'countComments' => $countComments,

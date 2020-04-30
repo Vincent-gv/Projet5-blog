@@ -50,7 +50,7 @@ class UpdateController extends AbstractController
                 $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
             }
             if (empty($errors)) {
-                sleep(1);
+                usleep(500000);
                 $postRepository->updatePost($formPost);
                 $this->redirect('/post?id=' . $id);
             }

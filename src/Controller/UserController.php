@@ -38,7 +38,7 @@ class UserController extends AbstractController
                 $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
             }
             if (empty($errors)) {
-                sleep(1);
+                usleep(500000);
                 $userRepository->createUser($formUser);
                 $this->redirect('/admin');
             }
