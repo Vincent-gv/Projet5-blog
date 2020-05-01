@@ -17,7 +17,7 @@ class ContactController extends AbstractController
             $email = htmlentities($_POST['email']);
             $subject = htmlentities($_POST['subject']);
             $message = htmlentities($_POST['message']);
-            $recipient = 'vinzmass@gmail.com';
+            $recipient = 'vinzmass@gmail.com'; // replace with your email to test
             $content = '<html><head><title>Nouveau message (vincent-dev.com)</title></head><body>';
             $content .= '<p><strong>Nom</strong>: ' . $name . '</p>';
             $content .= '<p><strong>Email</strong>: ' . $email . '</p>';

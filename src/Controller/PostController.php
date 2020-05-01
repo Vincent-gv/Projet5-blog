@@ -8,7 +8,7 @@ use Core\Controller\AbstractController;
 use Core\Util\FlashBag;
 use Core\Util\CSRF;
 
-class ArticleController extends AbstractController
+class PostController extends AbstractController
 {
     public function __invoke()
     {

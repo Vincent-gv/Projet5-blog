@@ -25,7 +25,7 @@ git clone https://github.com/Vincent-gv/blog.git
 * L’adresse locale du projet dans le navigateur est localhost/blog  
 * Pour tester le projet, connectez-vous à l’admin blog/admin avec l’identifiant : admin@admin.com et le mot de passe 123456789  
 * Modifier et utiliser vos clés API Google pour l’utilisation du Captcha dans le dossier blog/Util/Captcha.php  
-* Pour recevoir les messages des formulaires de contact, remplacer l’adresse mail indiquée dans le fichier blog\src\Controller\ContactController.php dans la variable $recipient.
+* Pour tester les messages des formulaires de contact, remplacer l’adresse mail indiquée dans le fichier blog\src\Controller\ContactController.php dans la variable $recipient.
 
 ## Développé avec
 

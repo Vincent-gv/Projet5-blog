@@ -6,7 +6,7 @@ use App\Entity\Post;
 use Core\Controller\AbstractController;
 use Core\Util\CSRF;
 
-class PostController extends AbstractController
+class CreatePostController extends AbstractController
 {
     public function __invoke()
     {
