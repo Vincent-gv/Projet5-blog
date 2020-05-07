@@ -19,7 +19,6 @@ class CreatePostController extends AbstractController
         $formPost->setChapo($_POST['chapo'] ?? null);
         $formPost->setContent($_POST['content'] ?? null);
         $formPost->setAuthor($_POST['author'] ?? null);
-        // Post Post
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             if (empty($formPost->getTitle())) {
                 $errors['title'][] = 'Indiquer un titre';
@@ -55,7 +54,7 @@ class CreatePostController extends AbstractController
                 $this->redirect('/post?id=' . $id);
             }
         }
-        $this->render('Default/createPost.html.twig', [
+        $this->echoRender('Default/createPost.html.twig', [
             'errors' => $errors,
             'csrfToken' => CSRF::generateToken(),
             'formPost' => $formPost

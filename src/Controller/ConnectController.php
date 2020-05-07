@@ -43,7 +43,7 @@ class ConnectController extends AbstractController
                 $this->redirect('./');
             }
         }
-        $this->render('Default/admin.html.twig', [
+        $this->echoRender('Default/admin.html.twig', [
             'errors' => $errors,
             'csrfToken' => CSRF::generateToken(),
             'formUser' => $formUser

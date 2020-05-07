@@ -25,7 +25,12 @@ abstract class AbstractController
         ]);
         $this->extendTwig($twig);
 
-        echo $twig->render($name, $context);
+        return $twig->render($name, $context);
+    }
+
+    public function echoRender(string $name, array $context = [])
+    {
+        echo $this->render($name, $context);
     }
 
     public function redirect(string $url)

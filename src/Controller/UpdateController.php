@@ -59,7 +59,7 @@ class UpdateController extends AbstractController
             $postRepository->deletePost($id);
             $this->redirect('./blog');
         }
-        $this->render('Default/updatePost.html.twig', [
+        $this->echoRender('Default/updatePost.html.twig', [
             'getPost' => $postId,
             'errors' => $errors,
             'formPost' => $formPost,

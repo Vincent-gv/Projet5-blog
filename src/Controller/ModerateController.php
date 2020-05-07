@@ -30,7 +30,7 @@ class ModerateController extends AbstractController
         foreach ($postsRaw as $post) {
             $posts [$post->getId()] = $post;
         }
-        $this->render('Default/moderate.html.twig', [
+        $this->echoRender('Default/moderate.html.twig', [
             'comment' => $commentRepository,
             'comments' => $comments,
             'posts' => $posts,

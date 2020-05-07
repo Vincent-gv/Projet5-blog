@@ -12,7 +12,7 @@ class BlogController extends AbstractController
         $postRepository = $this->getRepository(Post::class);
         $pageIndex = intval($_GET['page'] ?? 1);
         $pagination = $postRepository->pagination($pageIndex, 3);
-        $this->render('Default/blog.html.twig', [
+        $this->echoRender('Default/blog.html.twig', [
             'posts' => $postRepository,
             'pagination' => $pagination
         ]);

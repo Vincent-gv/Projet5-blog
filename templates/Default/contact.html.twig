@@ -67,8 +67,7 @@
                             <div class="col-md-12">
                                 <input type="text" name="subject" placeholder="Sujet">
                                 <textarea name="message" placeholder="Message" required></textarea>
-                                <div class="g-recaptcha mt-1"
-                                     data-sitekey="6Leh4-kUAAAAAOspZuwp7wj1a0xAnqD9YKYCN-eA"></div>
+                                <div class="g-recaptcha mt-1" data-sitekey="{{ captchaPublicKey.value }}"></div>
                                 <button class="site-btn mt-3">Envoyer</button>
                             </div>
                         </div>
@@ -83,6 +82,6 @@
 {% endblock %}
 {% block javascripts %} {{ parent() }}
     <!-- load for map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPo0NaEvefJ4N6U1WfCLqxuvhX_Fnl4gc"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ googleMapKey.value }}"></script>
     <script src="js/map.js"></script>
 {% endblock %}

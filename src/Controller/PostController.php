@@ -48,7 +48,7 @@ class PostController extends AbstractController
                 $this->redirect($_SERVER['HTTP_REFERER']);
             }
         }
-        $this->render('Default/post.html.twig', [
+        $this->echoRender('Default/post.html.twig', [
             'post' => $article,
             'comments' => $comments,
             'countComments' => $countComments,

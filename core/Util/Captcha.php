@@ -3,13 +3,16 @@
 
 namespace Core\Util;
 
+use Core\Config\ParameterManager;
+use Core\Config\ParametersInterface;
 use ReCaptcha\ReCaptcha;
 
 abstract class Captcha
 {
     static public function reCaptcha($reCaptchaResponse): string
     {
-        $reCaptcha = new ReCaptcha('6Leh4-kUAAAAAJOHUwnl6_p9KkyG8qCtdIYKY7NR');
+        $captchaSecretKey = ParameterManager::getParameter(ParametersInterface::KEY_CAPTCHA_SECRET_KEY);
+        $reCaptcha = new ReCaptcha($captchaSecretKey[1]);
         $resp = $reCaptcha->verify(
             $reCaptchaResponse,
             $_SERVER["REMOTE_ADDR"]

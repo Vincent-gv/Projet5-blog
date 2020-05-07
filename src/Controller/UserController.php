@@ -43,7 +43,7 @@ class UserController extends AbstractController
                 $this->redirect('/admin');
             }
         }
-        $this->render('Default/user.html.twig', [
+        $this->echoRender('Default/user.html.twig', [
             'errors' => $errors,
             'csrfToken' => CSRF::generateToken(),
             'formUser' => $formUser
