@@ -5,6 +5,8 @@ Openclassrooms
 
 Réalisation d'un blog Professionnel basé sur le modèle d'architecture MVC.
 
+![screenshot](http://vincent-dev.com/img/screenshot.jpg)
+
 ## Installer le projet
 
 ### Prérequis  
