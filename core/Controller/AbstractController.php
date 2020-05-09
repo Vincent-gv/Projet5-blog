@@ -2,7 +2,9 @@
 
 namespace Core\Controller;
 
+use App\Config\Parameters;
 use App\Entity\Post;
+use Core\Config\ParameterManager;
 use Core\Database\Repository\AbstractRepository;
 use Core\Database\Repository\RepositoryFactory;
 use Core\Util\FlashBag;
@@ -73,5 +75,17 @@ abstract class AbstractController
             return FlashBag::getFlashs();
         });
         $twig->addFunction($flashbag);
+
+        // Get Captcha Public Key
+        $captchaPublicKey = new TwigFunction('captchaPublicKey', function () {
+            return ParameterManager::getParameter(Parameters::KEY_CAPTCHA_PUBLIC_KEY)->getValue();
+        });
+        $twig->addFunction($captchaPublicKey);
+
+        // Get Google Map Public Key
+        $googleMapKey = new TwigFunction('googleMapKey', function () {
+            return ParameterManager::getParameter(Parameters::KEY_GOOGLE_MAP)->getValue();
+        });
+        $twig->addFunction($googleMapKey);
     }
 }
