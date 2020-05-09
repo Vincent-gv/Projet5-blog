@@ -13,14 +13,14 @@ class Parameters implements ParametersInterface
     public function getParameters(): array
     {
         return [
-            new Parameter(self::KEY_DATABASE_DNS, 'mysql:host=localhost;dbname=blog'),
-            new Parameter(self::KEY_DATABASE_USER, 'root'),
-            new Parameter(self::KEY_DATABASE_PASSWORD, ''),
-            new Parameter(self::KEY_IS_DEBUG, true),
-            new Parameter(self::KEY_EMAIL_CONTACT, 'vinzmass@gmail.com'),
-            new Parameter( self::KEY_CAPTCHA_PUBLIC_KEY, '6Leh4-kUAAAAAOspZuwp7wj1a0xAnqD9YKYCN-eA'),
-            new Parameter( self::KEY_CAPTCHA_SECRET_KEY, '6Leh4-kUAAAAAJOHUwnl6_p9KkyG8qCtdIYKY7NR'),
-            new Parameter( self::KEY_GOOGLE_MAP, 'AIzaSyCPo0NaEvefJ4N6U1WfCLqxuvhX_Fnl4gc')
+            new Parameter(self::KEY_DATABASE_DNS, 'mysql:host=localhost;dbname=blog'), // your db host and db name
+            new Parameter(self::KEY_DATABASE_USER, ''), // your db username
+            new Parameter(self::KEY_DATABASE_PASSWORD, ''), // your db password
+            new Parameter(self::KEY_IS_DEBUG, false), // indicate true to display errors
+            new Parameter(self::KEY_EMAIL_CONTACT, 'your email'), // your email,
+            new Parameter( self::KEY_CAPTCHA_PUBLIC_KEY, 'your Captcha public key'), // your captcha public key
+            new Parameter( self::KEY_CAPTCHA_SECRET_KEY, 'your Captcha secret key'), // your captcha secret key
+            new Parameter( self::KEY_GOOGLE_MAP, 'your Google Map key') // your google map key
         ];
     }
 }
