@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use Core\Controller\AbstractController;
 use Core\Util\CSRF;
+use Core\Util\FlashBag;
 
 class UpdateController extends AbstractController
 {
@@ -52,11 +53,13 @@ class UpdateController extends AbstractController
             if (empty($errors)) {
                 usleep(500000);
                 $postRepository->updatePost($formPost);
+                FlashBag::addFlash('Le post a bien été modifié.', 'success');
                 $this->redirect('/post?id=' . $id);
             }
         }
         if ($_POST['delete-post'] ?? false) {
             $postRepository->deletePost($id);
+            FlashBag::addFlash('Le post a été supprimé du blog.', 'success');
             $this->redirect('./blog');
         }
         $this->echoRender('Default/updatePost.html.twig', [

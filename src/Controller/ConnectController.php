@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use Core\Controller\AbstractController;
 use Core\Util\CSRF;
+use Core\Util\FlashBag;
 
 class ConnectController extends AbstractController
 {
@@ -40,7 +41,8 @@ class ConnectController extends AbstractController
             }
             if (isset($_POST['disconnect'])) {
                 unset($_SESSION['userConnected']);
-                $this->redirect('./');
+                FlashBag::addFlash('Déconnexion réussie.', 'success');
+                $this->redirect('/admin');
             }
         }
         $this->echoRender('Default/admin.html.twig', [

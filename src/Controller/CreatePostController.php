@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use Core\Controller\AbstractController;
 use Core\Util\CSRF;
+use Core\Util\FlashBag;
 
 class CreatePostController extends AbstractController
 {
@@ -51,6 +52,7 @@ class CreatePostController extends AbstractController
                 usleep(500000);
                 $postRepository->createPost($formPost);
                 $id = $postRepository->getLastInsertId();
+                FlashBag::addFlash('Nouveau post publié sur le blog.', 'success');
                 $this->redirect('/post?id=' . $id);
             }
         }

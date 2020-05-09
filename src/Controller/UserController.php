@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use Core\Controller\AbstractController;
 use Core\Util\CSRF;
+use Core\Util\FlashBag;
 
 class UserController extends AbstractController
 {
@@ -39,6 +40,7 @@ class UserController extends AbstractController
             }
             if (empty($errors)) {
                 usleep(500000);
+                FlashBag::addFlash('Le nouvel utilsateur a bien été créé.', 'success');
                 $userRepository->createUser($formUser);
                 $this->redirect('/admin');
             }
