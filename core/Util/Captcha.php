@@ -11,8 +11,8 @@ abstract class Captcha
 {
     static public function reCaptcha($reCaptchaResponse): string
     {
-        $captchaSecretKey = ParameterManager::getParameter(ParametersInterface::KEY_CAPTCHA_SECRET_KEY);
-        $reCaptcha = new ReCaptcha($captchaSecretKey[1]);
+        $captchaSecretKey = ParameterManager::getParameter(ParametersInterface::KEY_CAPTCHA_SECRET_KEY)->getValue();
+        $reCaptcha = new ReCaptcha($captchaSecretKey);
         $resp = $reCaptcha->verify(
             $reCaptchaResponse,
             $_SERVER["REMOTE_ADDR"]
