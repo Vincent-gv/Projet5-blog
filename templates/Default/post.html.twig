@@ -19,6 +19,13 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="blog-post">
+                        {% for type, messages in flashbag() %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ type }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
                         <img src="img/blog/3.jpg" alt="" class="post-thumb">
                         {% if user() %}
                             <div class="admin-button"><a class="form-warp-link" href="./modifier?id={{ post.id }}" title="Modifier '{{ post.title }}'">Modifier</a></div>

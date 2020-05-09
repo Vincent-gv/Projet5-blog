@@ -18,6 +18,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9">
+                    {% for type, messages in flashbag() %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ type }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                     {% for post in pagination.data %}
                         <a href="post?id={{ post.id }}" title="{{ post.title }}">
                             <div class="blog-post">

@@ -19,6 +19,13 @@
             <div class="domain-form-warp">
                 {% if user() %}
                     <h2>🚀 <small>Bienvenue {{ user().username }} !</small></h2>
+                    {% for type, messages in flashbag() %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ type }} mt-3" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                     <p class="mt-5 mb-4 blog-text">Que souhaitez-vous faire ?</p>
                     <div class="row">
                         <div class="col-sm-12">
@@ -60,6 +67,13 @@
                                 </ul>
                             </div>
                         {% endif %}
+                        {% for type, messages in flashbag() %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ type }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
                         <p class="mt-4 mb-4 blog-text">Merci d'indiquer un identifiant et un mot de passe pour vous
                             connecter.</p>
                         <input type="text" placeholder="Votre identifiant" name="login" value="{{ formUser.email }}"
