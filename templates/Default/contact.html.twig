@@ -56,59 +56,61 @@
                             </ul>
                         </div>
                     {% endif %}
-                    <form id="contact" class="contact-form" method="post" action="#form">
-                        <div class="row">
-                            <div class="col-md-6">
-                                {% if errors.name is defined %}
-                                    <div class="alert alert-warning" role="alert">
-                                        <ul>
-                                            {% for error in errors.name %}
-                                                <li>{{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %}
-                                <input type="text" name="name" placeholder="Votre nom">
+                    {% if displayForm == true %}
+                        <form id="contact" class="contact-form" method="post" action="#form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% if errors.name is defined %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <ul>
+                                                {% for error in errors.name %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                    <input type="text" name="name" placeholder="Votre nom" value="{{ name }}">
+                                </div>
+                                <div class="col-md-6">
+                                    {% if errors.email is defined %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <ul>
+                                                {% for error in errors.email %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                    <input type="email" name="email" placeholder="Votre e-mail" value="{{ email }}">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" name="subject" placeholder="Sujet" value="{{ subject }}">
+                                    {% if errors.message is defined %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <ul>
+                                                {% for error in errors.message %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                    <textarea name="message" placeholder="Message">{{ message }}</textarea>
+                                    {% if errors.captcha is defined %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <ul>
+                                                {% for error in errors.captcha %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                    <div class="g-recaptcha mt-1" data-sitekey="{{ captchaPublicKey() }}"></div>
+                                    <button class="site-btn mt-3">Envoyer</button>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                {% if errors.email is defined %}
-                                    <div class="alert alert-warning" role="alert">
-                                        <ul>
-                                            {% for error in errors.email %}
-                                                <li>{{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %}
-                                <input type="email" name="email" placeholder="Votre e-mail">
-                            </div>
-                            <div class="col-md-12">
-                                <input type="text" name="subject" placeholder="Sujet">
-                                {% if errors.message is defined %}
-                                    <div class="alert alert-warning" role="alert">
-                                        <ul>
-                                            {% for error in errors.message %}
-                                                <li>{{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %}
-                                <textarea name="message" placeholder="Message"></textarea>
-                                {% if errors.captcha is defined %}
-                                    <div class="alert alert-warning" role="alert">
-                                        <ul>
-                                            {% for error in errors.captcha %}
-                                                <li>{{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %}
-                                <div class="g-recaptcha mt-1" data-sitekey="{{ captchaPublicKey() }}"></div>
-                                <button class="site-btn mt-3">Envoyer</button>
-                            </div>
-                        </div>
-                        <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
-                    </form>
+                            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

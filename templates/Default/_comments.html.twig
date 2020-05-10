@@ -18,7 +18,7 @@
         <label for="nom">Nom ou pseudo :</label>
         <input type="text" class="form-control" name="username" value="{{ formComment.username }}" required>
         {% if errors.username is defined %}
-            <div class="alert alert-primary mt-2" role="alert">
+            <div class="alert alert-danger mt-2" role="alert">
                 <ul>
                     {% for error in errors.username %}
                         <li>
@@ -33,7 +33,7 @@
         <label for="comment">Commentaire :</label>
         <textarea class="form-control" rows="5" name="comment" required>{{ formComment.comment }}</textarea>
         {% if errors.comment is defined %}
-            <div class="alert alert-primary mt-2" role="alert">
+            <div class="alert lert-danger mt-2" role="alert">
                 <ul>
                     {% for error in errors.comment %}
                         <li>
@@ -43,7 +43,16 @@
                 </ul>
             </div>
         {% endif %}
-        <div class="g-recaptcha mt-3" data-sitekey="6Leh4-kUAAAAAOspZuwp7wj1a0xAnqD9YKYCN-eA"></div>
+        {% if errors.captcha is defined %}
+            <div class="alert alert-danger mt-3" role="alert">
+                <ul>
+                    {% for error in errors.captcha %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="g-recaptcha mt-3" data-sitekey="{{ captchaPublicKey() }}"></div>
         <input type="submit" name="delete" class="site-btn mt-3 mb-4" value="Envoyer">
     </div>
     <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>

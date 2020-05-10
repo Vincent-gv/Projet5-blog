@@ -56,6 +56,15 @@
                                 </ul>
                             </div>
                         {% endif %}
+                        {% for type, messages in flashbag() %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ type }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        <p class="mt-4 mb-4 blog-text">Merci d'indiquer un identifiant et un mot de passe pour vous
+                            connecter.</p>
                         {% if errors.user is defined %}
                             <div class="alert alert-danger" role="alert">
                                 <ul>
@@ -67,21 +76,34 @@
                                 </ul>
                             </div>
                         {% endif %}
-                        {% for type, messages in flashbag() %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{ type }}" role="alert">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-                        <p class="mt-4 mb-4 blog-text">Merci d'indiquer un identifiant et un mot de passe pour vous
-                            connecter.</p>
                         <input type="text" placeholder="Votre identifiant" name="login" value="{{ formUser.email }}"
                                class="mb-3">
-                        <input type="password" onfocus="this.value=''" placeholder="Votre mot de passe" name="password"
+                        {% if errors.password is defined %}
+                            <div class="alert alert-danger" role="alert">
+                                <ul>
+                                    {% for error in errors.password %}
+                                        <li>
+                                            {{ error }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <input type="password" onfocus="this.value=''" placeholder="Votre mot de passe" name="password" value="{{ formUser.password }}"
                                class="mb-3">
+                        {% if errors.captcha is defined %}
+                            <div class="alert alert-danger" role="alert">
+                                <ul>
+                                {% for error in errors.captcha %}
+                                    <li>
+                                    {{ error }}
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
                         <div class="text-center">
-                            <div class="g-recaptcha mt-1 d-flex justify-content-center" data-sitekey="6Leh4-kUAAAAAOspZuwp7wj1a0xAnqD9YKYCN-eA"></div>
+                            <div class="g-recaptcha mt-1 d-flex justify-content-center" data-sitekey="{{ captchaPublicKey() }}"></div>
                             <button name="connect" class="site-btn mt-3">Connexion</button>
                         </div>
                         <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
