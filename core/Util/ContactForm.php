@@ -17,9 +17,9 @@ abstract class ContactForm
             . 'From: ' . $email . "\r\n"
             . 'Reply-to:' . $email . '' . "\r\n";
         $content = '<p><strong>Message</strong>: ' . $message . '</p>';
-        FlashBag::addFlash('Votre message a bien été envoyé !', 'success');
+        FlashBag::addFlash('Merci ! Votre message a bien été envoyé.', 'success');
 
-        return @mail($recipient, 'Nouveau message :' . $subject . '', $content, $headers);
+        return @mail($recipient, 'Nouveau message : ' . $subject . '', $content, $headers);
     }
 
 }
