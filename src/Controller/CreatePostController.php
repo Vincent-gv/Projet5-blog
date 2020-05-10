@@ -51,9 +51,8 @@ class CreatePostController extends AbstractController
             if (empty($errors)) {
                 usleep(500000);
                 $postRepository->createPost($formPost);
-                $id = $postRepository->getLastInsertId();
                 FlashBag::addFlash('Nouveau post publié sur le blog.', 'success');
-                $this->redirect('/post?id=' . $id);
+                $this->redirect('./blog');
             }
         }
         $this->echoRender('Default/createPost.html.twig', [

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Post;
 use Core\Controller\AbstractController;
+use Core\Util\Captcha;
 use Core\Util\FlashBag;
 use Core\Util\CSRF;
 
@@ -20,6 +21,7 @@ class PostController extends AbstractController
         $article = $postRepository->find($postId);
         $errors = [];
         $csrfToken = $_POST['csrfToken'] ?? '';
+        $reCaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
         $formComment = new Comment();
         $formComment->setUsername($_POST['username'] ?? null);
         $formComment->setComment($_POST['comment'] ?? null);
@@ -40,6 +42,9 @@ class PostController extends AbstractController
             }
             if (!CSRF::checkToken($csrfToken)) {
                 $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
+            }
+            if (!Captcha::reCaptcha($reCaptchaResponse)) {
+                $errors['captcha'][] = 'Captcha incorrect, merci de recommencer';
             }
             if (empty($errors)) {
                 usleep(500000);

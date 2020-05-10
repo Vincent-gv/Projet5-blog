@@ -54,7 +54,7 @@ class UpdateController extends AbstractController
                 usleep(500000);
                 $postRepository->updatePost($formPost);
                 FlashBag::addFlash('Le post a bien été modifié.', 'success');
-                $this->redirect('/post?id=' . $id);
+                $this->redirect('./blog');
             }
         }
         if ($_POST['delete-post'] ?? false) {

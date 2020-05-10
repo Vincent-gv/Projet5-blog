@@ -11,10 +11,14 @@ class ContactController extends AbstractController
 {
     public function __invoke()
     {
-        $postMessage = null;
         $errors = [];
+        $displayForm = true;
         $csrfToken = $_POST['csrfToken'] ?? '';
         $reCaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
+        $name = '';
+        $email = '';
+        $subject = '';
+        $message = '';
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             $name = htmlentities($_POST['name']);
             $email = htmlentities($_POST['email']);
@@ -46,12 +50,17 @@ class ContactController extends AbstractController
             }
             if (empty($errors)) {
                 usleep(500000);
+                $displayForm = false;
                 ContactForm::getContactForm($email, $subject, $message);
-                $this->redirect($_SERVER['HTTP_REFERER']);
             }
         }
         $this->echoRender('Default/contact.html.twig', [
             'csrfToken' => CSRF::generateToken(),
+            'name' => $name,
+            'email' => $email,
+            'subject' => $subject,
+            'message' => $message,
+            'displayForm' => $displayForm,
             'errors' => $errors
         ]);
     }
