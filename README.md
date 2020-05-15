@@ -37,7 +37,7 @@ git clone https://github.com/Vincent-gv/blog.git
 **Vincent Gauchevertu** - Étudiant Openclassrooms 
 https://github.com/Vincent-gv/
 
-Démo en ligne : https://vincent.dev.com
+Démo en ligne : https://vincent-dev.com/
 
 ## Badge du projet
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/005910e71c9541b9b40ea8a70335f0ae)](https://www.codacy.com/manual/Vincent-gv/blog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Vincent-gv/blog&amp;utm_campaign=Badge_Grade)
