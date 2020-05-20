@@ -8,7 +8,7 @@ use Core\Util\Captcha;
 use Core\Util\CSRF;
 use Core\Util\FlashBag;
 
-class ConnectController extends AbstractController
+class AdminController extends AbstractController
 {
     public function __invoke()
     {

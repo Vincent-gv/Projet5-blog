@@ -10,7 +10,7 @@ class Router
     {
         $route = $this->getRouteByUrl($url);
         if ($route === null) {
-            die ('404 not found');
+            die ('404 not found :(');
         }
         $controllerFullName = 'App\\Controller\\' . $route->getControllerName() . 'Controller';
         if (!class_exists($controllerFullName)) {

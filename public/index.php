@@ -17,5 +17,10 @@ else {
 }
 
 session_start();
-
+try {
 (new Router())->run(explode('?',$_SERVER['REQUEST_URI'])[0] ?? '/');
+}
+catch (Exception $exception) {
+
+    //todo error 500 - executer le controller de la page d'erreur
+}

@@ -51,7 +51,7 @@ class HomepageController extends AbstractController
             if (empty($errors)) {
                 usleep(500000);
                 $displayForm = false;
-                ContactForm::getContactForm($name, $email, $subject, $message);
+                ContactForm::sendEmail($name, $email, $subject, $message);
             }
         }
         $this->echoRender('Default/homepage.html.twig', [

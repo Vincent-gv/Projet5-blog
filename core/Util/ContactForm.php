@@ -9,7 +9,7 @@ use Core\Config\ParametersInterface;
 
 abstract class ContactForm
 {
-    static public function getContactForm(string $name, string $email, string $subject, string $message): string
+    static public function sendEmail(string $name, string $email, string $subject, string $message): string
     {
         $recipient = ParameterManager::getParameter(ParametersInterface::KEY_EMAIL_CONTACT)->getValue();
         $headers = 'MIME-Version: 1.0' . "\r\n"

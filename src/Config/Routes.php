@@ -21,7 +21,7 @@ abstract class Routes implements RoutesInterface
             new Route('/modifier', 'Update'),
             new Route('/commentaires', 'Moderate'),
             new Route('/utilisateur', 'User'),
-            new Route('/admin', 'Connect')
+            new Route('/admin', 'Admin')
         ];
     }
 }
