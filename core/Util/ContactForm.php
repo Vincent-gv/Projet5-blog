@@ -1,15 +1,13 @@
 <?php
 
-
 namespace Core\Util;
-
 
 use Core\Config\ParameterManager;
 use Core\Config\ParametersInterface;
 
 abstract class ContactForm
 {
-    static public function sendEmail(string $name, string $email, string $subject, string $message): string
+    public static function sendEmail(string $name, string $email, string $subject, string $message): string
     {
         $recipient = ParameterManager::getParameter(ParametersInterface::KEY_EMAIL_CONTACT)->getValue();
         $headers = 'MIME-Version: 1.0' . "\r\n"
@@ -21,5 +19,4 @@ abstract class ContactForm
 
         return @mail($recipient, 'Nouveau message Blog : ' . $subject . '', $content, $headers);
     }
-
 }

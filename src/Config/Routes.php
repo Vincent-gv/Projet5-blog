@@ -10,7 +10,7 @@ abstract class Routes implements RoutesInterface
     /**
      * @return Route[]
      */
-    static public function getRoutes(): array
+    public static function getRoutes(): array
     {
         return [
             new Route('/', 'Homepage'),
@@ -21,7 +21,8 @@ abstract class Routes implements RoutesInterface
             new Route('/modifier', 'Update'),
             new Route('/commentaires', 'Moderate'),
             new Route('/utilisateur', 'User'),
-            new Route('/admin', 'Admin')
+            new Route('/admin', 'Admin'),
+            new Route('/erreur', 'ErrorPage')
         ];
     }
 }

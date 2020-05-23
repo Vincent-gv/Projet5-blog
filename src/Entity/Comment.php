@@ -10,7 +10,7 @@ use DateTime;
 
 class Comment extends AbstractEntity
 {
-    static public function getTableInfos(): TableInfos
+    public static function getTableInfos(): TableInfos
     {
         return new TableInfos('comments', [
             new ColumnInfos('id', ColumnInfos::STRING),

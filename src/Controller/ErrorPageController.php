@@ -2,64 +2,25 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
-use App\Entity\Post;
 use Core\Controller\AbstractController;
-use Core\Util\Captcha;
-use Core\Util\FlashBag;
-use Core\Util\CSRF;
+use Core\Exception\NotFoundException;
+use Exception;
 
-class PostController extends AbstractController
+class ErrorPageController extends AbstractController
 {
-    public function __invoke()
+    public function __invoke(Exception $exception)
     {
-        $postId = $_GET['id'];
-        $postRepository = $this->getRepository(Post::class);
-        $commentRepository = $this->getRepository(Comment::class);
-        $comments = $commentRepository->findBy(['post_id' => $postId]);
-        $countComments = $commentRepository->countPostComments($postId);
-        $article = $postRepository->find($postId);
-        $errors = [];
-        $csrfToken = $_POST['csrfToken'] ?? '';
-        $reCaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
-        $formComment = new Comment();
-        $formComment->setUsername($_POST['username'] ?? null);
-        $formComment->setComment($_POST['comment'] ?? null);
-        $formComment->setPostId($postId);
-        // Post Comment
-        if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            if (empty($formComment->getUsername())) {
-                $errors['username'][] = 'Indiquer un nom d\'utilisateur';
-            }
-            if (strlen($formComment->getUsername()) < 3) {
-                $errors['username'][] = 'Le nom doit faire 3 caractères ou plus';
-            }
-            if (empty($formComment->getComment())) {
-                $errors['comment'][] = 'Le commentaire ne peut pas être vide';
-            }
-            if (strlen($formComment->getComment()) < 3) {
-                $errors['comment'][] = 'Le commentaire doit faire 3 caractères ou plus';
-            }
-            if (!CSRF::checkToken($csrfToken)) {
-                $errors['token'][] = 'Token invalide, veuillez renvoyer le formulaire';
-            }
-            if (!Captcha::reCaptcha($reCaptchaResponse)) {
-                $errors['captcha'][] = 'Captcha incorrect, merci de recommencer';
-            }
-            if (empty($errors)) {
-                usleep(500000);
-                $commentRepository->createComment($formComment);
-                FlashBag::addFlash('Commentaire envoyé en attente de modération.', 'success');
-                $this->redirect($_SERVER['HTTP_REFERER']);
-            }
+        $isError404 = $exception instanceof NotFoundException;
+        if ($isError404) {
+            http_response_code(404);
+        } else {
+            http_response_code(500);
         }
-        $this->echoRender('Default/post.html.twig', [
-            'post' => $article,
-            'comments' => $comments,
-            'countComments' => $countComments,
-            'errors' => $errors,
-            'csrfToken' => CSRF::generateToken(),
-            'formComment' => $formComment
-        ]);
+        $this->echoRender(
+            'Default/errorPage.html.twig',
+            [
+                'isError404' => $isError404
+            ]
+        );
     }
 }

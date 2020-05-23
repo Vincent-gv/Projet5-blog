@@ -7,7 +7,7 @@ use Core\Config\ParametersInterface;
 
 abstract class MysqlDatabaseFactory
 {
-    static public function createMysqlDatabase(): DatabaseInterface
+    public static function createMysqlDatabase(): DatabaseInterface
     {
         return new MysqlDatabase(
             ParameterManager::getParameter(ParametersInterface::KEY_DATABASE_DNS)->getValue(),

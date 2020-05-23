@@ -51,7 +51,6 @@ abstract class AbstractRepository
         $query = 'SELECT * FROM ' . $this->getEntityTableInfos()->getName() . $this->getFilters($criterias, $orders, $limit, $offset);
 
         return $this->hydrate($this->database->query($query));
-
     }
 
     public function countBy(array $criterias = [], array $orders = [], int $limit = null, int $offset = null): int
@@ -65,20 +64,20 @@ abstract class AbstractRepository
         $query = '';
         if (count($criterias) > 0) {
             $query .= " WHERE " . join(" AND ", array_map(function ($index, $value) {
-                    if (is_array($value)) {
-                        return $index . ' IN (' . join(', ', $value) . ')';
-                    }
-                    return "$index = '$value'";
-                }, array_keys($criterias), $criterias));
+                if (is_array($value)) {
+                    return $index . ' IN (' . join(', ', $value) . ')';
+                }
+                return "$index = '$value'";
+            }, array_keys($criterias), $criterias));
         }
         if (count($orders) > 0) {
             $query .= " ORDER BY " . join(", ", array_map(function ($index, $value) {
-                    return "$index $value";
-                }, array_keys($orders), $orders));
+                return "$index $value";
+            }, array_keys($orders), $orders));
         }
         if ($limit !== null && $offset !== null) {
             $query .= " LIMIT $offset, $limit";
-        } else if ($limit !== null) {
+        } elseif ($limit !== null) {
             $query .= " LIMIT $limit";
         }
         return $query;

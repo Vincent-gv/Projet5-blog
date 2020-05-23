@@ -1,33 +1,30 @@
 <?php
 
-
 namespace Core\Util;
-
 
 abstract class CSRF
 {
-    static public function generateToken(): string
+    public static function generateToken(): string
     {
         $token = md5(uniqid());
         $_SESSION['csrf'] = [
             'token' => $token,
             'createdAt' => new \DateTime()
         ];
-
         return $token;
     }
 
-    static private function getCsrfToken(): string
+    private static function getCsrfToken(): string
     {
         return $_SESSION['csrf']['token'];
     }
 
-    static private function getCsrfCreatedAt(): \DateTime
+    private static function getCsrfCreatedAt(): \DateTime
     {
         return $_SESSION['csrf']['createdAt'];
     }
 
-    static public function checkToken(string $token): bool
+    public static function checkToken(string $token): bool
     {
         if ($token !== self::getCsrfToken()) {
             return false;
@@ -38,8 +35,6 @@ abstract class CSRF
         if ($expireAt < new \DateTime()) {
             return false;
         }
-
         return true;
     }
-
 }

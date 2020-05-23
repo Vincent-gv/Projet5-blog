@@ -13,7 +13,7 @@
         </div>
     </section>
     <!-- Page Top section end -->
-    <!-- Content section -->
+    <!-- Blog section -->
     <section class="domain-search-section sc-connect-page">
         <div class="container connect-page">
             <div class="domain-form-warp">
@@ -89,21 +89,23 @@
                                 </ul>
                             </div>
                         {% endif %}
-                        <input type="password" onfocus="this.value=''" placeholder="Votre mot de passe" name="password" value="{{ formUser.password }}"
+                        <input type="password" onfocus="this.value=''" placeholder="Votre mot de passe" name="password"
+                               value="{{ formUser.password }}"
                                class="mb-3">
                         {% if errors.captcha is defined %}
                             <div class="alert alert-danger" role="alert">
                                 <ul>
-                                {% for error in errors.captcha %}
-                                    <li>
-                                    {{ error }}
-                                    </li>
-                                {% endfor %}
+                                    {% for error in errors.captcha %}
+                                        <li>
+                                            {{ error }}
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         {% endif %}
                         <div class="text-center">
-                            <div class="g-recaptcha mt-1 d-flex justify-content-center" data-sitekey="{{ captchaPublicKey() }}"></div>
+                            <div class="g-recaptcha mt-1 d-flex justify-content-center"
+                                 data-sitekey="{{ captchaPublicKey() }}"></div>
                             <button name="connect" class="site-btn mt-3">Connexion</button>
                         </div>
                         <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
@@ -112,5 +114,5 @@
             </div>
         </div>
     </section>
-    <!-- Content section end -->
+    <!-- Blog section end -->
 {% endblock %}

@@ -8,7 +8,7 @@ use Core\Database\Entity\TableInfos;
 
 class User extends AbstractEntity
 {
-    static public function getTableInfos(): TableInfos
+    public static function getTableInfos(): TableInfos
     {
         return new TableInfos('users', [
             new ColumnInfos('id', ColumnInfos::STRING),

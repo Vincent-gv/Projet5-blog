@@ -22,17 +22,17 @@ class UserController extends AbstractController
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             if (empty($formUser->getUsername())) {
                 $errors['user'][] = 'Le nom d\'utilisateur ne peut pas être vide';
-            } else if (strlen($formUser->getUsername()) < 3) {
+            } elseif (strlen($formUser->getUsername()) < 3) {
                 $errors['user'][] = 'Le nom d\'utilisateur doit faire 3 caractères ou plus';
             }
             if (empty($formUser->getEmail())) {
                 $errors['user'][] = 'Le mail ne peut pas être vide';
-            } else if (!filter_var($formUser->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            } elseif (!filter_var($formUser->getEmail(), FILTER_VALIDATE_EMAIL)) {
                 $errors['user'][] = 'Le mail indiqué n\'est pas valide';
             }
             if (empty($formUser->getPassword())) {
                 $errors['user'][] = 'Le mot de passe ne peut pas être vide';
-            } else if (strlen($formUser->getPassword()) < 3) {
+            } elseif (strlen($formUser->getPassword()) < 3) {
                 $errors['user'][] = 'Le mot de passe doit faire 3 caractères ou plus';
             }
             if (!CSRF::checkToken($csrfToken)) {

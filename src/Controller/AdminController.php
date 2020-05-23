@@ -28,9 +28,9 @@ class AdminController extends AbstractController
             }
             if (empty($password)) {
                 $errors['password'][] = 'Le mot de passe ne peut pas être vide';
-            } else if (!$user instanceof User) {
+            } elseif (!$user instanceof User) {
                 $errors['user'][] = 'Identifiants incorrects, merci de recommencer';
-            } else if (!password_verify($password, $user->getPassword())) {
+            } elseif (!password_verify($password, $user->getPassword())) {
                 $errors['user'][] = 'Identifiants incorrects, merci de recommencer';
             }
             if (!CSRF::checkToken($csrfToken)) {

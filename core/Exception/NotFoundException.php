@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Core\Exception;
 
+use Exception;
 
-class NotFoundException
+class NotFoundException extends Exception
 {
-
 }

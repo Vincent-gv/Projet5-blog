@@ -55,6 +55,4 @@ class Route
         $this->controllerName = $controllerName;
         return $this;
     }
-
-
 }

@@ -6,21 +6,18 @@ use Core\Config\ParameterManager;
 use Core\Config\ParametersInterface;
 use Core\Router\Router;
 
-if (ParameterManager::getParameter(ParametersInterface::KEY_IS_DEBUG)->getValue()) {
-    $whoops = new \Whoops\Run;
-    $whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);
-    $whoops->register();
-}
-else {
-    error_reporting(0);
-    ini_set('display_errors', 0);
+try {
+    if (ParameterManager::getParameter(ParametersInterface::KEY_IS_DEBUG)->getValue()) {
+        $whoops = new \Whoops\Run;
+        $whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);
+        $whoops->register();
+    } else {
+        error_reporting(0);
+        ini_set('display_errors', 0);
+    }
+} catch (\Core\Config\ParameterException $e) {
 }
 
 session_start();
-try {
-(new Router())->run(explode('?',$_SERVER['REQUEST_URI'])[0] ?? '/');
-}
-catch (Exception $exception) {
 
-    //todo error 500 - executer le controller de la page d'erreur
-}
+(new Router())->run(explode('?', $_SERVER['REQUEST_URI'])[0] ?? '/');

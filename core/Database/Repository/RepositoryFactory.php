@@ -6,7 +6,7 @@ use Core\Database\MysqlDatabaseFactory;
 
 abstract class RepositoryFactory
 {
-    static public function createRepository(string $entityClass): AbstractRepository
+    public static function createRepository(string $entityClass): AbstractRepository
     {
         $repositoryClass = self::getRepositoryClass($entityClass);
 
@@ -32,9 +32,8 @@ abstract class RepositoryFactory
      * @param string $entityClass
      * @return string
      */
-    static private function getRepositoryClass(string $entityClass)
+    private static function getRepositoryClass(string $entityClass)
     {
         return str_replace('Entity', 'Repository', $entityClass) . 'Repository';
-
     }
 }

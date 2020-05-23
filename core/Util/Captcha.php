@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Core\Util;
 
 use Core\Config\ParameterManager;
@@ -9,7 +8,7 @@ use ReCaptcha\ReCaptcha;
 
 abstract class Captcha
 {
-    static public function reCaptcha($reCaptchaResponse): string
+    public static function reCaptcha($reCaptchaResponse): string
     {
         $captchaSecretKey = ParameterManager::getParameter(ParametersInterface::KEY_CAPTCHA_SECRET_KEY)->getValue();
         $reCaptcha = new ReCaptcha($captchaSecretKey);

@@ -13,7 +13,7 @@
         </div>
     </section>
     <!-- Page Top section end -->
-    <!-- Blog posts section -->
+    <!-- Blog section -->
     <section class="blog-section spad">
         <div class="container">
             <div class="row">
@@ -31,7 +31,9 @@
                                 <img src="img/blog/3.jpg" alt="" class="post-thumb">
                                 <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
                                 {% if user() %}
-                                    <div class="admin-button"><a class="form-warp-link" href="./modifier?id={{ post.id }}" title="Modifier '{{ post.title }}'">Modifier</a></div>
+                                    <div class="admin-button"><a class="form-warp-link"
+                                                                 href="./modifier?id={{ post.id }}"
+                                                                 title="Modifier '{{ post.title }}'">Modifier</a></div>
                                 {% endif %}
                                 <a href="post?id={{ post.id }}" title="{{ post.title }}">
                                     <h4>{{ post.title }}</h4>
@@ -54,5 +56,5 @@
             </div>
         </div>
     </section>
-    <!-- Blog posts section end -->
+    <!-- Blog section end -->
 {% endblock %}

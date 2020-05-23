@@ -6,7 +6,7 @@ use App\Config\Parameters;
 
 abstract class ParameterManager
 {
-    static public function getParameter($key)
+    public static function getParameter($key)
     {
         $parameters = new Parameters();
         foreach ($parameters->getParameters() as $parameter) {

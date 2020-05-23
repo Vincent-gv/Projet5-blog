@@ -10,7 +10,7 @@ use DateTime;
 
 class Post extends AbstractEntity
 {
-    static public function getTableInfos(): TableInfos
+    public static function getTableInfos(): TableInfos
     {
         return new TableInfos('post', [
             new ColumnInfos('id', ColumnInfos::STRING),
@@ -127,7 +127,8 @@ class Post extends AbstractEntity
         $this->content = $content;
         return $this;
     }
-   /**
+
+    /**
      * @return string
      */
     public function getAuthor(): ?string
