@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Page non trouvée{% endblock %}
+
+{% block main %}
+    <!-- Page Top section -->
+    <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+        <div class="container">
+            <h2>Page non trouvée<br></h2>
+            <div class="site-breadcrumb">
+                <a href="./">Accueil</a> / <span>Page non trouvée</span>
+            </div>
+        </div>
+    </section>
+    <!-- Page Top section end -->
+    <!-- Blog section -->
+    <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>📰<small> Page non trouvée</small></h2>
+                    <div class="blog-post mt-5">
+                        <form id="post-article" class="clearfix" method="post" action="#post-article">
+                            <div class="form-group mt-2">
+                                {% if errors.token is defined %}
+                                    <div class="alert alert-warning" role="alert">
+                                        <ul>
+                                            {% for error in errors.token %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                {% if errors.title is defined and errors.content is defined %}
+                                    <div class="alert alert-danger mt-2" role="alert">L'article n'a pu être publié.
+                                        Merci de corriger les erreurs indiquées :
+                                    </div>
+                                {% endif %}
+                                <label for="titre">Titre de l'article :</label>
+                                <input type="text" class="form-control title" name="title" value="{{ formPost.title }}"
+                                       required>
+                                {% if errors.title is defined %}
+                                    <div class="alert alert-primary mt-2" role="alert">
+                                        <ul>
+                                            {% for error in errors.title %}
+                                                <li>
+                                                    {{ error }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                <label class="mt-3" for="chapo"> Chapô :</label>
+                                <input type="text" class="form-control chapo" name="chapo" value="{{ formPost.chapo }}"
+                                       required>
+                                {% if errors.chapo is defined %}
+                                    <div class="alert alert-primary mt-2" role="alert">
+                                        <ul>
+                                            {% for error in errors.chapo %}
+                                                <li>
+                                                    {{ error }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Contenu :</label>
+                                <textarea class="form-control" rows="15" name="content"
+                                          required>{{ formPost.content }}</textarea>
+                                {% if errors.content is defined %}
+                                    <div class="alert alert-primary mt-2" role="alert">
+                                        <ul>
+                                            {% for error in errors.content %}
+                                                <li>
+                                                    {{ error }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                <label class="mt-3" for="author"> Auteur :</label>
+                                <input type="text" class="form-control" name="author"
+                                       value="{% if formPost.author %}{{ formPost.author }}{% else %}{{ user().username }}{% endif %}">
+                                {% if errors.author is defined %}
+                                    <div class="alert alert-primary mt-2" role="alert">
+                                        <ul>
+                                            {% for error in errors.author %}
+                                                <li>
+                                                    {{ error }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                <input type="submit" class="site-btn mt-4" value="Publier">
+                            </div>
+                            <input type="hidden" name="csrfToken" value="{{ csrfToken }}"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog section end -->
+{% endblock %}
