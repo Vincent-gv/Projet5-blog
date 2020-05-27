@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - {% if isError404 == true %}Erreur 404{% else %} %}Erreur 500{% endif %}{% endblock %}
+
+{% block main %}
+    <!-- Page Top section -->
+    <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
+        <div class="container">
+            <h2>{% if isError404 == true %}Erreur 404{% else %} %}Erreur 500{% endif %}<br></h2>
+            <div class="site-breadcrumb">
+                <a href="./">Accueil</a> / <span>Page non trouvée</span>
+            </div>
+        </div>
+    </section>
+    <!-- Page Top section end -->
+    <!-- Blog section -->
+    <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>🛸<small> Page non trouvée</small></h2>
+                    <div class="blog-post mt-5">
+                        <p>La page demandée n'existe pas ou n'est plus disponible.<br>
+                            <a href="./"> Revenir à l'accueil</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog section end -->
+{% endblock %}

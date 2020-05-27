@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Router;
-
 
 class Route
 {
@@ -14,16 +12,12 @@ class Route
      * @var string
      */
     private $controllerName;
-    /**
-     * @var string
-     */
-    private $actionName;
 
-    public function __construct(string $url, string $controllerName, string $actionName)
+
+    public function __construct(string $url, string $controllerName)
     {
         $this->url = $url;
         $this->controllerName = $controllerName;
-        $this->actionName = $actionName;
     }
 
     /**
@@ -61,23 +55,4 @@ class Route
         $this->controllerName = $controllerName;
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getActionName(): string
-    {
-        return $this->actionName;
-    }
-
-    /**
-     * @param string $actionName
-     * @return Route
-     */
-    public function setActionName(string $actionName): Route
-    {
-        $this->actionName = $actionName;
-        return $this;
-    }
-
 }

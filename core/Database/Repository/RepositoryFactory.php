@@ -1,14 +1,12 @@
 <?php
 
-
 namespace Core\Database\Repository;
-
 
 use Core\Database\MysqlDatabaseFactory;
 
 abstract class RepositoryFactory
 {
-    static public function createRepository(string $entityClass): AbstractRepository
+    public static function createRepository(string $entityClass): AbstractRepository
     {
         $repositoryClass = self::getRepositoryClass($entityClass);
 
@@ -29,14 +27,13 @@ abstract class RepositoryFactory
 
     /**
      * Transforme le namespace d'une entité en son repository
-     * Ex : App/Entity/Article => App/Repository/ArticleRepository
+     * Ex : App/Entity/Post => App/Repository/PostRepository
      *
      * @param string $entityClass
      * @return string
      */
-    static private function getRepositoryClass(string $entityClass)
+    private static function getRepositoryClass(string $entityClass)
     {
         return str_replace('Entity', 'Repository', $entityClass) . 'Repository';
-
     }
 }

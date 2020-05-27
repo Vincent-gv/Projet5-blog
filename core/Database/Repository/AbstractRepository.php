@@ -2,6 +2,7 @@
 
 namespace Core\Database\Repository;
 
+use App\Entity\User;
 use Core\Database\DatabaseInterface;
 use Core\Database\Entity\TableInfos;
 
@@ -22,6 +23,7 @@ abstract class AbstractRepository
         if (is_object($datas)) {
             return $this->hydrateObj($datas);
         }
+
         return array_map([$this, 'hydrateObj'], $datas);
     }
 
@@ -39,12 +41,6 @@ abstract class AbstractRepository
         return $this->findBy(['id' => $id])[0] ?? null;
     }
 
-    public function countPostComments($id)
-    {
-        $query = 'SELECT * FROM comments WHERE post_id =' . $id;
-        return count($this->database->query($query));
-    }
-
     public function countAll(): int
     {
         return $this->countBy();
@@ -53,6 +49,7 @@ abstract class AbstractRepository
     public function findBy(array $criterias = [], array $orders = [], int $limit = null, int $offset = null): array
     {
         $query = 'SELECT * FROM ' . $this->getEntityTableInfos()->getName() . $this->getFilters($criterias, $orders, $limit, $offset);
+
         return $this->hydrate($this->database->query($query));
     }
 
@@ -62,33 +59,31 @@ abstract class AbstractRepository
         return intval($this->database->query($query, [], true)->count);
     }
 
-    public function latestPosts()
-    {
-        return $this->hydrate($this->database->query('SELECT * FROM post LIMIT 3'));
-    }
-
     private function getFilters(array $criterias = [], array $orders = [], int $limit = null, int $offset = null)
     {
         $query = '';
         if (count($criterias) > 0) {
             $query .= " WHERE " . join(" AND ", array_map(function ($index, $value) {
-                    return "$index = '$value'";
-                }, array_keys($criterias), $criterias));
+                if (is_array($value)) {
+                    return $index . ' IN (' . join(', ', $value) . ')';
+                }
+                return "$index = '$value'";
+            }, array_keys($criterias), $criterias));
         }
         if (count($orders) > 0) {
             $query .= " ORDER BY " . join(", ", array_map(function ($index, $value) {
-                    return "$index $value";
-                }, array_keys($orders), $orders));
+                return "$index $value";
+            }, array_keys($orders), $orders));
         }
         if ($limit !== null && $offset !== null) {
             $query .= " LIMIT $offset, $limit";
-        } else if ($limit !== null) {
+        } elseif ($limit !== null) {
             $query .= " LIMIT $limit";
         }
         return $query;
     }
 
-    public function pagination(int $pageIndex)
+    public function pagination(int $pageIndex, int $postNumberPerPage)
     {
         if (!isset($_GET['page']) || $_GET['page'] == '0') {
             $page = 1;
@@ -96,7 +91,6 @@ abstract class AbstractRepository
             $page = $_GET['page'];
         }
         $countAll = $this->countAll();
-        $postNumberPerPage = 3;
         $nbPages = $countAll % $postNumberPerPage == 0
             ? $countAll / $postNumberPerPage
             : (int)floor($countAll / $postNumberPerPage) + 1;
@@ -119,5 +113,13 @@ abstract class AbstractRepository
         return $this->database->getLastInsertId();
     }
 
+    public function findUserByEmail(string $email): ?User
+    {
+        foreach ($this->database as $user) {
+            if ($user->getEmail() === $email) {
+                return $user;
+            }
+        }
+        return null;
+    }
 }
-

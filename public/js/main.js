@@ -166,7 +166,5 @@ $(window).on('load', function() {
 				emptyFill: "rgba(0, 0, 0, 0)"
 			});
 		}
-
 	});
-
 })(jQuery);

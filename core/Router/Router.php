@@ -1,10 +1,11 @@
 <?php
 
-
 namespace Core\Router;
 
-
 use App\Config\Routes;
+use App\Controller\ErrorPageController;
+use Core\Exception\NotFoundException;
+use Exception;
 
 class Router
 {
@@ -12,18 +13,22 @@ class Router
     {
         $route = $this->getRouteByUrl($url);
         if ($route === null) {
-            die ('404 not found');
+            $this->runErrorController(new NotFoundException('route not found'));
+            return;
         }
         $controllerFullName = 'App\\Controller\\' . $route->getControllerName() . 'Controller';
         if (!class_exists($controllerFullName)) {
-            die ('Class ' . $controllerFullName . ' doesn\'t exist');
+            $this->runErrorController(new NotFoundException('controller class not found'));
+            return;
         }
         $controller = new $controllerFullName();
-        $actionName = $route->getActionName() . 'Action';
-        if (!method_exists($controller, $actionName)) {
-            die ('Method ' . $actionName . ' doesn\'t exist in Class ' . $controllerFullName);
+
+        try {
+            $controller();
+        } catch (Exception $exception) {
+            $this->runErrorController($exception);
+            return;
         }
-        $controller->$actionName();
     }
 
     private function getRouteByUrl(string $url): ?Route
@@ -34,5 +39,11 @@ class Router
             }
         }
         return null;
+    }
+
+    private function runErrorController(Exception $exception): void
+    {
+        $controller = new ErrorPageController();
+        $controller($exception);
     }
 }

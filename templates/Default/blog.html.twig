@@ -6,41 +6,55 @@
     <!-- Page Top section -->
     <section class="page-top-section set-bg" data-setbg="img/page-top-bg.jpg">
         <div class="container">
-            <h2>Blog</h2>
+            <h2>Blog <small>{% if user() %}<br>Choisissez un post à modifier ou à supprimer{% endif %}</small></h2>
             <div class="site-breadcrumb">
                 <a href="./">Accueil</a> / <span>Blog</span>
             </div>
         </div>
     </section>
     <!-- Page Top section end -->
-
-    <!-- Blog posts section -->
+    <!-- Blog section -->
     <section class="blog-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9">
-                    {% for post in pagination.data %}
-                    <a href="post?id={{ post.id }}" title="{{ post.title }}">
-                        <div class="blog-post">
-                            <img src="img/blog/3.jpg" alt="" class="post-thumb">
-                            <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
-                            <h4>{{ post.title }}</h4>
-                            <div class="post-metas">
-                                <div class="post-meta">Par {{ post.author }}</div>
-                                <div class="post-meta">3 comments</div>
+                    {% for type, messages in flashbag() %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ type }}" role="alert">
+                                {{ message }}
                             </div>
-                            <p>{{ post.content|length > 50 ? post.content|slice(0, 200) ~ '...' : post.content  }}</p>
-                        </div>
-                    </a>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for post in pagination.data %}
+                        <a href="post?id={{ post.id }}" title="{{ post.title }}">
+                            <div class="blog-post">
+                                <img src="img/blog/3.jpg" alt="" class="post-thumb">
+                                <div class="post-date">{{ post.createdAt | date('d/m/Y') }}</div>
+                                {% if user() %}
+                                    <div class="admin-button"><a class="form-warp-link"
+                                                                 href="./modifier?id={{ post.id }}"
+                                                                 title="Modifier '{{ post.title }}'">Modifier</a></div>
+                                {% endif %}
+                                <a href="post?id={{ post.id }}" title="{{ post.title }}">
+                                    <h4>{{ post.title }}</h4>
+                                </a>
+                                <div class="post-metas">
+                                    <div class="post-meta">Par {{ post.author }}</div>
+                                </div>
+                                <a href="post?id={{ post.id }}" title="{{ post.title }}">
+                                    <p>{{ post.chapo|length > 50 ? post.chapo|slice(0, 200) ~ '...' : post.chapo }}</p>
+                                </a>
+                            </div>
+                        </a>
                     {% endfor %}
                     {% include 'Default/_pagination.html.twig' with {'nbPages':pagination.nbPages, 'currentPage':pagination.currentPage} only %}
                 </div>
                 <!-- sidebar -->
                 <div class="col-lg-3 col-md-5 col-sm-8 sidebar">
-                    {% include 'Default/_sidebar.html.twig'  %}
+                    {% include 'Default/_sidebar.html.twig' %}
                 </div>
             </div>
         </div>
     </section>
-    <!-- Blog posts section end -->
+    <!-- Blog section end -->
 {% endblock %}

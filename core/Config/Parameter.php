@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Core\Config;
-
 
 class Parameter
 {
@@ -12,16 +10,16 @@ class Parameter
     private $key;
 
     /**
-     * @var string
+     * @var mixed
      */
     private $value;
 
     /**
      * Parameter constructor.
      * @param string $key
-     * @param string $value
+     * @param mixed $value
      */
-    public function __construct(string $key, string $value)
+    public function __construct(string $key, $value)
     {
         $this->key = $key;
         $this->value = $value;
@@ -46,18 +44,18 @@ class Parameter
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getValue(): string
+    public function getValue()
     {
         return $this->value;
     }
 
     /**
-     * @param string $value
+     * @param mixed $value
      * @return Parameter
      */
-    public function setValue(string $value): Parameter
+    public function setValue($value): Parameter
     {
         $this->value = $value;
         return $this;

@@ -189,13 +189,31 @@ ol {
     font-size: 14px;
     font-weight: 500;
     min-width: 186px;
-    padding: 17px 25px;
+    padding: 15px;
     border-radius: 14px;
     background: #eb2b63;
     color: #fff;
     line-height: 1;
     cursor: pointer;
     text-align: center;
+}
+
+.site-btn-sm {
+    display: inline-block;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 10px;
+    background: #eb2b63;
+    color: #fff;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-purple {
+    background: #250683;
 }
 
 .site-btn:hover {
@@ -598,6 +616,21 @@ ol {
     color: #fff;
 }
 
+.admin-button {
+    float: left;
+    background: #2a136b;
+    color: #fff;
+    margin-right: 7px;
+    font-size: 14px;
+    padding: 7px 19px;
+    line-height: 1;
+    border-radius: 10px;
+}
+
+.admin-button a {
+    color: #fff;
+}
+
 /*------------------
   Hero section
 ---------------------*/
@@ -759,10 +792,8 @@ ol {
 }
 
 .domain-form-warp p {
-    font-size: 12px;
-    color: #fff;
-    opacity: 0.26;
-    margin-bottom: 0;
+    font-size: 16px;
+    color: #241160;
     line-height: 1;
 }
 
@@ -780,11 +811,6 @@ ol {
     display: inline-block;
     padding: 0 31px;
     margin-right: 5px;
-}
-
-.domain-search-form .site-btn {
-    height: 59px;
-    min-width: 229px;
 }
 
 .domain-search-form.df-white-bg input {
@@ -1129,6 +1155,7 @@ ol {
 .site-breadcrumb a {
     color: #fff;
 }
+
 .site-breadcrumb a:hover {
     opacity: 0.37;
 }
@@ -1139,6 +1166,11 @@ ol {
 
 .sc-about-page {
     padding-top: 95px;
+    padding-bottom: 74px;
+}
+
+.sc-connect-page {
+    padding-top: 45px;
     padding-bottom: 74px;
 }
 
@@ -1269,21 +1301,26 @@ ol {
     border-radius: 13px;
     margin-bottom: 52px;
 }
+
 .page-item.active .page-link {
     background-color: #11b7e7 !important;
     border-color: #11b7e7 !important;
 }
+
 .page-item.active .page-link a {
     color: #fff !important;
 }
+
 .page-link:hover {
     color: #fff;
     background-color: #11b7e7;
 }
+
 .page-link {
     color: #11b7e7;
     border: 1px solid #11b7e7 !important;
 }
+
 .s-title {
     font-size: 19px;
     font-weight: 700;
@@ -1302,7 +1339,7 @@ ol {
 }
 
 .post-metas {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .post-metas .post-meta {
@@ -1451,6 +1488,72 @@ label.mt-4 {
     margin-right: 15px;
 }
 
+input.form-control.title {
+    font-size: 1.5rem;
+    padding: 30px 15px;
+}
+
+input.form-control.chapo {
+    color: #eb2b63;
+}
+
+.titre-comment {
+    color: #491f70;
+    text-transform: uppercase;
+}
+
+.meta-comment {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.container-comment {
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 10px;
+    padding: 5px 20px 25px;
+}
+
+.container-comment h6 {
+    color: #491f70;
+    font-size: 13px;
+}
+
+.left-comment {
+    border-left: 4px solid #ccc;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+
+.moderation-button {
+    position: relative;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.moderation-button .alert {
+    padding: 0 0.5rem;
+    margin: 5px 10px 10px 0;
+    font-size: 13px;
+}
+
+.moderation-button .form-check {
+    padding-left: 1.45rem;
+    margin: 3px 0;
+}
+
+.container.connect-page {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-title2 {
+    text-align: center;
+    position: relative;
+}
+
 /* ----------------
   Contact Page
 ---------------------*/
@@ -1485,10 +1588,6 @@ label.mt-4 {
     overflow: hidden;
 }
 
-.contact-form {
-    padding-top: 64px;
-}
-
 #homepage-form {
     padding-top: 0px;
 }
@@ -1513,6 +1612,12 @@ label.mt-4 {
 .map {
     margin-top: 107px;
     height: 685px;
+}
+
+.delete {
+    float: right;
+    position: relative;
+    bottom: 60px;
 }
 
 /* ----------------
