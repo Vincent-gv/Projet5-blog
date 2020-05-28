@@ -23,7 +23,6 @@ git clone https://github.com/Vincent-gv/blog.git
 * Dans le dossier blog\src\Config\ mettre à jour le fichier Parameters.php avec les identifiants de connexion à votre base de données locale, votre mail pour les formulaires de contact et vos clés public et privée pour le Captcha Google et Google Map.  
 * Exécuter ``composer install`` à la racine du dossier pour installer les dépendances.
 * Créer une base de données locale nommée "blog " et importer le fichier blog.sql situé à la racine du projet  
-* Pour vous connecter à l’admin utiliser l’identifiant : admin@admin.com et le mot de passe 123456789  
 
 ## Développé avec
 
