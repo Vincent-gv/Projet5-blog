@@ -5,7 +5,7 @@ Openclassrooms
 
 Réalisation d'un blog Professionnel basé sur le modèle d'architecture MVC.
 
-![screenshot](http://vincent-dev.com/img/screenshot.jpg)
+![screenshot](https://vincentg.fr/images/blog.jpg)
 
 ## Installer le projet
 
@@ -33,7 +33,7 @@ git clone https://github.com/Vincent-gv/blog.git
 
 ## Auteur
 
-**Vincent Gauchevertu** - Étudiant Openclassrooms 
+**Vincent Gauchevertu** - Projet Openclassrooms 
 https://github.com/Vincent-gv/
 
 Démo en ligne : https://vincent-dev.com/
